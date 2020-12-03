@@ -1,0 +1,3 @@
+include ':fruit'
+include ':link'
+rootProject.name = "gamebox"

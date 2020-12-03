@@ -1,0 +1,68 @@
+
+frames.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+panel
+  rotate: false
+  xy: 0, 898
+  size: 1020, 120
+  orig: 1020, 120
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 0, 497
+  size: 640, 400
+  orig: 640, 400
+  offset: 0, 0
+  index: -1
+framew
+  rotate: false
+  xy: 641, 577
+  size: 360, 320
+  orig: 360, 320
+  offset: 0, 0
+  index: -1
+frameh
+  rotate: false
+  xy: 641, 216
+  size: 320, 360
+  orig: 320, 360
+  offset: 0, 0
+  index: -1
+frame
+  rotate: false
+  xy: 0, 121
+  size: 600, 375
+  orig: 600, 375
+  offset: 0, 0
+  index: -1
+star0
+  rotate: false
+  xy: 0, 0
+  size: 240, 120
+  orig: 240, 120
+  offset: 0, 0
+  index: -1
+star1
+  rotate: false
+  xy: 241, 0
+  size: 240, 120
+  orig: 240, 120
+  offset: 0, 0
+  index: -1
+star2
+  rotate: false
+  xy: 482, 0
+  size: 240, 120
+  orig: 240, 120
+  offset: 0, 0
+  index: -1
+star3
+  rotate: false
+  xy: 723, 95
+  size: 240, 120
+  orig: 240, 120
+  offset: 0, 0
+  index: -1
