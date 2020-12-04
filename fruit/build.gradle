@@ -35,26 +35,8 @@ android {
 dependencies {
     // default
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation project(path: ':core')
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    // libgdx
-    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
-    implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-    implementation "com.badlogicgames.ashley:ashley:$ashleyVersion"
-    implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
-    implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-    implementation "com.badlogicgames.ashley:ashley:$ashleyVersion"
-    implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
 }
