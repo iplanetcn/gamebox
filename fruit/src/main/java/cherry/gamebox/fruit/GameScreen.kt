@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Rectangle
@@ -15,7 +16,7 @@ import com.badlogic.gdx.utils.TimeUtils
 import kotlin.random.Random
 
 class GameScreen(private val game: FruitGame) : Screen {
-    private var bucketImage: TextureAtlas.AtlasRegion
+    private var bucketImage = Texture("basket.png")
     private var matchSound = Gdx.audio.newSound(Gdx.files.internal("audio/match.wav"))
     private var boostSound = Gdx.audio.newSound(Gdx.files.internal("audio/boost.wav"))
     private var rainMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/music.mp3"))
@@ -24,10 +25,9 @@ class GameScreen(private val game: FruitGame) : Screen {
     private var raindrops = Array<Pair<Rectangle, Int>>()
     private var lastDropTime: Long = 0
     private var dropsGathered = 0
-    private var fruitImageList = ArrayList<TextureAtlas.AtlasRegion>()
-    private var fruitPackAtlas = TextureAtlas("package/pack2.pack")
-    private var animalImageList = ArrayList<TextureAtlas.AtlasRegion>()
-    private var animalPackAtlas = TextureAtlas("package/pack3.pack")
+    private var packs = ArrayList<ArrayList<TextureAtlas.AtlasRegion>>()
+    private var atlasList = ArrayList<TextureAtlas>()
+    private var iconList: ArrayList<TextureAtlas.AtlasRegion>
 
     init {
         rainMusic.isLooping = true
@@ -36,11 +36,16 @@ class GameScreen(private val game: FruitGame) : Screen {
         bucket.y = 64f
         bucket.width = 64f * 2
         bucket.height = 64f * 2
-        for (i in 1..64) {
-            fruitImageList.add(fruitPackAtlas.findRegion("set$i"))
-            animalImageList.add(animalPackAtlas.findRegion("set$i"))
+        for (i in 1..5) {
+            val atlas = TextureAtlas("package/pack$i.pack")
+            val pack =  ArrayList<TextureAtlas.AtlasRegion>()
+            for (j in 1..64) {
+                pack.add(atlas.findRegion("set$j"))
+            }
+            atlasList.add(atlas)
+            packs.add(pack)
         }
-        bucketImage = animalImageList[Random.nextInt(1, 64)]
+        iconList = packs[Random.nextInt(1, 5)]
         spawnRaindrop()
     }
 
@@ -59,7 +64,7 @@ class GameScreen(private val game: FruitGame) : Screen {
         // arguments to glClearColor are the red, green
         // blue and alpha component in the range [0,1]
         // of the color to be used to clear the screen.
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
+        Gdx.gl.glClearColor(0.298f, 0.686f, 0.314f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         // tell the camera to update its matrices.
@@ -82,7 +87,7 @@ class GameScreen(private val game: FruitGame) : Screen {
 
         game.batch.draw(bucketImage, bucket.x, bucket.y, bucket.width, bucket.height)
         for ((raindrop, index) in raindrops) {
-            game.batch.draw(fruitImageList[index], raindrop.x, raindrop.y)
+            game.batch.draw(iconList[index], raindrop.x, raindrop.y)
         }
         game.batch.end()
 
@@ -91,8 +96,11 @@ class GameScreen(private val game: FruitGame) : Screen {
             val touchPos = Vector3()
             touchPos[Gdx.input.x.toFloat(), Gdx.input.y.toFloat()] = 0f
             camera.unproject(touchPos)
+//            bucket.x = touchPos.x - 64 / 2f
             bucket.x = touchPos.x - 64 / 2f
+            bucket.y = touchPos.y - 64 / 2f
         }
+
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.deltaTime
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.deltaTime
 
@@ -133,7 +141,8 @@ class GameScreen(private val game: FruitGame) : Screen {
         boostSound.dispose()
         matchSound.dispose()
         rainMusic.dispose()
-        fruitPackAtlas.dispose()
-        animalPackAtlas.dispose()
+        for (atlas in atlasList) {
+            atlas.dispose()
+        }
     }
 }

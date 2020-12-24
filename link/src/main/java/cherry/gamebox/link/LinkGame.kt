@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.Vector3
 
 class LinkGame : ApplicationAdapter() {
     lateinit var batch: SpriteBatch
-    lateinit var image: Texture
     lateinit var sound: Sound
     lateinit var music: Music
     lateinit var textureAtlas: TextureAtlas
@@ -30,7 +29,6 @@ class LinkGame : ApplicationAdapter() {
     override fun create() {
         packSetList = ArrayList()
         batch = SpriteBatch()
-        image = Texture("badlogic.jpg")
 
         sound = Gdx.audio.newSound(Gdx.files.internal("audio/match.wav"))
         music = Gdx.audio.newMusic(Gdx.files.internal("audio/music.mp3"))
@@ -60,7 +58,8 @@ class LinkGame : ApplicationAdapter() {
     override fun render() {
         // logic
         camera.update()
-        if (Gdx.input.isTouched) {
+        // produce new icon
+        if (Gdx.input.justTouched()) {
             pos.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0F)
             camera.unproject(pos)
             sound.play()
@@ -69,14 +68,19 @@ class LinkGame : ApplicationAdapter() {
             }
         }
 
+        // move with touched position
+        if (Gdx.input.isTouched) {
+            pos.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0F)
+            camera.unproject(pos)
+        }
+
         // drawing
         Gdx.gl.glClearColor(1F, 1F, 1F, 1F)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         batch.projectionMatrix = camera.combined
         batch.begin()
-        background.draw(batch)
-        batch.draw(image, 0F, 0F)
+        batch.draw(background, 0f, 0f, Gdx.graphics.width * 1f, Gdx.graphics.height * 1f)
         batch.draw(
             currentIcon,
             pos.x,
@@ -89,7 +93,6 @@ class LinkGame : ApplicationAdapter() {
 
     override fun dispose() {
         batch.dispose()
-        image.dispose()
         sound.dispose()
         music.dispose()
         shapeRenderer.dispose()
