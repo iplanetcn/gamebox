@@ -1,9 +1,5 @@
 package cherry.gamebox.bunny
 
-import android.text.method.Touch
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input
-import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
@@ -17,7 +13,7 @@ import kotlin.random.Random
  * @since 2020-12-09
  */
 class WorldController {
-    lateinit var textSprites: Array<Sprite>
+    lateinit var testSprites: Array<Sprite>
     private var selectedSprite: Int = 0
 
 
@@ -34,19 +30,19 @@ class WorldController {
     }
 
     private fun initTestObjects() {
-        textSprites = Array(5) { Sprite() }
+        testSprites = Array(1) { Sprite() }
         val width = 32
         val height = 32
         val pixmap = createProceduralPixmap(width, height)
         val texture = Texture(pixmap)
-        for (i in textSprites.indices) {
+        for (i in testSprites.indices) {
             val sprite = Sprite(texture)
             sprite.setSize(1f, 1f)
             sprite.setOrigin(sprite.width / 2.0f, sprite.height / 2.0f)
             val randomX = Random.nextDouble(-2.0, 2.0).toFloat()
             val randomY = Random.nextDouble(-2.0, 2.0).toFloat()
             sprite.setPosition(randomX, randomY)
-            textSprites[i] = sprite
+            testSprites[i] = sprite
         }
 
         selectedSprite = 0
@@ -69,9 +65,9 @@ class WorldController {
     }
 
     private fun updateTestObjects(deltaTime: Float) {
-        var rotation = textSprites[selectedSprite].rotation
+        var rotation = testSprites[selectedSprite].rotation
         rotation += 90 * deltaTime
         rotation %= 360
-        textSprites[selectedSprite].rotation = rotation
+        testSprites[selectedSprite].rotation = rotation
     }
 }

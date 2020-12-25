@@ -9,7 +9,7 @@ import java.util.*
  * @since 2020-12-25
  */
 object LinkSearch {
-    private fun matchBlock(data: ArrayList<ArrayList<LinkItem>>, srcPt: Point, destPt: Point): Boolean {
+    private fun matchBlock(data: ArrayList<out ArrayList<out LinkInterface>>, srcPt: Point, destPt: Point): Boolean {
         // 如果不属于0折连接则返回false
         if (srcPt.x != destPt.x && srcPt.y != destPt.y) {
             return false
@@ -41,7 +41,7 @@ object LinkSearch {
         return true
     }
 
-    private fun matchBlockOne(data: ArrayList<ArrayList<LinkItem>>, srcPt: Point, destPt: Point): Point? {
+    private fun matchBlockOne(data: ArrayList<out ArrayList<out LinkInterface>>, srcPt: Point, destPt: Point): Point? {
         // 如果不属于1折连接则返回null
         if (srcPt.x == destPt.x || srcPt.y == destPt.y) {
             return null
@@ -70,7 +70,7 @@ object LinkSearch {
         return null
     }
 
-    fun matchBlockTwo(data: ArrayList<ArrayList<LinkItem>>, srcPt: Point, destPt: Point): List<Point>? {
+    fun matchBlockTwo(data: ArrayList<out ArrayList<out LinkInterface>>, srcPt: Point, destPt: Point): List<Point>? {
         if (data.isNullOrEmpty()) return null
         if (srcPt.x < 0 || srcPt.x > data.size) return null
         if (srcPt.y < 0 || srcPt.y > data[0].size) return null

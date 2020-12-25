@@ -67,7 +67,6 @@ class LinkGame : ApplicationAdapter() {
                 li.colId = i
                 li.rowId = j
                 li.image = images[i * cols + j]
-                li.stroke = assets.textureAtlasItems.findRegion("pat4")
                 li.box = Rectangle(
                         (screenWidth - cols * 160) / 2 + j * 160f,
                         (screenHeight - rows * 160) / 2 + i * 160f,
@@ -149,7 +148,7 @@ class LinkGame : ApplicationAdapter() {
                     // draw outline
                     if (selCol == item.colId && selRow == item.rowId) {
                         batch.draw(
-                                item.stroke,
+                                assets.textureAtlasItems.findRegion("pat4"),
                                 item.box.x - 64f,
                                 item.box.y - 64f,
                                 item.box.width + 128,

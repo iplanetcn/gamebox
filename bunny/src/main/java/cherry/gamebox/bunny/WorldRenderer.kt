@@ -1,9 +1,7 @@
 package cherry.gamebox.bunny
 
-import android.R.attr.font
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.GL30
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -41,7 +39,7 @@ class WorldRenderer(private val worldController: WorldController) : Disposable {
     private fun renderTestObjects() {
         batch.projectionMatrix = camera.combined
         batch.begin()
-        for (sprite in worldController.textSprites) {
+        for (sprite in worldController.testSprites) {
             sprite.draw(batch)
         }
         batch.end()

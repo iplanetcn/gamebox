@@ -14,7 +14,6 @@ class LinkItem : LinkInterface {
     var colId = -1
     var empty = true
     lateinit var image: TextureAtlas.AtlasRegion
-    lateinit var stroke: TextureAtlas.AtlasRegion
     lateinit var box: Rectangle
 
     companion object {
@@ -51,7 +50,6 @@ class LinkItem : LinkInterface {
         result = 31 * result + colId
         result = 31 * result + empty.hashCode()
         result = 31 * result + image.hashCode()
-        result = 31 * result + stroke.hashCode()
         result = 31 * result + box.hashCode()
         return result
     }
