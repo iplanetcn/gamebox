@@ -2,76 +2,137 @@ package cherry.gamebox.link
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.audio.Music
-import com.badlogic.gdx.audio.Sound
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector3
+import javax.microedition.khronos.opengles.GL10
 
 class LinkGame : ApplicationAdapter() {
-    lateinit var batch: SpriteBatch
-    lateinit var sound: Sound
-    lateinit var music: Music
-    lateinit var textureAtlas: TextureAtlas
-    lateinit var background: Sprite
-    lateinit var camera: OrthographicCamera
-    lateinit var packAtlas: TextureAtlas
-    lateinit var currentIcon: TextureAtlas.AtlasRegion
-    lateinit var pos: Vector3
-    lateinit var shapeRenderer: ShapeRenderer
-    lateinit var packSetList: ArrayList<TextureAtlas.AtlasRegion>
+
+    private lateinit var items: ArrayList<ArrayList<LinkItem>>
+    private lateinit var batch: SpriteBatch
+    private lateinit var background: Sprite
+    private lateinit var camera: OrthographicCamera
+    private lateinit var pos: Vector3
+    private lateinit var packSetList: ArrayList<TextureAtlas.AtlasRegion>
+    private lateinit var assets: Assets
+    private lateinit var shapeRenderer: ShapeRenderer
+    private var screenWidth: Float = 0f
+    private var screenHeight: Float = 0f
+    private val cols = 4
+    private val rows = 4
+    private var selCol = -1
+    private var selRow = -1
+    private var isSelected = false
+    private var pathList: List<Point>? = null
+    private var isWin = false
 
     override fun create() {
-        packSetList = ArrayList()
+        assets = Assets()
+        assets.load()
         batch = SpriteBatch()
-
-        sound = Gdx.audio.newSound(Gdx.files.internal("audio/match.wav"))
-        music = Gdx.audio.newMusic(Gdx.files.internal("audio/music.mp3"))
-
-        music.isLooping = true
-        music.play()
-
-        textureAtlas = TextureAtlas("graphic/frames.pack")
-        packAtlas = TextureAtlas("package/pack2.pack")
-        for (i in 1..64) {
-            packSetList.add(packAtlas.findRegion("set$i"))
-        }
-        currentIcon = packAtlas.findRegion("set1")
-
-        background = textureAtlas.createSprite("background")
-        background.setPosition(0F, 0F)
-
-        camera = OrthographicCamera()
-        camera.setToOrtho(false, Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
-
-        pos = Vector3(Gdx.graphics.width.toFloat() / 2, Gdx.graphics.height.toFloat() / 2, 0F)
+        assets.musicBackground.play()
+        packSetList = assets.atlasRegionCakeList
+        screenWidth = Gdx.graphics.width.toFloat()
+        screenHeight = Gdx.graphics.height.toFloat()
 
         shapeRenderer = ShapeRenderer()
 
+        background = assets.textureAtlasFrames.createSprite("background")
+        background.setPosition(0F, 0F)
+        camera = OrthographicCamera()
+        camera.setToOrtho(false, screenWidth, screenHeight)
+
+        pos = Vector3.Zero
+
+        val images = ArrayList<TextureAtlas.AtlasRegion>()
+        for (i in 0 until rows * cols / 2) {
+            val item = packSetList.removeLast()
+            images.add(item)
+            images.add(item)
+        }
+        images.shuffle()
+
+        items = ArrayList()
+        for (i in 0 until rows) {
+            val rowItems = ArrayList<LinkItem>()
+            for (j in 0 until cols) {
+                val li = LinkItem()
+                li.colId = i
+                li.rowId = j
+                li.image = images[i * cols + j]
+                li.stroke = assets.textureAtlasItems.findRegion("pat4")
+                li.box = Rectangle(
+                        (screenWidth - cols * 160) / 2 + j * 160f,
+                        (screenHeight - rows * 160) / 2 + i * 160f,
+                        160f, 160f)
+                li.setNonEmpty()
+                rowItems.add(li)
+            }
+            items.add(rowItems)
+        }
     }
 
     override fun render() {
         // logic
         camera.update()
+
+        var curLinkItem: LinkItem? = null
         // produce new icon
         if (Gdx.input.justTouched()) {
             pos.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0F)
             camera.unproject(pos)
-            sound.play()
-            if ((packSetList.size > 0)) {
-                currentIcon = packSetList.removeLast()
+            // locate selected item
+            loop@ for (subItems in items) {
+                for (item in subItems) {
+                    if (item.box.contains(pos.x, pos.y)) {
+                        curLinkItem = item
+                        selRow = curLinkItem.rowId
+                        selCol = curLinkItem.colId
+                        isSelected = true
+                        break@loop
+                    }
+                }
             }
-        }
 
-        // move with touched position
-        if (Gdx.input.isTouched) {
-            pos.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0F)
-            camera.unproject(pos)
+            if (isSelected) {
+                LinkItem.targetItem = LinkItem.selectedItem
+                LinkItem.selectedItem = curLinkItem
+
+                if (LinkItem.targetItem != null &&
+                        LinkItem.selectedItem != null &&
+                        LinkItem.targetItem == LinkItem.selectedItem &&
+                        !(LinkItem.targetItem === LinkItem.selectedItem) &&
+                        LinkItem.targetItem!!.isNotEmpty() &&
+                        LinkItem.selectedItem!!.isNotEmpty()) {
+
+                    val srcPt = Point(LinkItem.selectedItem!!.colId, LinkItem.selectedItem!!.rowId)
+                    val desPt = Point(LinkItem.targetItem!!.colId, LinkItem.targetItem!!.rowId)
+
+                    pathList = LinkSearch.matchBlockTwo(items, srcPt, desPt)
+
+                    if (pathList != null) {
+                        assets.soundMatch.play()
+                        LinkItem.targetItem!!.setEmpty()
+                        LinkItem.selectedItem!!.setEmpty()
+
+                        LinkItem.targetItem = null
+                        LinkItem.selectedItem = null
+
+                        selCol = -1
+                        selRow = -1
+                    }
+                }
+
+            }
+
+            isSelected = false
         }
 
         // drawing
@@ -80,21 +141,85 @@ class LinkGame : ApplicationAdapter() {
 
         batch.projectionMatrix = camera.combined
         batch.begin()
-        batch.draw(background, 0f, 0f, Gdx.graphics.width * 1f, Gdx.graphics.height * 1f)
-        batch.draw(
-            currentIcon,
-            pos.x,
-            pos.y
-        )
+        batch.draw(background, 0f, 0f, screenWidth, screenHeight)
 
+        for (subItems in items) {
+            for (item in subItems) {
+                if (item.isNotEmpty()) {
+                    // draw outline
+                    if (selCol == item.colId && selRow == item.rowId) {
+                        batch.draw(
+                                item.stroke,
+                                item.box.x - 64f,
+                                item.box.y - 64f,
+                                item.box.width + 128,
+                                item.box.height + 128
+                        )
+                    }
+                    // draw icon
+                    batch.draw(
+                            item.image,
+                            item.box.x + (item.box.width - item.image.regionWidth) / 2,
+                            item.box.y + (item.box.height - item.image.regionHeight) / 2
+                    )
+                }
+            }
+        }
 
         batch.end()
+//        renderHelper()
+    }
+
+    private fun renderHelper() {
+        Gdx.gl.glEnable(GL10.GL_BLEND)
+        Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA)
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
+        shapeRenderer.color = Color(0f, 1f, 1f, 0.5f)
+        shapeRenderer.rect(screenWidth / 2 - 80, screenHeight / 2 - 80, 160f, 160f)
+        shapeRenderer.end()
+        Gdx.gl.glDisable(GL10.GL_BLEND)
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
+        shapeRenderer.color = Color.CYAN
+        shapeRenderer.line(0f, screenHeight / 2, screenWidth, screenHeight / 2)
+        shapeRenderer.end()
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
+        shapeRenderer.color = Color.CYAN
+        shapeRenderer.line(screenWidth / 2, 0f, screenWidth / 2, screenHeight)
+        shapeRenderer.end()
+    }
+
+    private fun renderText() {
+        assets.font1.draw(
+                batch,
+                "screenWidth:$screenWidth, screenHeight:$screenHeight",
+                50f,
+                100f
+        )
+        assets.font1.draw(
+                batch,
+                "icon->originalWidth:${assets.atlasRegionFruitList[0].originalWidth}, originalHeight:${assets.atlasRegionFruitList[0].originalHeight}",
+                50f,
+                200f
+        )
+        assets.font1.draw(
+                batch,
+                "icon->packedWidth:${assets.atlasRegionFruitList[0].packedWidth}, packedHeight:${assets.atlasRegionFruitList[0].packedHeight}",
+                50f,
+                300f
+        )
+        assets.font1.draw(
+                batch,
+                "icon->regionWidth:${assets.atlasRegionFruitList[0].regionWidth}, regionHeight:${assets.atlasRegionFruitList[0].regionHeight}",
+                50f,
+                400f
+        )
     }
 
     override fun dispose() {
+        assets.dispose()
         batch.dispose()
-        sound.dispose()
-        music.dispose()
         shapeRenderer.dispose()
     }
 

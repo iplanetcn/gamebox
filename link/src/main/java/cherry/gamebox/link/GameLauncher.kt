@@ -8,6 +8,7 @@ class GameLauncher : AndroidApplication() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val config = AndroidApplicationConfiguration()
+        config.useImmersiveMode = false
         initialize(LinkGame(), config)
     }
 }
