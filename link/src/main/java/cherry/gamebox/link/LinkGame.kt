@@ -25,8 +25,8 @@ class LinkGame : ApplicationAdapter() {
     private lateinit var shapeRenderer: ShapeRenderer
     private var screenWidth: Float = 0f
     private var screenHeight: Float = 0f
-    private val cols = 4
-    private val rows = 4
+    private val cols = 8
+    private val rows = 10
     private var selCol = -1
     private var selRow = -1
     private var isSelected = false
@@ -38,7 +38,7 @@ class LinkGame : ApplicationAdapter() {
         assets.load()
         batch = SpriteBatch()
         assets.musicBackground.play()
-        packSetList = assets.atlasRegionCakeList
+        packSetList = assets.atlasRegionAnimalList
         screenWidth = Gdx.graphics.width.toFloat()
         screenHeight = Gdx.graphics.height.toFloat()
 
@@ -52,7 +52,7 @@ class LinkGame : ApplicationAdapter() {
         pos = Vector3.Zero
 
         val images = ArrayList<TextureAtlas.AtlasRegion>()
-        for (i in 0 until rows * cols / 2) {
+        for (i in 0 until (rows -2) * (cols - 2) / 2) {
             val item = packSetList.removeLast()
             images.add(item)
             images.add(item)
@@ -66,12 +66,17 @@ class LinkGame : ApplicationAdapter() {
                 val li = LinkItem()
                 li.colId = i
                 li.rowId = j
-                li.image = images[i * cols + j]
                 li.box = Rectangle(
                         (screenWidth - cols * 160) / 2 + j * 160f,
                         (screenHeight - rows * 160) / 2 + i * 160f,
                         160f, 160f)
-                li.setNonEmpty()
+                if (j == 0 || i == 0 || j == cols - 1 || i == rows - 1) {
+                    li.image = packSetList[0]
+                    li.setEmpty()
+                } else {
+                    li.image = images.removeFirst()
+                    li.setNonEmpty()
+                }
                 rowItems.add(li)
             }
             items.add(rowItems)
