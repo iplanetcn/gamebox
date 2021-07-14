@@ -1,0 +1,376 @@
+
+ui.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+linktwo
+  rotate: false
+  xy: 0, 642
+  size: 570, 380
+  orig: 570, 380
+  offset: 0, 0
+  index: -1
+bt400
+  rotate: false
+  xy: 571, 922
+  size: 400, 100
+  orig: 400, 100
+  offset: 0, 0
+  index: -1
+pixel
+  rotate: false
+  xy: 972, 1021
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+btt400
+  rotate: false
+  xy: 571, 821
+  size: 400, 100
+  orig: 400, 100
+  offset: 0, 0
+  index: -1
+bt256
+  rotate: false
+  xy: 571, 692
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+circle
+  rotate: false
+  xy: 828, 692
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+coin
+  rotate: false
+  xy: 957, 755
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+heart
+  rotate: false
+  xy: 957, 689
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+btplay
+  rotate: false
+  xy: 571, 563
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+circle1
+  rotate: false
+  xy: 828, 563
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+btt256
+  rotate: false
+  xy: 0, 513
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+pad
+  rotate: false
+  xy: 257, 561
+  size: 240, 80
+  orig: 240, 80
+  offset: 0, 0
+  index: -1
+circle10
+  rotate: false
+  xy: 498, 434
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+circle2
+  rotate: false
+  xy: 257, 432
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+btachieve
+  rotate: false
+  xy: 386, 460
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btadsoff
+  rotate: false
+  xy: 386, 359
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+circle3
+  rotate: false
+  xy: 0, 384
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+btadson
+  rotate: false
+  xy: 129, 412
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+circle4
+  rotate: false
+  xy: 230, 303
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+btclose
+  rotate: false
+  xy: 129, 311
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+circle5
+  rotate: false
+  xy: 0, 255
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+btcontinue
+  rotate: false
+  xy: 129, 210
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+circle6
+  rotate: false
+  xy: 0, 126
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+btnone
+  rotate: false
+  xy: 0, 55
+  size: 200, 70
+  orig: 200, 70
+  offset: 0, 0
+  index: -1
+score
+  rotate: false
+  xy: 129, 149
+  size: 120, 60
+  orig: 120, 60
+  offset: 0, 0
+  index: -1
+circle7
+  rotate: false
+  xy: 201, 20
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+circle8
+  rotate: false
+  xy: 250, 174
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+circle9
+  rotate: false
+  xy: 330, 45
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+tile1
+  rotate: false
+  xy: 379, 230
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+tile2
+  rotate: false
+  xy: 459, 101
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+bthint
+  rotate: false
+  xy: 459, 0
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btleader
+  rotate: false
+  xy: 560, 0
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btmenu
+  rotate: false
+  xy: 508, 333
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btmenu2
+  rotate: false
+  xy: 508, 232
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btmusicoff
+  rotate: false
+  xy: 588, 131
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btmusicon
+  rotate: false
+  xy: 661, 30
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btnext
+  rotate: false
+  xy: 609, 333
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btpause
+  rotate: false
+  xy: 609, 232
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btreset
+  rotate: false
+  xy: 689, 131
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btsetting
+  rotate: false
+  xy: 762, 30
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btsetting2
+  rotate: false
+  xy: 627, 462
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btshare
+  rotate: false
+  xy: 710, 361
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btshuffle
+  rotate: false
+  xy: 728, 462
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btsoundoff
+  rotate: false
+  xy: 710, 260
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btsoundon
+  rotate: false
+  xy: 790, 159
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btstar
+  rotate: false
+  xy: 863, 58
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+level
+  rotate: false
+  xy: 811, 361
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+level2
+  rotate: false
+  xy: 829, 462
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+lock
+  rotate: false
+  xy: 811, 260
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+lock2
+  rotate: false
+  xy: 891, 159
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+none
+  rotate: false
+  xy: 912, 361
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+arrowleft
+  rotate: false
+  xy: 930, 462
+  size: 75, 100
+  orig: 75, 100
+  offset: 0, 0
+  index: -1
+arrowright
+  rotate: false
+  xy: 912, 260
+  size: 75, 100
+  orig: 75, 100
+  offset: 0, 0
+  index: -1
