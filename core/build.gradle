@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'kotlin-android'
 }
 
 android {
@@ -37,6 +38,7 @@ dependencies {
     api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
     api "com.badlogicgames.ashley:ashley:$ashleyVersion"
     api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+    // kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
     api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
@@ -49,4 +51,18 @@ dependencies {
     api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
     api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
     api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+    // libgdx
+    api "com.badlogicgames.gdx:gdx:1.10.0"
+    api "com.badlogicgames.gdx:gdx-box2d:1.10.0"
+    api "com.badlogicgames.gdx:gdx-bullet:1.10.0"
+    api "com.badlogicgames.gdx:gdx-freetype:1.10.0"
+    api "com.badlogicgames.gdx:gdx-freetype:1.10.0"
+    api "com.badlogicgames.gdx:gdx-tools:1.10.0"
+    api "com.badlogicgames.gdx:gdx-backend-lwjgl:1.10.0"
+    api "com.badlogicgames.gdx:gdx-backend-android:1.10.0"
+    api 'com.badlogicgames.gdx-controllers:gdx-controllers-core:2.2.0'
+    api "com.badlogicgames.gdx-controllers:gdx-controllers-android:2.2.0"
+    api "com.badlogicgames.gdx:gdx-ai:1.8.2"
+    api "com.badlogicgames.ashley:ashley:1.7.4"
+    api "com.badlogicgames.box2dlights:box2dlights:1.5"
 }

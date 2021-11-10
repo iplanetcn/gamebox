@@ -5,10 +5,10 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion '30.0.3'
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "cherry.gamebox.bunny"
+        applicationId "cherry.gamebox.gobang"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -40,6 +40,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation project(path: ':core')
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

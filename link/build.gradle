@@ -31,7 +31,7 @@ android {
         jvmTarget = '1.8'
     }
     sourceSets {
-        main.assets.srcDirs += "$rootDir/assets"
+        main.assets.srcDirs += '../assets'
     }
 }
 

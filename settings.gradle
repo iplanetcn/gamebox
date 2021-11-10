@@ -1,5 +1,6 @@
+rootProject.name = "gamebox"
 include ':bunny'
 include ':core'
 include ':fruit'
 include ':link'
-rootProject.name = "gamebox"
+include 'gobang'

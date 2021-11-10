@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/bunny" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/fruit" />
+            <option value="$PROJECT_DIR$/gobang" />
             <option value="$PROJECT_DIR$/link" />
           </set>
         </option>
