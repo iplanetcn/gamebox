@@ -18,7 +18,7 @@ import java.util.*
  * @author john
  * @since 2021-07-12
  */
-const val BOARD_LENGTH = 9
+const val BOARD_LENGTH = 15
 
 class GobangGame : ApplicationAdapter() {
     private lateinit var batch: SpriteBatch
