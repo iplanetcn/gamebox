@@ -9,5 +9,4 @@ package cherry.gamebox.tetris.utils
 object Constants {
     const val VIEWPORT_WIDTH = 5f
     const val VIEWPORT_HEIGHT = 5f
-    const val TEXTURE_ATLAS_OBJECTS = "graphics/items.atlas"
 }

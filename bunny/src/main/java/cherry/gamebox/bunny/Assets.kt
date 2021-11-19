@@ -16,12 +16,9 @@ import com.badlogic.gdx.utils.Disposable
  * @author john
  * @since 2021-11-18
  */
-class Assets : Disposable, AssetErrorListener {
-    companion object {
-        val instance = Assets()
-    }
+object Assets : Disposable, AssetErrorListener {
+    private val assetManager: AssetManager by lazy { AssetManager() }
 
-    var assetManager: AssetManager
     var bunny: AssetBunny
     var rock: AssetRock
     var goldCoin: AssetGoldCoin
@@ -30,7 +27,6 @@ class Assets : Disposable, AssetErrorListener {
     var fonts: AssetFonts
 
     init {
-        assetManager = AssetManager()
         assetManager.apply {
             setErrorListener(this@Assets)
             load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas::class.java)

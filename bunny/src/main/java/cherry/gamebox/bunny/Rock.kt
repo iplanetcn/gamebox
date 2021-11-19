@@ -12,8 +12,8 @@ class Rock(var length : Int): AbstractGameObject(){
 
     init {
         dimension.set(1f, 1.5f)
-        regEdge = Assets.instance.rock.edge
-        middleEdge = Assets.instance.rock.middle
+        regEdge = Assets.rock.edge
+        middleEdge = Assets.rock.middle
 
     }
 

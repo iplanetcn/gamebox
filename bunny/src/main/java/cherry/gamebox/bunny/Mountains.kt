@@ -11,8 +11,8 @@ class Mountains(var length: Float) : AbstractGameObject() {
 
     init {
         dimension.set(10f, 2f)
-        regMountainLeft = Assets.instance.levelDecoration.mountainLeft
-        regMountainRight = Assets.instance.levelDecoration.mountainRight
+        regMountainLeft = Assets.levelDecoration.mountainLeft
+        regMountainRight = Assets.levelDecoration.mountainRight
 
         origin.x = -dimension.x * 2
         length += dimension.x * 2

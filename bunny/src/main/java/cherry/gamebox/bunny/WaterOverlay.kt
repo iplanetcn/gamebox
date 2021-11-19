@@ -9,7 +9,7 @@ class WaterOverlay(var length: Float) : AbstractGameObject() {
 
     init {
         dimension[length * 10] = 3f
-        regWaterOverlay = Assets.instance.levelDecoration.waterOverlay
+        regWaterOverlay = Assets.levelDecoration.waterOverlay
         origin.x = -dimension.x / 2
     }
 

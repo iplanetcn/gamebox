@@ -1,5 +1,6 @@
 package cherry.gamebox.tetris.utils
 
+import com.badlogic.gdx.Application
 import com.badlogic.gdx.Gdx
 
 /**
@@ -9,7 +10,7 @@ import com.badlogic.gdx.Gdx
  * @since 2021-11-18
  */
 object GameLogger {
-    private fun tag(): String? {
+    private fun tag(): String {
         return Thread.currentThread().stackTrace[4].let {
             val link = "(${it.fileName}:${it.lineNumber})"
             val path = "${it.className.substringAfterLast(".")}.${it.methodName}"
@@ -20,6 +21,28 @@ object GameLogger {
             }
         }
     }
+
+
+    private fun setLogLevel(level: Int) {
+        Gdx.app.logLevel = level
+    }
+
+    fun setLogNone() {
+        setLogLevel(Application.LOG_NONE)
+    }
+
+    fun setLogInfo() {
+        setLogLevel(Application.LOG_INFO)
+    }
+
+    fun setLogDebug() {
+        setLogLevel(Application.LOG_DEBUG)
+    }
+
+    fun setLogError() {
+        setLogLevel(Application.LOG_ERROR)
+    }
+
 
     fun log(msg: String?) {
         Gdx.app.log(tag(), "💚 $msg")
