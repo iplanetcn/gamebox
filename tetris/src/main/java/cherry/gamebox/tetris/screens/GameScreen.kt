@@ -2,8 +2,12 @@ package cherry.gamebox.tetris.screens
 
 import cherry.gamebox.tetris.TetrisGame
 import cherry.gamebox.tetris.assets.Assets
-import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.scenes.scene2d.ui.Image
+import cherry.gamebox.tetris.game.Config
+import cherry.gamebox.tetris.game.GameBoard
+import cherry.gamebox.tetris.game.NextBrick
+import cherry.gamebox.tetris.utils.GameLogger
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.viewport.StretchViewport
 
 /**
  * GameScreen
@@ -11,44 +15,37 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
  * @author john
  * @since 2021-11-17
  */
+enum class GameState {
+    Stop, Play, Pause
+}
+
 class GameScreen(game: TetrisGame) : BaseScreen(game) {
+    var gameBoard: GameBoard
+    var nextBrick: NextBrick
+    var gameState: GameState = GameState.Stop
+    private var timeSeconds = 0f
+    private val period = 0.5f
 
     init {
-        val board = Image(Assets.backgrounds.gameBoard)
-        board.setPosition(
-            SCREEN_WIDTH / 2f - board.width / 2f,
-            SCREEN_HEIGHT / 2 - board.height / 2f
-        )
-        stage.addActor(board)
+        val vw = (Config.Cols + 8f) * Assets.blockWidth
+        val vh = vw * SCREEN_HEIGHT / (SCREEN_WIDTH * 1.0f)
 
-        val blueBlock = Image(Assets.blocks.blue)
-        blueBlock.setPosition(SCREEN_WIDTH / 2f - blueBlock.width / 2f, SCREEN_HEIGHT / 2)
-        stage.addActor(blueBlock)
-
-        val redBlock = Image(Assets.blocks.red)
-        redBlock.setPosition(SCREEN_WIDTH / 2f - redBlock.width / 2f, SCREEN_HEIGHT / 2)
-        stage.addActor(redBlock)
-        redBlock.addAction(
-            Actions.repeat(
-                -1, Actions.sequence(
-                    Actions.moveTo(SCREEN_WIDTH - redBlock.width, SCREEN_HEIGHT / 2, 1f),
-                    Actions.moveTo(0f, SCREEN_HEIGHT / 2, 1f)
-                )
-            )
+        stage = Stage(StretchViewport(vw, vh))
+        gameBoard = GameBoard()
+        gameBoard.setPosition(
+            Assets.blockWidth * 1f, Assets.blockHeight * 3f,
         )
 
-        blueBlock.addAction(
-            Actions.repeat(
-                -1, Actions.sequence(
-                    Actions.moveTo(SCREEN_WIDTH / 2f - blueBlock.width / 2f, 0f, 1f),
-                    Actions.moveTo(
-                        SCREEN_WIDTH / 2f - blueBlock.width / 2f,
-                        SCREEN_HEIGHT - blueBlock.height,
-                        1f
-                    )
-                )
-            )
+        nextBrick = NextBrick()
+        nextBrick.setPosition(
+            (Config.Cols + 3f) * Assets.blockWidth,
+            (Config.Rows - 12f) * Assets.blockHeight
         )
+
+        stage.addActor(gameBoard)
+        stage.addActor(nextBrick)
+        gamePrepare()
+        gameStart()
     }
 
     override fun draw(delta: Float) {
@@ -58,7 +55,67 @@ class GameScreen(game: TetrisGame) : BaseScreen(game) {
     }
 
     override fun update(delta: Float) {
-
+        timeSeconds += delta;
+        if(timeSeconds > period){
+            timeSeconds-=period;
+            gameBoard.update()
+            gameBoard.updateBrick()
+            nextBrick.updateBrick()
+        }
     }
+
+    fun gamePrepare() {
+        gameState = GameState.Stop
+        gameBoard.generateBrick()
+    }
+
+    fun gameStart(){
+        gameState = GameState.Play
+        Assets.playMusic()
+    }
+
+    fun gamePause() {
+        gameState = GameState.Pause
+        Assets.pauseMusic()
+    }
+
+    fun gameStop() {
+        gameState = GameState.Stop
+        Assets.stopMusic()
+    }
+
+    fun gameOver() {
+        gameState = GameState.Stop
+        Assets.stopMusic()
+        Assets.playSoundGameOver()
+    }
+
+    override fun pause() {
+        super.pause()
+        gamePause()
+    }
+
+    override fun resume() {
+        super.resume()
+        gameStart()
+    }
+
+
+    //region touches handler
+    override fun left() {
+        GameLogger.log("gesture->left()")
+        gameBoard.updateX(-1)
+    }
+
+    override fun right() {
+        GameLogger.log("gesture->right()")
+        gameBoard.updateX(1)
+    }
+
+    override fun up() {
+        GameLogger.log("gesture->up()")
+        gameBoard.rotateBrick()
+    }
+    //endregion
 
 }

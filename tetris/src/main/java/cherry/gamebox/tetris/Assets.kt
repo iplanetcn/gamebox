@@ -30,6 +30,8 @@ object Assets : Disposable, AssetErrorListener {
     var sounds: AssetSounds
     var musics: AssetMusics
     var fonts: AssetFonts
+    val blockWidth: Int
+    val blockHeight: Int
 
     init {
         assetManager.apply {
@@ -42,6 +44,9 @@ object Assets : Disposable, AssetErrorListener {
                 blocks = AssetBlocks(it)
             }
         }
+
+        blockWidth = blocks.blue.regionWidth
+        blockHeight = blocks.blue.regionHeight
 
         sounds = AssetSounds()
         musics = AssetMusics()
@@ -63,6 +68,10 @@ object Assets : Disposable, AssetErrorListener {
 
     fun pauseMusic() {
         musics.themeMusic.pause()
+    }
+
+    fun stopMusic() {
+        musics.themeMusic.stop()
     }
 
     fun playSoundBomb() {

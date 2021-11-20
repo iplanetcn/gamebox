@@ -113,11 +113,11 @@ abstract class BaseScreen(val game: TetrisGame) : InputAdapter(), Screen,
     }
 
     override fun pause() {
-        Assets.pauseMusic()
+
     }
 
     override fun resume() {
-        Assets.playMusic()
+
     }
 
     override fun dispose() {
