@@ -1,0 +1,25 @@
+// 版本配置(round为提测轮次)
+def major = 1
+def minor = 0
+def patch = 0
+// 版本命名规则
+def version_code = (major * 100 + minor) * 100 + patch
+def version_name = "${major}.${minor}.${patch}"
+
+def app = [:]
+app.compile_sdk = 31
+app.min_sdk = 21
+app.target_sdk = 31
+app.version_code = version_code
+app.version_name = version_name
+ext.app = app
+
+def game = [:]
+game.fruit_app_id = "cherry.gamebox.fruit"
+game.tetris_app_id = "cherry.gamebox.tetris"
+game.bunny_app_id = "cherry.gamebox.bunny"
+game.gobang_app_id = "cherry.gamebox.gobang"
+game.link_app_id = "cherry.gamebox.link"
+game.snake_app_id = "cherry.gamebox.snake"
+game.link_app_id = "cherry.gamebox.link"
+ext.game = game
