@@ -1,6 +1,5 @@
-package cherry.gamebox.tetris.assets
+package cherry.gamebox.snake
 
-import cherry.gamebox.tetris.Settings
 import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor

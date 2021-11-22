@@ -23,7 +23,7 @@ class MenuScreen(game: TetrisGame) : BaseScreen(game) {
         )
 
         buttonPlay.setPosition(SCREEN_WIDTH / 2f - buttonPlay.width / 2f, SCREEN_HEIGHT / 2)
-        addEffecToPress(buttonPlay)
+        addEffectToPress(buttonPlay)
         buttonPlay.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 changeScreenWithFadeOut(GameScreen::class.java, game)

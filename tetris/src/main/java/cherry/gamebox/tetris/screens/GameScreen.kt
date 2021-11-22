@@ -5,7 +5,7 @@ import cherry.gamebox.tetris.assets.Assets
 import cherry.gamebox.tetris.game.Config
 import cherry.gamebox.tetris.game.GameBoard
 import cherry.gamebox.tetris.game.NextBrick
-import cherry.gamebox.tetris.utils.GameLogger
+import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
 
@@ -55,9 +55,9 @@ class GameScreen(game: TetrisGame) : BaseScreen(game) {
     }
 
     override fun update(delta: Float) {
-        timeSeconds += delta;
+        timeSeconds += delta
         if(timeSeconds > period){
-            timeSeconds-=period;
+            timeSeconds-=period
             gameBoard.update()
             gameBoard.updateBrick()
             nextBrick.updateBrick()

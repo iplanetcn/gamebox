@@ -78,7 +78,7 @@ abstract class BaseScreen(val game: TetrisGame) : InputAdapter(), Screen,
         stage.addActor(image)
     }
 
-    open fun addEffecToPress(actor: Actor) {
+    open fun addEffectToPress(actor: Actor) {
         actor.addListener(object : InputListener() {
             override fun touchDown(
                 event: InputEvent,

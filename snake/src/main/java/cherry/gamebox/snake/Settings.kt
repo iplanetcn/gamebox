@@ -1,4 +1,4 @@
-package cherry.gamebox.tetris
+package cherry.gamebox.snake
 
 import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.Gdx

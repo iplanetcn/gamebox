@@ -1,13 +1,13 @@
-package cherry.gamebox.tetris.utils
+package cherry.gamebox.core
 
 import com.badlogic.gdx.Application
 import com.badlogic.gdx.Gdx
 
 /**
- * Logger
+ * GameLogger
  *
  * @author john
- * @since 2021-11-18
+ * @since 2021-11-22
  */
 object GameLogger {
     private fun tag(): String {
