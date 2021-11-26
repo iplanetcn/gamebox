@@ -1,6 +1,6 @@
 package cherry.gamebox.tetris.game
 
-import cherry.gamebox.tetris.assets.Assets
+import cherry.gamebox.tetris.Assets
 import cherry.gamebox.tetris.model.Brick
 import cherry.gamebox.tetris.model.BrickColor
 import cherry.gamebox.tetris.model.Point
@@ -38,7 +38,6 @@ class GameBoard : Group() {
         currentBrick?.apply {
             while (canMoveDown(this)) {
                 moveDown()
-                // TODO setNeedsDisplay()
             }
             Assets.playSoundDrop()
         }
@@ -48,7 +47,6 @@ class GameBoard : Group() {
         currentBrick?.apply {
             if (canRotate(this, rotatePoints())) {
                 points = rotatePoints()
-                // TODO setNeedsDisplay()
                 Assets.playSoundDrop()
             }
         }
@@ -105,7 +103,6 @@ class GameBoard : Group() {
                     // check game over
                     // can't move down and brick is out of top bound.
                     if (r < 0) {
-                        // TODO setNeedsDisplay()
                         return Pair(first = true, second = false)
                     }
                     board[r][c] = color
@@ -114,7 +111,6 @@ class GameBoard : Group() {
                 generateBrick()
             }
 
-            // TODO setNeedsDisplay()
             return Pair(first = true, second = droppedBrick)
         }
 
@@ -162,7 +158,6 @@ class GameBoard : Group() {
 
                     if (canMoveRight) {
                         moveRight()
-                        // TODO setNeedsDisplay()
                     }
                 }
             } else if (x < 0) {
@@ -185,7 +180,6 @@ class GameBoard : Group() {
 
                 if (canMoveLeft) {
                     moveLeft()
-                    // TODO setNeedsDisplay()
                 }
             }
         }
@@ -197,7 +191,6 @@ class GameBoard : Group() {
         for (i in 0 until Config.Rows) {
             board.add(generateRow())
         }
-        // TODO setNeedsDisplay()
     }
 
 
@@ -215,7 +208,6 @@ class GameBoard : Group() {
 
     fun generateBrick() {
         currentBrick = Brick.generate()
-        //TODO 通知已更新当前方块
     }
 
 

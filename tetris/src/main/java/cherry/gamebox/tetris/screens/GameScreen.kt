@@ -1,7 +1,7 @@
 package cherry.gamebox.tetris.screens
 
 import cherry.gamebox.tetris.TetrisGame
-import cherry.gamebox.tetris.assets.Assets
+import cherry.gamebox.tetris.Assets
 import cherry.gamebox.tetris.game.Config
 import cherry.gamebox.tetris.game.GameBoard
 import cherry.gamebox.tetris.game.NextBrick
@@ -58,7 +58,11 @@ class GameScreen(game: TetrisGame) : BaseScreen(game) {
         timeSeconds += delta
         if(timeSeconds > period){
             timeSeconds-=period
-            gameBoard.update()
+            val update = gameBoard.update()
+            if (!update.first && !update.second) {
+                gameOver()
+                return
+            }
             gameBoard.updateBrick()
             nextBrick.updateBrick()
         }
@@ -88,6 +92,7 @@ class GameScreen(game: TetrisGame) : BaseScreen(game) {
         gameState = GameState.Stop
         Assets.stopMusic()
         Assets.playSoundGameOver()
+        changeScreenWithFadeOut(MenuScreen::class.java, game)
     }
 
     override fun pause() {

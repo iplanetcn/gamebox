@@ -1,7 +1,7 @@
 package cherry.gamebox.tetris.screens
 
 import cherry.gamebox.tetris.TetrisGame
-import cherry.gamebox.tetris.assets.Assets
+import cherry.gamebox.tetris.Assets
 
 /**
  * HelpScreen

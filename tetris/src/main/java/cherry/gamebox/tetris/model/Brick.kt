@@ -1,6 +1,6 @@
 package cherry.gamebox.tetris.model
 
-import cherry.gamebox.tetris.assets.Assets
+import cherry.gamebox.tetris.Assets
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 /**
  * BrickType

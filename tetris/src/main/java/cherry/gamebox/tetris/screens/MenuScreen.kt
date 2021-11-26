@@ -1,7 +1,7 @@
 package cherry.gamebox.tetris.screens
 
 import cherry.gamebox.tetris.TetrisGame
-import cherry.gamebox.tetris.assets.Assets
+import cherry.gamebox.tetris.Assets
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Label

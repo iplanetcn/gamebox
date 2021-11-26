@@ -1,7 +1,6 @@
 package cherry.gamebox.tetris
 
-import cherry.gamebox.tetris.assets.Assets
-import cherry.gamebox.tetris.screens.GameScreen
+import cherry.gamebox.tetris.screens.MenuScreen
 import cherry.gamebox.tetris.screens.SCREEN_HEIGHT
 import cherry.gamebox.tetris.screens.SCREEN_WIDTH
 import com.badlogic.gdx.Game
@@ -26,7 +25,7 @@ class TetrisGame : Game() {
 
         Assets.load()
         batcher = SpriteBatch()
-        setScreen(GameScreen(this))
+        setScreen(MenuScreen(this))
     }
 
 }

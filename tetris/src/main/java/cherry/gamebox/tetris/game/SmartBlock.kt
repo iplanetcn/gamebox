@@ -1,6 +1,6 @@
 package cherry.gamebox.tetris.game
 
-import cherry.gamebox.tetris.assets.Assets
+import cherry.gamebox.tetris.Assets
 import cherry.gamebox.tetris.model.BrickColor
 import cherry.gamebox.tetris.model.Point
 import com.badlogic.gdx.graphics.g2d.TextureRegion

@@ -1,8 +1,9 @@
 package cherry.gamebox.tetris.screens
 
+import cherry.gamebox.core.GameLogger
 import cherry.gamebox.tetris.Settings
 import cherry.gamebox.tetris.TetrisGame
-import cherry.gamebox.tetris.assets.Assets
+import cherry.gamebox.tetris.Assets
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.InputMultiplexer
@@ -19,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import kotlin.math.abs
+import kotlin.math.log
 
 /**
  * BaseScreen
@@ -45,7 +47,8 @@ abstract class BaseScreen(val game: TetrisGame) : InputAdapter(), Screen,
     }
 
     private fun setupInput() {
-        val gestureDetector = GestureDetector(20f, .5f, 2f, .15f, this)
+        // 调整参数
+        val gestureDetector = GestureDetector(20f, .5f, 2f, .5f, this)
         val input = InputMultiplexer(this, gestureDetector, stage)
         Gdx.input.inputProcessor = input
     }
