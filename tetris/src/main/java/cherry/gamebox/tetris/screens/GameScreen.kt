@@ -8,6 +8,10 @@ import cherry.gamebox.tetris.game.NextBrick
 import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
+import com.badlogic.gdx.Gdx
+
+
+
 
 /**
  * GameScreen
@@ -117,9 +121,22 @@ class GameScreen(game: TetrisGame) : BaseScreen(game) {
         gameBoard.updateX(1)
     }
 
-    override fun up() {
-        GameLogger.log("gesture->up()")
+    override fun tap(x: Float, y: Float, count: Int, button: Int): Boolean {
+        GameLogger.log("gesture->tap()")
         gameBoard.rotateBrick()
+        return super.tap(x, y, count, button)
+    }
+
+    override fun down() {
+        GameLogger.log("gesture->down()")
+        gameBoard.dropBrick()
+    }
+
+    override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
+        val x = Gdx.input.deltaX.toFloat()
+        GameLogger.log("gesture->touchDragged($x)")
+        gameBoard.updateX(x.toInt())
+        return true
     }
     //endregion
 
