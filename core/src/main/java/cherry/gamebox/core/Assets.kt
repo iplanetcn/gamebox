@@ -1,6 +1,5 @@
-package cherry.gamebox.snake
+package cherry.gamebox.core
 
-import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetErrorListener
@@ -54,15 +53,12 @@ object Assets : Disposable, AssetErrorListener {
 
     fun load() {
         GameLogger.log("Asset load()")
-        Settings.load()
         musics.themeMusic.volume = .1f
         playMusic()
     }
 
     fun playMusic() {
-        if (Settings.isMusicOn) {
-            musics.themeMusic.play()
-        }
+        musics.themeMusic.play()
     }
 
     fun pauseMusic() {

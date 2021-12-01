@@ -1,0 +1,62 @@
+
+items.png
+size: 1024, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+background
+  rotate: false
+  xy: 2, 888
+  size: 640, 1136
+  orig: 640, 1136
+  offset: 0, 0
+  index: -1
+blue
+  rotate: false
+  xy: 686, 1984
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+game_board
+  rotate: false
+  xy: 2, 86
+  size: 400, 800
+  orig: 400, 800
+  offset: 0, 0
+  index: -1
+orange
+  rotate: false
+  xy: 2, 44
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+purple
+  rotate: false
+  xy: 404, 846
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+red
+  rotate: false
+  xy: 2, 2
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+teal
+  rotate: false
+  xy: 644, 1942
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+yellow
+  rotate: false
+  xy: 644, 1984
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
