@@ -53,11 +53,10 @@ object Assets : Disposable, AssetErrorListener {
 
     fun load() {
         GameLogger.log("Asset load()")
-        musics.themeMusic.volume = .1f
-        playMusic()
     }
 
     fun playMusic() {
+        musics.themeMusic.volume = .1f
         musics.themeMusic.play()
     }
 
