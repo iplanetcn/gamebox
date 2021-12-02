@@ -22,6 +22,7 @@ appid.gobang = "cherry.gamebox.gobang"
 appid.link = "cherry.gamebox.link"
 appid.snake = "cherry.gamebox.snake"
 appid.link = "cherry.gamebox.link"
+appid.puzzles = "cherry.gamebox.puzzles"
 ext.appid = appid
 
 def libgdx = [:]
