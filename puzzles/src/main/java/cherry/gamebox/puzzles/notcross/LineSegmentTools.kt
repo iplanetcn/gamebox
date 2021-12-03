@@ -10,7 +10,7 @@ import kotlin.math.min
  * @author john
  * @since 2021-12-02
  */
-object LineSegmentsTool {
+object LineSegmentTools {
     private fun onSegment(p: Vector2, q: Vector2, r: Vector2): Boolean {
         if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x) &&
             q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y)

@@ -27,8 +27,8 @@ import kotlin.math.log
  * @author john
  * @since 2021-11-19
  */
-const val SCREEN_WIDTH = 1080f
-const val SCREEN_HEIGHT = 1920f
+val SCREEN_WIDTH = Gdx.graphics.width.toFloat()
+val SCREEN_HEIGHT = Gdx.graphics.height.toFloat()
 
 abstract class BaseScreen(game: PuzzlesGame) : InputAdapter(), Screen,
     GestureDetector.GestureListener {
@@ -43,6 +43,7 @@ abstract class BaseScreen(game: PuzzlesGame) : InputAdapter(), Screen,
         camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
         camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0f)
         shapeRenderer = game.shapeRenderer
+        setupInput()
     }
 
     private fun setupInput() {
@@ -128,17 +129,18 @@ abstract class BaseScreen(game: PuzzlesGame) : InputAdapter(), Screen,
     }
 
     override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
-        // TODO Auto-generated method stub
+        return false
+    }
+
+    override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         return false
     }
 
     override fun tap(x: Float, y: Float, count: Int, button: Int): Boolean {
-        // TODO Auto-generated method stub
         return false
     }
 
     override fun longPress(x: Float, y: Float): Boolean {
-        // TODO Auto-generated method stub
         return false
     }
 
@@ -160,17 +162,14 @@ abstract class BaseScreen(game: PuzzlesGame) : InputAdapter(), Screen,
     }
 
     override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float): Boolean {
-        // TODO Auto-generated method stub
         return false
     }
 
     override fun panStop(x: Float, y: Float, pointer: Int, button: Int): Boolean {
-        // TODO Auto-generated method stub
         return false
     }
 
     override fun zoom(initialDistance: Float, distance: Float): Boolean {
-        // TODO Auto-generated method stub
         return false
     }
 
@@ -180,7 +179,6 @@ abstract class BaseScreen(game: PuzzlesGame) : InputAdapter(), Screen,
         pointer1: Vector2?,
         pointer2: Vector2?
     ): Boolean {
-        // TODO Auto-generated method stub
         return false
     }
 
@@ -193,6 +191,5 @@ abstract class BaseScreen(game: PuzzlesGame) : InputAdapter(), Screen,
     open fun right() {}
 
     override fun pinchStop() {}
-
 
 }

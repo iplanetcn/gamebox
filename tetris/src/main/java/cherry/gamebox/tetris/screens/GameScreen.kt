@@ -110,7 +110,16 @@ class GameScreen(game: TetrisGame) : BaseScreen(game) {
     }
 
 
-    //region touches handler
+    override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
+        GameLogger.log("touchDown()")
+        return true
+    }
+
+    override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+        GameLogger.log("touchUp()")
+        return true
+    }
+
     override fun left() {
         GameLogger.log("gesture->left()")
         gameBoard.updateX(-1)

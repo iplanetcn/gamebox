@@ -9,6 +9,6 @@ import com.badlogic.gdx.math.Vector2
  */
 class LineSegment(var p: Vector2, var q: Vector2) {
     fun isIntersect(other: LineSegment) : Boolean {
-        return LineSegmentsTool.isIntersect(this, other)
+        return LineSegmentTools.isIntersect(this, other)
     }
 }
