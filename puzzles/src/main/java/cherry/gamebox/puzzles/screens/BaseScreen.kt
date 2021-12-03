@@ -9,6 +9,7 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL30
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Actor
@@ -34,13 +35,14 @@ abstract class BaseScreen(game: PuzzlesGame) : InputAdapter(), Screen,
     var camera: OrthographicCamera
     var batcher: SpriteBatch
     var stage: Stage = game.stage
+    var shapeRenderer: ShapeRenderer
 
     init {
         stage.clear()
         batcher = game.batcher
         camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
         camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0f)
-        setupInput()
+        shapeRenderer = game.shapeRenderer
     }
 
     private fun setupInput() {
@@ -122,6 +124,7 @@ abstract class BaseScreen(game: PuzzlesGame) : InputAdapter(), Screen,
     override fun dispose() {
         stage.dispose()
         batcher.dispose()
+        shapeRenderer.dispose()
     }
 
     override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {

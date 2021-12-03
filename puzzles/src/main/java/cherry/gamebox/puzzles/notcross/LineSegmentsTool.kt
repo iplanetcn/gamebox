@@ -1,6 +1,6 @@
 package cherry.gamebox.puzzles.notcross
 
-import android.graphics.Point
+import com.badlogic.gdx.math.Vector2
 import kotlin.math.max
 import kotlin.math.min
 
@@ -11,7 +11,7 @@ import kotlin.math.min
  * @since 2021-12-02
  */
 object LineSegmentsTool {
-    private fun onSegment(p: Point, q: Point, r: Point): Boolean {
+    private fun onSegment(p: Vector2, q: Vector2, r: Vector2): Boolean {
         if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x) &&
             q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y)
         ) {
@@ -24,7 +24,7 @@ object LineSegmentsTool {
     // 0 --> p,q and r are collinear
     // 1 --> Clockwise
     // 2 --> CounterClockwise
-    private fun orientation(p: Point, q: Point, r: Point): Int {
+    private fun orientation(p: Vector2, q: Vector2, r: Vector2): Int {
         val temp = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y)
 
         return when {

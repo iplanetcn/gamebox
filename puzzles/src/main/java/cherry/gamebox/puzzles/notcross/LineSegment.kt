@@ -1,6 +1,5 @@
 package cherry.gamebox.puzzles.notcross
-
-import android.graphics.Point
+import com.badlogic.gdx.math.Vector2
 
 /**
  * LineSegment
@@ -8,8 +7,7 @@ import android.graphics.Point
  * @author john
  * @since 2021-12-02
  */
-class LineSegment(var p: Point, var q: Point) {
-
+class LineSegment(var p: Vector2, var q: Vector2) {
     fun isIntersect(other: LineSegment) : Boolean {
         return LineSegmentsTool.isIntersect(this, other)
     }

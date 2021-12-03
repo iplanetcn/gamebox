@@ -7,6 +7,7 @@ import cherry.gamebox.puzzles.screens.SCREEN_HEIGHT
 import cherry.gamebox.puzzles.screens.SCREEN_WIDTH
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
 
@@ -19,6 +20,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport
 class PuzzlesGame : Game() {
     lateinit var batcher: SpriteBatch
     lateinit var stage: Stage
+    lateinit var shapeRenderer: ShapeRenderer
 
     override fun create() {
         stage = Stage(
@@ -27,6 +29,7 @@ class PuzzlesGame : Game() {
 
         Assets.load()
         batcher = SpriteBatch()
+        shapeRenderer = ShapeRenderer()
 //        setScreen(MenuScreen(this))
         setScreen(NotCrossScreen(this))
     }
