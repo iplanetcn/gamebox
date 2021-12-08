@@ -73,6 +73,7 @@ abstract class BaseScreen(game: PuzzlesGame) : InputAdapter(), Screen,
             game.screen = when (newScreen) {
                 MenuScreen::class.java -> MenuScreen(game)
                 NotCrossScreen::class.java -> NotCrossScreen(game)
+                ConnectScreen::class.java -> ConnectScreen(game)
                 else -> MenuScreen(game)
             }
         }))

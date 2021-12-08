@@ -33,6 +33,4 @@ class MainMenuScreen(private val game: FruitGame) : Screen {
     override fun pause() {}
     override fun resume() {}
     override fun dispose() {}
-
-
 }
