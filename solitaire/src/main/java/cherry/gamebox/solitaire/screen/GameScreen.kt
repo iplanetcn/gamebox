@@ -18,7 +18,13 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
     init {
         var i = 0
         deck.cards.forEach { card ->
-            card.setPosition(CARD_WIDTH / 2 + (card.rank.value - 1) * (CARD_WIDTH + HORIZONTAL_OFFSET), 0f + CARD_HEIGHT/2)
+            // horizontal
+//            card.setPosition((card.rank.value) * CARD_WIDTH + CARD_HORIZONTAL_OFFSET * card.rank.value - CARD_WIDTH * 0.5f , SCREEN_HEIGHT -  CARD_HEIGHT)
+            // vertical
+            card.setPosition(CARD_HORIZONTAL_OFFSET + CARD_WIDTH , SCREEN_HEIGHT - CARD_HEIGHT -  CARD_HEIGHT / 3 * card.rank.value)
+            if (i == 51) {
+                card.turn()
+            }
             stage.addActor(card.image)
             i++
         }
@@ -39,7 +45,7 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
             card.image.addAction(
                 Actions.parallel(
                     Actions.rotateBy(360f, 0.6f),
-                    Actions.moveBy(0f, 0f, 0.6f)
+                    Actions.moveTo(pos.x, pos.y, 0.6f)
                 )
             )
         }

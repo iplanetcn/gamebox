@@ -23,7 +23,7 @@ import com.badlogic.gdx.utils.Disposable
  */
 // private constants
 private const val TEXTURE_ATLAS_OBJECTS = "graphics/items.atlas"
-private const val TEXTURE_ATLAS_CARDS = "cards/resizedcarddeck.pack"
+private const val TEXTURE_ATLAS_CARDS = "cards/cards.atlas"
 
 object Assets : Disposable, AssetErrorListener {
     private val assetManager: AssetManager by lazy { AssetManager() }
@@ -117,15 +117,22 @@ class AssetCards(atlas: TextureAtlas) {
 
     init {
         for (i in 1..13) {
-            spades.add(atlas.createSprite("spades", i))
-            clubs.add(atlas.createSprite("clubs", i))
-            hearts.add(atlas.createSprite("hearts", i))
-            diamonds.add(atlas.createSprite("diamonds", i))
+            val s = when(i) {
+                1 -> "A"
+                2,3,4,5,6,7,8,9,10-> "$i"
+                11 -> "J"
+                12 -> "Q"
+                13 -> "K"
+                else -> "CardBack"
+            }
+
+            spades.add(atlas.createSprite("Spade$s"))
+            clubs.add(atlas.createSprite("Club$s"))
+            hearts.add(atlas.createSprite("Heart$s"))
+            diamonds.add(atlas.createSprite("Diamond$s"))
         }
 
-        for (i in 1..5) {
-            backs.add(atlas.createSprite("back", i))
-        }
+        backs.add(atlas.createSprite("CardBack"))
     }
 }
 

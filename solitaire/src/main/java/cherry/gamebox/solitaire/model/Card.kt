@@ -31,7 +31,7 @@ class Card(
     }
 
     fun setPosition(x: Float, y: Float) {
-        image.setPosition(x - 0.5f * front.width, y - 0.5f * front.height)
+        image.setPosition(x - (0.5f * CARD_WIDTH), y - (0.5f * CARD_HEIGHT))
     }
 
     fun turn() {
