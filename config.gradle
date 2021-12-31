@@ -25,6 +25,7 @@ appid.snake = prefix.concat("snake")
 appid.link = prefix.concat("link")
 appid.puzzles = prefix.concat("puzzles")
 appid.solitaire = prefix.concat("solitaire")
+appid.minesweeper = prefix.concat("minesweeper")
 ext.appid = appid
 
 def libgdx = [:]
