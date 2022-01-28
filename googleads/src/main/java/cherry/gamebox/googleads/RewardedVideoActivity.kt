@@ -2,17 +2,13 @@ package cherry.gamebox.googleads
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import cherry.gamebox.googleads.databinding.ActivityRewardedVideoBinding
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.OnUserEarnedRewardListener
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.admanager.AdManagerAdRequest
 import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.gms.ads.rewarded.RewardedAd
@@ -89,7 +85,7 @@ class RewardedVideoActivity : AppCompatActivity() {
                 this, AD_UNIT_ID, adRequest,
                 object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
-                        Log.d(TAG, adError?.message)
+                        Log.d(TAG, adError.message)
                         mIsLoading = false
                         mRewardedAd = null
                     }

@@ -16,8 +16,8 @@ import kotlin.math.min
 class GameBoard(
     private var rows: Int,
     private var cols: Int,
-    private var screenWidth: Float,
-    private var screenHeight: Float
+    private var screenWidth: Int,
+    private var screenHeight: Int
 ) {
     private var gridSize: Float
     private var boardRect: Rectangle
