@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="8dp"
     android:gravity="bottom"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:ignore="HardcodedText" >
 
     <Button
         android:id="@+id/btn_adaptive_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:capitalize="none"
-        android:text="Adaptive Banner" />
+        android:text="Adaptive Banner"/>
 
     <Button
         android:id="@+id/btn_banner"

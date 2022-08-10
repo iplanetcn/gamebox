@@ -1,6 +1,5 @@
 package cherry.gamebox.tetris.screens
 
-import cherry.gamebox.core.GameLogger
 import cherry.gamebox.tetris.Settings
 import cherry.gamebox.tetris.TetrisGame
 import cherry.gamebox.tetris.Assets
@@ -20,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import kotlin.math.abs
-import kotlin.math.log
 
 /**
  * BaseScreen
@@ -35,10 +33,9 @@ abstract class BaseScreen(val game: TetrisGame) : InputAdapter(), Screen,
     GestureDetector.GestureListener {
     var camera: OrthographicCamera
     var batcher: SpriteBatch
-    var stage: Stage
+    var stage: Stage = game.stage
 
     init {
-        stage = game.stage
         stage.clear()
         batcher = game.batcher
         camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)

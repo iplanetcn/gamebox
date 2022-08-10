@@ -18,7 +18,7 @@ class MenuScreen(game: TetrisGame) : BaseScreen(game) {
     init {
         val buttonPlay = Label(
             "Play", Label.LabelStyle(
-                Assets.fonts.fontSmall, Color.ORANGE
+                Assets.fonts.fontSmall, Color.WHITE
             )
         )
 
