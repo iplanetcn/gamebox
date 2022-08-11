@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
  * @since 2021-11-22
  */
 class GameScreen(private val game: SnakeGame) : Screen {
-    private var gameBoard: GameBoard = GameBoard(10, 10, Gdx.graphics.width, Gdx.graphics.height)
+    private var gameBoard: GameBoard = GameBoard(16, 9, Gdx.graphics.width, Gdx.graphics.height)
     private val camera = OrthographicCamera(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
 
     override fun show() {
@@ -31,7 +31,7 @@ class GameScreen(private val game: SnakeGame) : Screen {
         val spriteBatch = game.batcher
         spriteBatch.projectionMatrix = camera.combined
         spriteBatch.begin()
-        Assets.fonts.fontSmall.draw(spriteBatch, "Upper left, FPS=${Gdx.graphics.framesPerSecond}ms", 0f, camera.viewportHeight)
+        Assets.fonts.fontSmall.draw(spriteBatch, "Upper left, FPS=${Gdx.graphics.framesPerSecond}fps", 0f, camera.viewportHeight)
         Assets.fonts.fontSmall.draw(spriteBatch, "Lower left", 0f, Assets.fonts.fontSmall.lineHeight)
         spriteBatch.end()
     }
