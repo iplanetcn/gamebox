@@ -4,4 +4,8 @@ plugins {
 }
 
 apply from: "../depend.gradle"
+
+android {
+    namespace 'cherry.gamebox.gobang'
+}
 android.defaultConfig.applicationId = appid.gobang
