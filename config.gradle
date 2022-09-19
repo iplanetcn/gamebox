@@ -16,6 +16,7 @@ ext.app = app
 
 def appid = [:]
 def prefix = "cherry.gamebox."
+appid.core = prefix.concat("core")
 appid.fruit = prefix.concat("fruit")
 appid.tetris = prefix.concat("tetris")
 appid.bunny = prefix.concat("bunny")
@@ -26,6 +27,9 @@ appid.link = prefix.concat("link")
 appid.puzzles = prefix.concat("puzzles")
 appid.solitaire = prefix.concat("solitaire")
 appid.minesweeper = prefix.concat("minesweeper")
+appid.tilematch = prefix.concat("tilematch")
+appid.googleads = prefix.concat("googleads")
+appid.gamepad = prefix.concat("gamepad")
 ext.appid = appid
 
 def libgdx = [:]

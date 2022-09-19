@@ -6,6 +6,6 @@ plugins {
 apply from: "../depend.gradle"
 
 android {
-    namespace 'cherry.gamebox.solitaire'
+    namespace appid.solitaire
 }
 android.defaultConfig.applicationId = appid.solitaire

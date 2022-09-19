@@ -32,7 +32,8 @@ android {
     buildFeatures{
         viewBinding true
     }
-    namespace 'cherry.gamebox.googleads'
+
+    namespace appid.googleads
 }
 
 dependencies {

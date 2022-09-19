@@ -6,6 +6,6 @@ plugins {
 apply from: "../depend.gradle"
 
 android {
-    namespace 'cherry.gamebox.minesweeper'
+    namespace appid.minesweeper
 }
 android.defaultConfig.applicationId = appid.minesweeper

@@ -6,6 +6,6 @@ plugins {
 apply from: "../depend.gradle"
 
 android {
-    namespace 'cherry.gamebox.link'
+    namespace appid.link
 }
 android.defaultConfig.applicationId = appid.link
