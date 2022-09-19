@@ -1,0 +1,11 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+apply from: "../depend.gradle"
+
+android {
+    namespace appid.gamepad
+}
+android.defaultConfig.applicationId = appid.gamepad

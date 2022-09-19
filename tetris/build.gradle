@@ -6,6 +6,6 @@ plugins {
 apply from: "../depend.gradle"
 
 android {
-    namespace 'cherry.gamebox.tetris'
+    namespace appid.tetris
 }
 android.defaultConfig.applicationId = appid.tetris

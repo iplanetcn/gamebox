@@ -6,6 +6,6 @@ plugins {
 apply from: "../depend.gradle"
 
 android {
-    namespace 'cherry.gamebox.puzzles'
+    namespace appid.puzzles
 }
 android.defaultConfig.applicationId = appid.puzzles

@@ -6,6 +6,6 @@ plugins {
 apply from: "../depend.gradle"
 
 android {
-    namespace 'cherry.gamebox.bunny'
+    namespace appid.bunny
 }
 android.defaultConfig.applicationId = appid.bunny

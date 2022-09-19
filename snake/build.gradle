@@ -6,6 +6,6 @@ plugins {
 apply from: "../depend.gradle"
 
 android {
-    namespace 'cherry.gamebox.snake'
+    namespace appid.snake
 }
 android.defaultConfig.applicationId = appid.snake
