@@ -1,8 +1,11 @@
 package cherry.gamebox.tilematch
 
+import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.GL30
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 
 /**
@@ -20,8 +23,19 @@ class GameScreen(private val game: TileMatchGame) : ScreenAdapter() {
         block.setSize(100f, 100f)
         block.setPosition(SCREEN_WIDTH / 2 - block.width / 2, SCREEN_HEIGHT / 2 - block.height / 2)
         game.stage.addActor(block)
-
         Gdx.input.inputProcessor = game.stage
+        game.stage.addListener(object : InputListener() {
+            override fun touchDown(
+                event: InputEvent?,
+                x: Float,
+                y: Float,
+                pointer: Int,
+                button: Int
+            ): Boolean {
+                GameLogger.log("touchDown: $x, $y; pointer: $pointer; button: $button" )
+                return true
+            }
+        })
     }
 
     override fun render(delta: Float) {
