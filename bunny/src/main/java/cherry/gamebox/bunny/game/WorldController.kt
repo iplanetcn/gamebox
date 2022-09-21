@@ -1,14 +1,14 @@
-package cherry.gamebox.bunny
+package cherry.gamebox.bunny.game
 
+import cherry.gamebox.bunny.util.CameraHelper
+import cherry.gamebox.bunny.util.Constants
+import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.Application.ApplicationType
+import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.graphics.Pixmap
-
-
-
-
 
 /**
  * WorldController
@@ -16,27 +16,32 @@ import com.badlogic.gdx.graphics.Pixmap
  * @author john
  * @since 2020-12-09
  */
-class WorldController : InputAdapter() {
-    var cameraHelper: CameraHelper? = null
-    var level: Level? = null
+class WorldController(game: Game) : InputAdapter() {
+    var cameraHelper: CameraHelper
+    var level: Level
     var lives = 0
     var score = 0
-    private fun initLevel() {
+
+    init {
+        Gdx.input.inputProcessor = this
+        cameraHelper = CameraHelper()
+        lives = Constants.LIVES_START
         score = 0
         level = Level(Constants.LEVEL_01)
     }
 
-    private fun init() {
+    private fun restart() {
         Gdx.input.inputProcessor = this
         cameraHelper = CameraHelper()
         lives = Constants.LIVES_START
-        initLevel()
+        score = 0
+        level = Level(Constants.LEVEL_01)
     }
 
     override fun keyUp(keycode: Int): Boolean {
         if (keycode == Input.Keys.R) {
-            init()
-            Gdx.app.debug(TAG, "Game World resetted")
+            restart()
+            GameLogger.debug("Game World reset")
         }
         return false
     }
@@ -44,7 +49,7 @@ class WorldController : InputAdapter() {
     private fun createProceduralPixmap(width: Int, height: Int): Pixmap {
         val pixmap = Pixmap(width, height, Pixmap.Format.RGBA8888)
         pixmap.setColor(1f, 1f, 0f, 0.5f)
-        pixmap.fill() // to mau hoan toan cho cai pixmap do
+        pixmap.fill()
         pixmap.setColor(1f, 1f, 0f, 1f)
         pixmap.setColor(1f, 1f, 0f, 1f)
         pixmap.drawLine(0, 0, width, height)
@@ -56,7 +61,7 @@ class WorldController : InputAdapter() {
 
     fun update(deltaTime: Float) {
         handleDebugInput(deltaTime)
-        cameraHelper?.update(deltaTime)
+        cameraHelper.update(deltaTime)
     }
 
     private fun handleDebugInput(deltaTime: Float) {
@@ -64,8 +69,6 @@ class WorldController : InputAdapter() {
             return
         }
 
-
-        // thiet lap cho camera chay theo khi minh di chuyen em no :v
         var camMoveSpeed = 5 * deltaTime
         val camMoveSpeedAccelerationFactor = 5f
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
@@ -84,7 +87,7 @@ class WorldController : InputAdapter() {
             moveCamera(0f, -camMoveSpeed)
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            cameraHelper?.setPosition(0f, 0f)
+            cameraHelper.setPosition(0f, 0f)
         }
         // camera Control Zoom
         var camZoomSpeed = 1 * deltaTime
@@ -93,27 +96,19 @@ class WorldController : InputAdapter() {
             camZoomSpeed *= deltaTime
         }
         if (Gdx.input.isKeyPressed(Input.Keys.COMMA)) {
-            cameraHelper?.addZoom(camMoveSpeed)
+            cameraHelper.addZoom(camMoveSpeed)
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SLASH)) {
-            cameraHelper?.addZoom(-camMoveSpeed)
+            cameraHelper.addZoom(-camMoveSpeed)
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            cameraHelper?.setZoom(1f)
+            cameraHelper.setZoom(1f)
         }
     }
 
     private fun moveCamera(x: Float, y: Float) {
-        val tx = x + cameraHelper?.getPosition()!!.x
-        val ty = y + cameraHelper?.getPosition()!!.y
-        cameraHelper?.setPosition(tx, ty)
-    }
-
-    companion object {
-        private val TAG = WorldController::class.java.name
-    }
-
-    init {
-        init()
+        val tx = x + cameraHelper.getPosition().x
+        val ty = y + cameraHelper.getPosition().y
+        cameraHelper.setPosition(tx, ty)
     }
 }

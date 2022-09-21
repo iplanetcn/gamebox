@@ -1,13 +1,11 @@
-package cherry.gamebox.bunny
+package cherry.gamebox.bunny.util
 
+import cherry.gamebox.bunny.game.objects.AbstractGameObject
 import com.badlogic.gdx.graphics.OrthographicCamera
 
 import com.badlogic.gdx.math.MathUtils
 
 import com.badlogic.gdx.math.Vector2
-
-
-
 
 /**
  * CameraHelper
@@ -15,12 +13,14 @@ import com.badlogic.gdx.math.Vector2
  * @author john
  * @since 2021-11-19
  */
+private const val MAX_ZOOM_IN = 0.25f
+private const val MAX_ZOOM_OUT = 10.0f
+
 class CameraHelper {
-    private val MAX_ZOOM_IN = 0.25f
-    private val MAX_ZOOM_OUT = 10.0f
     private var target: AbstractGameObject? = null
-    private val position: Vector2
-    private var zoom: Float
+    private val position: Vector2 = Vector2()
+    private var zoom: Float = 1.0f
+
     fun update(deltaTime: Float) {
         if (!hasTarget()) return
         position.x = target!!.position.x + target!!.position.y
@@ -64,7 +64,7 @@ class CameraHelper {
     }
 
     fun hasTarget(target: AbstractGameObject): Boolean {
-        return hasTarget() && this.target == target // kiem tra xem co target va target co bang nhau ko
+        return hasTarget() && this.target == target
     }
 
     fun applyTo(camera: OrthographicCamera) {
@@ -72,15 +72,6 @@ class CameraHelper {
         camera.position.y = position.y
         camera.zoom = zoom
         camera.update()
-    }
-
-    companion object {
-        private val TAG = CameraHelper::class.java.name
-    }
-
-    init {
-        position = Vector2()
-        zoom = 1.0f
     }
 }
 

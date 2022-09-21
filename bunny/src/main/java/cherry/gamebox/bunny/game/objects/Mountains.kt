@@ -1,18 +1,19 @@
-package cherry.gamebox.bunny
+package cherry.gamebox.bunny.game.objects
 
+import cherry.gamebox.bunny.game.Assets
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 
 
-class Mountains(var length: Float) : AbstractGameObject() {
+class Mountains(private var length: Float) : AbstractGameObject() {
     private val regMountainLeft: TextureRegion
     private val regMountainRight: TextureRegion
 
     init {
         dimension.set(10f, 2f)
-        regMountainLeft = Assets.levelDecoration.mountainLeft
-        regMountainRight = Assets.levelDecoration.mountainRight
+        regMountainLeft = Assets.instance.levelDecoration.mountainLeft
+        regMountainRight = Assets.instance.levelDecoration.mountainRight
 
         origin.x = -dimension.x * 2
         length += dimension.x * 2
