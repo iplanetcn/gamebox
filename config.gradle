@@ -30,6 +30,7 @@ appid.minesweeper = prefix.concat("minesweeper")
 appid.tilematch = prefix.concat("tilematch")
 appid.googleads = prefix.concat("googleads")
 appid.gamepad = prefix.concat("gamepad")
+appid.tzfe = prefix.concat("tzfe")
 ext.appid = appid
 
 def libgdx = [:]
