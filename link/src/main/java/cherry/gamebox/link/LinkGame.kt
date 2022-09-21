@@ -2,7 +2,6 @@ package cherry.gamebox.link
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Sprite
@@ -11,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector3
-import javax.microedition.khronos.opengles.GL10
 
 class LinkGame : ApplicationAdapter() {
 
@@ -31,7 +29,6 @@ class LinkGame : ApplicationAdapter() {
     private var selRow = -1
     private var isSelected = false
     private var pathList: List<Point>? = null
-    private var isWin = false
 
     override fun create() {
         assets = Assets()
@@ -171,54 +168,6 @@ class LinkGame : ApplicationAdapter() {
         }
 
         batch.end()
-//        renderHelper()
-    }
-
-    private fun renderHelper() {
-        Gdx.gl.glEnable(GL10.GL_BLEND)
-        Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA)
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
-        shapeRenderer.color = Color(0f, 1f, 1f, 0.5f)
-        shapeRenderer.rect(screenWidth / 2 - 80, screenHeight / 2 - 80, 160f, 160f)
-        shapeRenderer.end()
-        Gdx.gl.glDisable(GL10.GL_BLEND)
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
-        shapeRenderer.color = Color.CYAN
-        shapeRenderer.line(0f, screenHeight / 2, screenWidth, screenHeight / 2)
-        shapeRenderer.end()
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
-        shapeRenderer.color = Color.CYAN
-        shapeRenderer.line(screenWidth / 2, 0f, screenWidth / 2, screenHeight)
-        shapeRenderer.end()
-    }
-
-    private fun renderText() {
-        assets.font1.draw(
-                batch,
-                "screenWidth:$screenWidth, screenHeight:$screenHeight",
-                50f,
-                100f
-        )
-        assets.font1.draw(
-                batch,
-                "icon->originalWidth:${assets.atlasRegionFruitList[0].originalWidth}, originalHeight:${assets.atlasRegionFruitList[0].originalHeight}",
-                50f,
-                200f
-        )
-        assets.font1.draw(
-                batch,
-                "icon->packedWidth:${assets.atlasRegionFruitList[0].packedWidth}, packedHeight:${assets.atlasRegionFruitList[0].packedHeight}",
-                50f,
-                300f
-        )
-        assets.font1.draw(
-                batch,
-                "icon->regionWidth:${assets.atlasRegionFruitList[0].regionWidth}, regionHeight:${assets.atlasRegionFruitList[0].regionHeight}",
-                50f,
-                400f
-        )
     }
 
     override fun dispose() {

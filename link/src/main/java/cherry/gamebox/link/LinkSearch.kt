@@ -9,7 +9,11 @@ import java.util.*
  * @since 2020-12-25
  */
 object LinkSearch {
-    private fun matchBlock(data: ArrayList<out ArrayList<out LinkInterface>>, srcPt: Point, destPt: Point): Boolean {
+    private fun matchBlock(
+        data: ArrayList<out ArrayList<out LinkInterface>>,
+        srcPt: Point,
+        destPt: Point
+    ): Boolean {
         // 如果不属于0折连接则返回false
         if (srcPt.x != destPt.x && srcPt.y != destPt.y) {
             return false
@@ -41,7 +45,11 @@ object LinkSearch {
         return true
     }
 
-    private fun matchBlockOne(data: ArrayList<out ArrayList<out LinkInterface>>, srcPt: Point, destPt: Point): Point? {
+    private fun matchBlockOne(
+        data: ArrayList<out ArrayList<out LinkInterface>>,
+        srcPt: Point,
+        destPt: Point
+    ): Point? {
         // 如果不属于1折连接则返回null
         if (srcPt.x == destPt.x || srcPt.y == destPt.y) {
             return null
@@ -51,7 +59,7 @@ object LinkSearch {
         val pt1 = Point(srcPt.x, destPt.y)
         if (data[pt1.x][pt1.y].isEmpty()) {
             val stMatch = matchBlock(data, srcPt, pt1)
-            val tdMatch = if (stMatch) matchBlock(data, pt1, destPt) else stMatch
+            val tdMatch = if (stMatch) matchBlock(data, pt1, destPt) else false
             if (stMatch && tdMatch) {
                 return pt1
             }
@@ -61,7 +69,7 @@ object LinkSearch {
         val pt2 = Point(destPt.x, srcPt.y)
         if (data[pt2.x][pt2.y].isEmpty()) {
             val stMatch = matchBlock(data, srcPt, pt2)
-            val tdMatch = if (stMatch) matchBlock(data, pt2, destPt) else stMatch
+            val tdMatch = if (stMatch) matchBlock(data, pt2, destPt) else false
             if (stMatch && tdMatch) {
                 return pt2
             }
@@ -70,8 +78,12 @@ object LinkSearch {
         return null
     }
 
-    fun matchBlockTwo(data: ArrayList<out ArrayList<out LinkInterface>>, srcPt: Point, destPt: Point): List<Point>? {
-        if (data.isNullOrEmpty()) return null
+    fun matchBlockTwo(
+        data: ArrayList<out ArrayList<out LinkInterface>>,
+        srcPt: Point,
+        destPt: Point
+    ): List<Point>? {
+        if (data.isEmpty()) return null
         if (srcPt.x < 0 || srcPt.x > data.size) return null
         if (srcPt.y < 0 || srcPt.y > data[0].size) return null
         if (destPt.x < 0 || destPt.x > data.size) return null

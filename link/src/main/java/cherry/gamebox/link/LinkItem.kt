@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Rectangle
 class LinkItem : LinkInterface {
     var rowId = -1
     var colId = -1
-    var empty = true
+    private var empty = true
     lateinit var image: TextureAtlas.AtlasRegion
     lateinit var box: Rectangle
 
