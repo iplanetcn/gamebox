@@ -1,19 +1,27 @@
 package cherry.gamebox.bunny.screen
 
 import cherry.gamebox.bunny.game.Assets
+import cherry.gamebox.bunny.screen.transitions.ScreenTransitionFade
 import cherry.gamebox.bunny.util.CharacterSkin
 import cherry.gamebox.bunny.util.Constants
 import cherry.gamebox.bunny.util.GamePreferences
+import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.Application
-import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.math.Interpolation
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.*
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.viewport.StretchViewport
 
 
@@ -24,7 +32,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport
  * @since 2022-09-21
  */
 private const val DEBUG_REBUILD_INTERVAL = 5.0f
-class MenuScreen(game: Game) : AbstractGameScreen(game) {
+class MenuScreen(game: DirectedGame) : AbstractGameScreen(game) {
     private lateinit var stage: Stage
     private lateinit var skinCanyonBunny: Skin
     private lateinit var skinLibgdx: Skin
@@ -37,6 +45,8 @@ class MenuScreen(game: Game) : AbstractGameScreen(game) {
     private lateinit var imgBunny: Image
     private lateinit var btnMenuPlay: Button
     private lateinit var btnMenuOptions: Button
+    private lateinit var imgBookCover: Image
+    private lateinit var lblBookMusicCredits: Label
 
     // options
     private lateinit var winOptions: Window
@@ -90,6 +100,10 @@ class MenuScreen(game: Game) : AbstractGameScreen(game) {
     }
 
     override fun pause() {}
+    override fun getInputProcessor(): InputProcessor {
+        return stage
+    }
+
     private fun rebuildStage() {
         skinCanyonBunny = Skin(
             Gdx.files.internal(Constants.SKIN_CANYONBUNNY_UI),
@@ -100,13 +114,14 @@ class MenuScreen(game: Game) : AbstractGameScreen(game) {
             TextureAtlas(Constants.TEXTURE_ATLAS_LIBGDX_UI)
         )
 
-
         // build all layers
         val layerBackground = buildBackgroundLayer()
         val layerObjects = buildObjectsLayer()
         val layerLogos = buildLogosLayer()
         val layerControls = buildControlsLayer()
         val layerOptionsWindow = buildOptionsWindowLayer()
+        val layerBook = buildBookLayer()
+        val layerMusicCredits = buildMusicCreditsLayer()
 
         // assemble stage for menu screen
         stage.clear()
@@ -117,6 +132,9 @@ class MenuScreen(game: Game) : AbstractGameScreen(game) {
         stack.add(layerObjects)
         stack.add(layerLogos)
         stack.add(layerControls)
+
+        stage.addActor(layerBook)
+        stage.addActor(layerMusicCredits)
         stage.addActor(layerOptionsWindow)
     }
 
@@ -166,7 +184,7 @@ class MenuScreen(game: Game) : AbstractGameScreen(game) {
         btnMenuPlay = Button(skinCanyonBunny, "play")
         layer.add<Actor>(btnMenuPlay)
         btnMenuPlay.addListener(object : ChangeListener() {
-            override fun changed(event: ChangeEvent?, actor: Actor?) {
+            override fun changed(event: ChangeEvent, actor: Actor) {
                 onPlayClicked()
             }
         })
@@ -176,7 +194,7 @@ class MenuScreen(game: Game) : AbstractGameScreen(game) {
         btnMenuOptions = Button(skinCanyonBunny, "options")
         layer.add<Actor>(btnMenuOptions)
         btnMenuOptions.addListener(object : ChangeListener() {
-            override fun changed(event: ChangeEvent?, actor: Actor?) {
+            override fun changed(event: ChangeEvent, actor: Actor) {
                 onOptionsClicked()
             }
         })
@@ -185,7 +203,7 @@ class MenuScreen(game: Game) : AbstractGameScreen(game) {
     }
 
     private fun onPlayClicked() {
-        game.screen = GameScreen(game)
+        game.setScreen(GameScreen(game), ScreenTransitionFade.init(0.75f))
     }
 
     private fun buildOptWinAudioSettings(): Table {
@@ -238,7 +256,7 @@ class MenuScreen(game: Game) : AbstractGameScreen(game) {
         })
         tbl.add(selCharSkin).width(120f).padRight(20f)
         // + Skin preview image
-        imgCharSkin = Image(Assets.instance.bunny.head)
+        imgCharSkin = Image(Assets.bunny.head)
         tbl.add<Actor>(imgCharSkin).width(50f).height(50f)
         return tbl
     }
@@ -264,13 +282,13 @@ class MenuScreen(game: Game) : AbstractGameScreen(game) {
         // + Separator
         var lbl = Label("", skinLibgdx)
         lbl.setColor(0.75f, 0.75f, 0.75f, 1f)
-        lbl.style = Label.LabelStyle(lbl.style)
+        lbl.style = LabelStyle(lbl.style)
         lbl.style.background = skinLibgdx.newDrawable("white")
         tbl.add<Actor>(lbl).colspan(2).height(1f).width(220f).pad(0f, 0f, 0f, 1f)
         tbl.row()
         lbl = Label("", skinLibgdx)
         lbl.setColor(0.5f, 0.5f, 0.5f, 1f)
-        lbl.style = Label.LabelStyle(lbl.style)
+        lbl.style = LabelStyle(lbl.style)
         lbl.style.background = skinLibgdx.newDrawable("white")
         tbl.add<Actor>(lbl).colspan(2).height(1f).width(220f).pad(0f, 1f, 5f, 0f)
         tbl.row()
@@ -291,6 +309,72 @@ class MenuScreen(game: Game) : AbstractGameScreen(game) {
             }
         })
         return tbl
+    }
+
+    private fun buildBookLayer(): Actor {
+        val delayStart = 10f
+        val delayLoopMin = 3f
+        val delayLoopMax = 6f
+        imgBookCover = Image(skinCanyonBunny, "book-cover")
+        imgBookCover.setOrigin(imgBookCover.width / 2, imgBookCover.height / 2)
+
+        GameLogger.debug("imageBookCover (width, height): (${imgBookCover.width}, ${imgBookCover.height})")
+        val scaleImage = 1f
+        val scaleUpSize = scaleImage * 1.25f
+        val scaleUpDur = 0.025f
+        val scaleDownDur = 0.25f
+
+        imgBookCover.addAction(
+            sequence(
+                moveTo(
+                    -imgBookCover.width,
+                    (Constants.VIEWPORT_GUI_HEIGHT - imgBookCover.height) / 2
+                ),
+                moveBy(0f, -20f),
+                scaleTo(0f, 0f),
+                delay(delayStart),
+                parallel(
+                    moveBy(imgBookCover.width * 1.2f, 0f, 1f, Interpolation.swingOut),
+                    scaleTo(1 * scaleImage, 1 * scaleImage, 0.75f, Interpolation.sine)
+                ),
+                forever(
+                    sequence(
+                        delay(MathUtils.random(delayLoopMin, delayLoopMax)),
+                        scaleTo(scaleUpSize, scaleUpSize, scaleUpDur, Interpolation.sine),
+                        scaleTo(1 * scaleImage, 1 * scaleImage, scaleDownDur, Interpolation.sineIn),
+                        scaleTo(scaleUpSize, scaleUpSize, scaleUpDur, Interpolation.sine),
+                        scaleTo(1 * scaleImage, 1 * scaleImage, scaleDownDur, Interpolation.sineIn),
+                        delay(MathUtils.random(delayLoopMin, delayLoopMax)),
+                        rotateBy(360f * 2, 1f, Interpolation.swing),
+                        rotateTo(0f)
+                    )
+                )
+            )
+        )
+
+        imgBookCover.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent, x: Float, y: Float) {
+                Gdx.net.openURI("http://libgdx.gamerald.com/")
+            }
+        })
+
+        return imgBookCover
+    }
+
+
+    private fun buildMusicCreditsLayer(): Actor {
+        val delay = 13f
+        val moveDistance = 10f
+        lblBookMusicCredits = Label("Music by Klaus \"keith303\" Spang", skinLibgdx[LabelStyle::class.java])
+        lblBookMusicCredits.setPosition(380f, 0f)
+        lblBookMusicCredits.addAction(
+            sequence(
+                moveBy(0f, -50f), alpha(0f),
+                delay(delay),
+                parallel(moveBy(0f, +50 + moveDistance, 1f, Interpolation.linear), alpha(0.8f, 1.5f))
+            )
+        )
+        return lblBookMusicCredits
     }
 
     private fun buildOptionsWindowLayer(): Table {

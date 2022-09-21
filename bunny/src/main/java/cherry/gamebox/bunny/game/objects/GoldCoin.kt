@@ -21,7 +21,7 @@ class GoldCoin : AbstractGameObject() {
 
     private fun init() {
         dimension[0.5f] = 0.5f
-        regGoldCoin = Assets.instance.goldCoin.goldCoin
+        regGoldCoin = Assets.goldCoin.goldCoin
 
         // Set bounding box for collision detection
         bounds[0f, 0f, dimension.x] = dimension.y

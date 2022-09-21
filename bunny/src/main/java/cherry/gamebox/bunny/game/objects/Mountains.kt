@@ -4,6 +4,10 @@ import cherry.gamebox.bunny.game.Assets
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.Vector2
+
+
+
 
 
 class Mountains(private var length: Float) : AbstractGameObject() {
@@ -12,11 +16,15 @@ class Mountains(private var length: Float) : AbstractGameObject() {
 
     init {
         dimension.set(10f, 2f)
-        regMountainLeft = Assets.instance.levelDecoration.mountainLeft
-        regMountainRight = Assets.instance.levelDecoration.mountainRight
+        regMountainLeft = Assets.levelDecoration.mountainLeft
+        regMountainRight = Assets.levelDecoration.mountainRight
 
         origin.x = -dimension.x * 2
         length += dimension.x * 2
+    }
+
+    fun updateScrollPosition(camPosition: Vector2) {
+        position[camPosition.x] = position.y
     }
 
     private fun drawMountain(batch: SpriteBatch, offsetX: Float, offsetY: Float, tintColor: Float) {

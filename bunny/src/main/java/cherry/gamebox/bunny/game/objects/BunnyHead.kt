@@ -36,7 +36,7 @@ class BunnyHead : AbstractGameObject() {
 
     init {
         dimension[1f] = 1f
-        regHead = Assets.instance.bunny.head
+        regHead = Assets.bunny.head
 
         // Center image on game object
         origin[dimension.x / 2] = dimension.y / 2
@@ -103,7 +103,7 @@ class BunnyHead : AbstractGameObject() {
     }
 
     override fun render(batch: SpriteBatch) {
-        var reg: TextureRegion? = null
+        var reg: TextureRegion?
 
         // Apply Skin Color
         batch.color = CharacterSkin.values()[GamePreferences.charSkin].color

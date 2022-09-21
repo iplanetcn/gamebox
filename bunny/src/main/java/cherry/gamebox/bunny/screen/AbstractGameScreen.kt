@@ -1,9 +1,8 @@
 package cherry.gamebox.bunny.screen
 
 import cherry.gamebox.bunny.game.Assets
-import com.badlogic.gdx.Game
+import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.Screen
-import com.badlogic.gdx.assets.AssetManager
 
 
 /**
@@ -12,17 +11,19 @@ import com.badlogic.gdx.assets.AssetManager
  * @author john
  * @since 2022-09-21
  */
-abstract class AbstractGameScreen(val game: Game) : Screen {
+abstract class AbstractGameScreen(val game: DirectedGame) : Screen {
     abstract override fun render(deltaTime: Float)
     abstract override fun resize(width: Int, height: Int)
     abstract override fun show()
     abstract override fun hide()
     abstract override fun pause()
+    abstract fun getInputProcessor(): InputProcessor
+
     override fun resume() {
-        Assets.instance.init(AssetManager())
+        Assets.load()
     }
 
     override fun dispose() {
-        Assets.instance.dispose()
+        Assets.dispose()
     }
 }

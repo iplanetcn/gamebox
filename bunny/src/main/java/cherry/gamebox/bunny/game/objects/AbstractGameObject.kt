@@ -1,12 +1,16 @@
 package cherry.gamebox.bunny.game.objects
 
+import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 
 
 abstract class AbstractGameObject {
+
     var position: Vector2 = Vector2()
     var dimension: Vector2 = Vector2(1f, 1f)
     var origin: Vector2 = Vector2()
@@ -17,19 +21,26 @@ abstract class AbstractGameObject {
     var friction: Vector2 = Vector2()
     var acceleration: Vector2 = Vector2()
     var bounds: Rectangle = Rectangle()
+    var body: Body? = null
+    var stateTime: Float = 0f
+    var animation: Animation<TextureRegion>? = null
 
     open fun update(deltaTime: Float) {
-        updateMotionX(deltaTime)
-        updateMotionY(deltaTime)
+        stateTime += deltaTime
+        if (body == null) {
+            updateMotionX(deltaTime)
+            updateMotionY(deltaTime)
 
-        // Move to new position
-        position.x += velocity.x * deltaTime
-        position.y += velocity.y * deltaTime
+            // Move to new position
+            position.x += velocity.x * deltaTime
+            position.y += velocity.y * deltaTime
+        } else {
+            position.set(body!!.position)
+            rotation = body!!.angle * MathUtils.radiansToDegrees
+        }
     }
 
-    abstract fun render(batch: SpriteBatch)
-
-    protected fun updateMotionX(deltaTime: Float) {
+    protected open fun updateMotionX(deltaTime: Float) {
         if (velocity.x != 0f) {
             // Apply friction
             if (velocity.x > 0) {
@@ -60,4 +71,11 @@ abstract class AbstractGameObject {
         // positive or negative terminal velocity
         velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y)
     }
+
+    open fun setTheAnimation(animation: Animation<TextureRegion>?) {
+        this.animation = animation
+        stateTime = 0f
+    }
+
+    abstract fun render(batch: SpriteBatch)
 }

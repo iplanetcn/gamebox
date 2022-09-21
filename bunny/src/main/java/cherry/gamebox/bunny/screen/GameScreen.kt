@@ -3,9 +3,9 @@ package cherry.gamebox.bunny.screen
 import cherry.gamebox.bunny.game.WorldController
 import cherry.gamebox.bunny.game.WorldRenderer
 import cherry.gamebox.bunny.util.GamePreferences
-import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.GL20
 
 
@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.GL20
  * @author john
  * @since 2022-09-21
  */
-class GameScreen(game: Game) : AbstractGameScreen(game) {
+class GameScreen(game: DirectedGame) : AbstractGameScreen(game) {
     private var worldController: WorldController? = null
     private var worldRenderer: WorldRenderer? = null
     private var paused = false
@@ -55,6 +55,10 @@ class GameScreen(game: Game) : AbstractGameScreen(game) {
 
     override fun pause() {
         paused = true
+    }
+
+    override fun getInputProcessor(): InputProcessor {
+        return worldController!!
     }
 
     override fun resume() {

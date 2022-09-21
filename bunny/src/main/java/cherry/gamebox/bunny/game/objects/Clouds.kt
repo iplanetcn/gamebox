@@ -13,9 +13,9 @@ class Clouds(private val length: Float) : AbstractGameObject() {
 
     init {
         dimension[3.0f] = 1.5f
-        regClouds.add(Assets.instance.levelDecoration.cloud01)
-        regClouds.add(Assets.instance.levelDecoration.cloud02)
-        regClouds.add(Assets.instance.levelDecoration.cloud03)
+        regClouds.add(Assets.levelDecoration.cloud01)
+        regClouds.add(Assets.levelDecoration.cloud02)
+        regClouds.add(Assets.levelDecoration.cloud03)
         val distFac = 5
         val numClouds = (length / distFac).toInt()
         for (i in 0 until numClouds) {

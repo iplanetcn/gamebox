@@ -17,7 +17,7 @@ class Feather : AbstractGameObject() {
 
     init {
         dimension[0.5f] = 0.5f
-        regFeather = Assets.instance.feather.feather
+        regFeather = Assets.feather.feather
 
         // Set bounding box for collision detection
         bounds[0f, 0f, dimension.x] = dimension.y
