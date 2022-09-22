@@ -88,8 +88,36 @@ object Assets : Disposable, AssetErrorListener {
     class AssetBunny(atlas: TextureAtlas) {
         val head: AtlasRegion
 
+        val animNormal: Animation<TextureRegion>
+        val animCopterTransform: Animation<TextureRegion>
+        val animCopterTransformBack: Animation<TextureRegion>
+        val animCopterRotate: Animation<TextureRegion>
         init {
             head = atlas.findRegion("bunny_head")
+            // Animation: Bunny Normal
+            var regions: Array<AtlasRegion> = atlas.findRegions("anim_bunny_normal")
+            animNormal = Animation<TextureRegion>(
+                1.0f / 10.0f, regions,
+                Animation.PlayMode.LOOP_PINGPONG
+            )
+
+
+            // Animation: Bunny Copter - knot ears
+            regions = atlas.findRegions("anim_bunny_copter")
+            animCopterTransform = Animation<TextureRegion>(1.0f / 10.0f, regions)
+
+            // Animation: Bunny Copter - unknot ears
+            regions = atlas.findRegions("anim_bunny_copter")
+            animCopterTransformBack = Animation<TextureRegion>(
+                1.0f / 10.0f, regions,
+                Animation.PlayMode.REVERSED
+            )
+
+            // Animation: Bunny Copter - rotate ears
+            regions = Array()
+            regions.add(atlas.findRegion("anim_bunny_copter", 4))
+            regions.add(atlas.findRegion("anim_bunny_copter", 5))
+            animCopterRotate = Animation<TextureRegion>(1.0f / 15.0f, regions)
         }
     }
 

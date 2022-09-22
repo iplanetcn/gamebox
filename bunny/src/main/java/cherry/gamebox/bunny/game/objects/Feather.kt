@@ -26,8 +26,7 @@ class Feather : AbstractGameObject() {
 
     override fun render(batch: SpriteBatch) {
         if (collected) return
-        var reg: TextureRegion? = null
-        reg = regFeather
+        val reg: TextureRegion? = regFeather
         batch.draw(
             reg!!.texture,
             position.x,

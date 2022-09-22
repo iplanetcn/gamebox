@@ -1,11 +1,16 @@
 package cherry.gamebox.bunny.game.objects
 
 import cherry.gamebox.bunny.game.Assets
+import cherry.gamebox.bunny.util.AudioManager
 import cherry.gamebox.bunny.util.CharacterSkin
 import cherry.gamebox.bunny.util.Constants
 import cherry.gamebox.bunny.util.GamePreferences
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.g2d.Animation
+import com.badlogic.gdx.graphics.g2d.ParticleEffect
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.MathUtils
 
 
 /**
@@ -27,16 +32,28 @@ class BunnyHead : AbstractGameObject() {
         GROUNDED, FALLING, JUMP_RISING, JUMP_FALLING
     }
 
-    private var regHead: TextureRegion
-    var viewDirection: ViewDirection
-    var timeJumping = 0f
+    private var animNormal: Animation<TextureRegion>
+    private var animCopterTransform: Animation<TextureRegion>
+    private var animCopterTransformBack: Animation<TextureRegion>
+    private var animCopterRotate: Animation<TextureRegion>
+
+    var viewDirection: ViewDirection? = null
+
     var jumpState: JumpState
+    var timeJumping = 0f
+
     var hasFeatherPowerup = false
     var timeLeftFeatherPowerup = 0f
 
+    var dustParticles: ParticleEffect = ParticleEffect()
+
     init {
         dimension[1f] = 1f
-        regHead = Assets.bunny.head
+        animNormal = Assets.bunny.animNormal
+        animCopterTransform = Assets.bunny.animCopterTransform
+        animCopterTransformBack = Assets.bunny.animCopterTransformBack
+        animCopterRotate = Assets.bunny.animCopterRotate
+        animation = animNormal
 
         // Center image on game object
         origin[dimension.x / 2] = dimension.y / 2
@@ -59,6 +76,12 @@ class BunnyHead : AbstractGameObject() {
         // Power-ups
         hasFeatherPowerup = false
         timeLeftFeatherPowerup = 0f
+
+        // Particles
+        dustParticles.load(
+            Gdx.files.internal("particles/dust.pfx"),
+            Gdx.files.internal("particles")
+        )
     }
 
     override fun update(deltaTime: Float) {
@@ -67,18 +90,48 @@ class BunnyHead : AbstractGameObject() {
             viewDirection = if (velocity.x < 0) ViewDirection.LEFT else ViewDirection.RIGHT
         }
         if (timeLeftFeatherPowerup > 0) {
+            if (animation === animCopterTransformBack) {
+                // Restart "Transform" animation if another feather power-up
+                // was picked up during "TransformBack" animation. Otherwise,
+                // the "TransformBack" animation would be stuck while the
+                // power-up is still active.
+                animation = animCopterTransform
+            }
             timeLeftFeatherPowerup -= deltaTime
             if (timeLeftFeatherPowerup < 0) {
                 // disable power-up
                 timeLeftFeatherPowerup = 0f
                 setFeatherPowerup(false)
+                animation = animCopterTransformBack
+            }
+        }
+        dustParticles.update(deltaTime)
+
+        // Change animation state according to feather power-up
+        if (hasFeatherPowerup) {
+            if (animation === animNormal) {
+                animation = animCopterTransform
+            } else if (animation === animCopterTransform) {
+                if (animation!!.isAnimationFinished(stateTime)) animation = animCopterRotate
+            }
+        } else {
+            if (animation === animCopterRotate) {
+                if (animation!!.isAnimationFinished(stateTime)) animation = animCopterTransformBack
+            } else if (animation === animCopterTransformBack) {
+                if (animation!!.isAnimationFinished(stateTime)) animation = animNormal
             }
         }
     }
 
     override fun updateMotionY(deltaTime: Float) {
         when (jumpState) {
-            JumpState.GROUNDED -> jumpState = JumpState.FALLING
+            JumpState.GROUNDED -> {
+                jumpState = JumpState.FALLING
+                if (velocity.x != 0f) {
+                    dustParticles.setPosition(position.x + dimension.x / 2, position.y)
+                    dustParticles.start()
+                }
+            }
             JumpState.JUMP_RISING -> {
                 // Keep track of jump time
                 timeJumping += deltaTime
@@ -99,30 +152,37 @@ class BunnyHead : AbstractGameObject() {
                 }
             }
         }
-        super.updateMotionY(deltaTime)
+        if (jumpState != JumpState.GROUNDED) {
+            dustParticles.allowCompletion()
+            super.updateMotionY(deltaTime)
+        }
     }
 
     override fun render(batch: SpriteBatch) {
-        var reg: TextureRegion?
+
+        // Draw Particles
+        dustParticles.draw(batch)
 
         // Apply Skin Color
         batch.color = CharacterSkin.values()[GamePreferences.charSkin].color
-
-        // Set special color when game object has a feather power-up
-        if (hasFeatherPowerup) {
-            batch.setColor(1.0f, 0.8f, 0.0f, 1.0f)
+        var dimCorrectionX = 0f
+        var dimCorrectionY = 0f
+        if (animation !== animNormal) {
+            dimCorrectionX = 0.05f
+            dimCorrectionY = 0.2f
         }
 
         // Draw image
-        reg = regHead
+        val reg: TextureRegion = animation!!.getKeyFrame(stateTime, true)
         batch.draw(
             reg.texture,
             position.x,
             position.y,
             origin.x,
             origin.y,
-            dimension.x,
-            dimension.y,
+            dimension.x + dimCorrectionX,
+            dimension.y
+                    + dimCorrectionY,
             scale.x,
             scale.y,
             rotation,
@@ -152,6 +212,7 @@ class BunnyHead : AbstractGameObject() {
     fun setJumping(jumpKeyPressed: Boolean) {
         when (jumpState) {
             JumpState.GROUNDED -> if (jumpKeyPressed) {
+                AudioManager.play(Assets.sounds.jump)
                 // Start counting jump time from the beginning
                 timeJumping = 0f
                 jumpState = JumpState.JUMP_RISING
@@ -160,6 +221,11 @@ class BunnyHead : AbstractGameObject() {
                 jumpState = JumpState.JUMP_FALLING
             }
             JumpState.FALLING, JumpState.JUMP_FALLING -> if (jumpKeyPressed && hasFeatherPowerup) {
+                AudioManager.play(
+                    Assets.sounds.jumpWithFeather,
+                    1f,
+                    MathUtils.random(1.0f, 1.1f)
+                )
                 timeJumping = JUMP_TIME_OFFSET_FLYING
                 jumpState = JumpState.JUMP_RISING
             }
