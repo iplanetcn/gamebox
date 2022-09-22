@@ -1,6 +1,9 @@
 package cherry.gamebox.bunny.game.objects
 
 import cherry.gamebox.bunny.game.Assets
+import cherry.gamebox.bunny.game.objects.BunnyHead.JumpState.*
+import cherry.gamebox.bunny.game.objects.BunnyHead.ViewDirection.LEFT
+import cherry.gamebox.bunny.game.objects.BunnyHead.ViewDirection.RIGHT
 import cherry.gamebox.bunny.util.AudioManager
 import cherry.gamebox.bunny.util.CharacterSkin
 import cherry.gamebox.bunny.util.Constants
@@ -67,10 +70,10 @@ class BunnyHead : AbstractGameObject() {
         acceleration[0.0f] = -25.0f
 
         // View direction
-        viewDirection = ViewDirection.RIGHT
+        viewDirection = RIGHT
 
         // Jump state
-        jumpState = JumpState.FALLING
+        jumpState = FALLING
         timeJumping = 0f
 
         // Power-ups
@@ -87,7 +90,7 @@ class BunnyHead : AbstractGameObject() {
     override fun update(deltaTime: Float) {
         super.update(deltaTime)
         if (velocity.x != 0f) {
-            viewDirection = if (velocity.x < 0) ViewDirection.LEFT else ViewDirection.RIGHT
+            viewDirection = if (velocity.x < 0) LEFT else RIGHT
         }
         if (timeLeftFeatherPowerup > 0) {
             if (animation === animCopterTransformBack) {
@@ -125,14 +128,14 @@ class BunnyHead : AbstractGameObject() {
 
     override fun updateMotionY(deltaTime: Float) {
         when (jumpState) {
-            JumpState.GROUNDED -> {
-                jumpState = JumpState.FALLING
+            GROUNDED -> {
+                jumpState = FALLING
                 if (velocity.x != 0f) {
                     dustParticles.setPosition(position.x + dimension.x / 2, position.y)
                     dustParticles.start()
                 }
             }
-            JumpState.JUMP_RISING -> {
+            JUMP_RISING -> {
                 // Keep track of jump time
                 timeJumping += deltaTime
                 // Jump time left?
@@ -141,8 +144,8 @@ class BunnyHead : AbstractGameObject() {
                     velocity.y = terminalVelocity.y
                 }
             }
-            JumpState.FALLING -> {}
-            JumpState.JUMP_FALLING -> {
+            FALLING -> {}
+            JUMP_FALLING -> {
                 // Add delta times to track jump time
                 timeJumping += deltaTime
                 // Jump to minimal height if jump key was pressed too short
@@ -152,14 +155,13 @@ class BunnyHead : AbstractGameObject() {
                 }
             }
         }
-        if (jumpState != JumpState.GROUNDED) {
+        if (jumpState != GROUNDED) {
             dustParticles.allowCompletion()
             super.updateMotionY(deltaTime)
         }
     }
 
     override fun render(batch: SpriteBatch) {
-
         // Draw Particles
         dustParticles.draw(batch)
 
@@ -181,8 +183,7 @@ class BunnyHead : AbstractGameObject() {
             origin.x,
             origin.y,
             dimension.x + dimCorrectionX,
-            dimension.y
-                    + dimCorrectionY,
+            dimension.y + dimCorrectionY,
             scale.x,
             scale.y,
             rotation,
@@ -190,7 +191,7 @@ class BunnyHead : AbstractGameObject() {
             reg.regionY,
             reg.regionWidth,
             reg.regionHeight,
-            viewDirection == ViewDirection.LEFT,
+            viewDirection == LEFT,
             false
         )
 
@@ -211,23 +212,23 @@ class BunnyHead : AbstractGameObject() {
 
     fun setJumping(jumpKeyPressed: Boolean) {
         when (jumpState) {
-            JumpState.GROUNDED -> if (jumpKeyPressed) {
+            GROUNDED -> if (jumpKeyPressed) {
                 AudioManager.play(Assets.sounds.jump)
                 // Start counting jump time from the beginning
                 timeJumping = 0f
-                jumpState = JumpState.JUMP_RISING
+                jumpState = JUMP_RISING
             }
-            JumpState.JUMP_RISING -> if (!jumpKeyPressed) {
-                jumpState = JumpState.JUMP_FALLING
+            JUMP_RISING -> if (!jumpKeyPressed) {
+                jumpState = JUMP_FALLING
             }
-            JumpState.FALLING, JumpState.JUMP_FALLING -> if (jumpKeyPressed && hasFeatherPowerup) {
+            FALLING, JUMP_FALLING -> if (jumpKeyPressed && hasFeatherPowerup) {
                 AudioManager.play(
                     Assets.sounds.jumpWithFeather,
                     1f,
                     MathUtils.random(1.0f, 1.1f)
                 )
                 timeJumping = JUMP_TIME_OFFSET_FLYING
-                jumpState = JumpState.JUMP_RISING
+                jumpState = JUMP_RISING
             }
         }
     }

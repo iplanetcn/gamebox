@@ -9,19 +9,7 @@ object AudioManager {
 
     private var playingMusic: Music? = null
 
-    fun play(sound: Sound) {
-        play(sound, 1f)
-    }
-
-    fun play(sound: Sound, volume: Float) {
-        play(sound, volume, 1f)
-    }
-
-    fun play(sound: Sound, volume: Float, pitch: Float) {
-        play(sound, volume, pitch, 0f)
-    }
-
-    fun play(sound: Sound, volume: Float, pitch: Float, pan: Float) {
+    fun play(sound: Sound, volume: Float = 1f, pitch: Float = 1f, pan: Float = 0f) {
         if (!GamePreferences.sound) return
         sound.play(volSound * volume, pitch, pan)
     }

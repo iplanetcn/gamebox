@@ -2,6 +2,7 @@ package cherry.gamebox.bunny.screen
 
 import cherry.gamebox.bunny.game.Assets
 import cherry.gamebox.bunny.screen.transitions.ScreenTransitionFade
+import cherry.gamebox.bunny.util.AudioManager
 import cherry.gamebox.bunny.util.CharacterSkin
 import cherry.gamebox.bunny.util.Constants
 import cherry.gamebox.bunny.util.GamePreferences
@@ -17,6 +18,7 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.*
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
@@ -391,7 +393,7 @@ class MenuScreen(game: DirectedGame) : AbstractGameScreen(game) {
         // Make options window slightly transparent
         winOptions.setColor(1f, 1f, 1f, 0.8f)
         // Hide options window by default
-        winOptions.isVisible = false
+        showOptionsWindow(visible = false, animated = false)
         if (debugEnabled) winOptions.debug()
         // Let TableLayout recalculate widget sizes and positions
         winOptions.pack()
@@ -402,20 +404,20 @@ class MenuScreen(game: DirectedGame) : AbstractGameScreen(game) {
 
     private fun onOptionsClicked() {
         loadSettings()
-        btnMenuPlay.isVisible = false
-        btnMenuOptions.isVisible = false
-        winOptions.isVisible = true
+        showMenuButtons(false)
+        showOptionsWindow(visible = true, animated = true)
     }
 
     private fun onSaveClicked() {
         saveSettings()
         onCancelClicked()
+        AudioManager.onSettingsUpdated()
     }
 
     private fun onCancelClicked() {
-        btnMenuPlay.isVisible = true
-        btnMenuOptions.isVisible = true
-        winOptions.isVisible = false
+        showMenuButtons(true)
+        showOptionsWindow(visible = false, animated = true)
+        AudioManager.onSettingsUpdated()
     }
 
     private fun onCharSkinSelected(index: Int) {
@@ -444,5 +446,40 @@ class MenuScreen(game: DirectedGame) : AbstractGameScreen(game) {
         prefs.charSkin = selCharSkin.selectedIndex
         prefs.showFpsCounter = chkShowFpsCounter.isChecked
         prefs.save()
+    }
+
+    private fun showMenuButtons(visible: Boolean) {
+        val moveDuration = 1.0f
+        val moveEasing: Interpolation = Interpolation.swing
+        val delayOptionsButton = 0.25f
+        val moveX = (300 * if (visible) -1 else 1).toFloat()
+        val moveY = 0f
+        val touchEnabled = if (visible) Touchable.enabled else Touchable.disabled
+        btnMenuPlay.addAction(moveBy(moveX, moveY, moveDuration, moveEasing))
+        btnMenuOptions.addAction(
+            sequence(
+                delay(delayOptionsButton),
+                moveBy(moveX, moveY, moveDuration, moveEasing)
+            )
+        )
+        val seq = sequence()
+        if (visible) seq.addAction(delay(delayOptionsButton + moveDuration))
+        seq.addAction(run(Runnable {
+            btnMenuPlay.touchable = touchEnabled
+            btnMenuOptions.touchable = touchEnabled
+        }))
+        stage.addAction(seq)
+    }
+
+    private fun showOptionsWindow(visible: Boolean, animated: Boolean) {
+        val alphaTo = if (visible) 0.8f else 0.0f
+        val duration = if (animated) 1.0f else 0.0f
+        val touchEnabled = if (visible) Touchable.enabled else Touchable.disabled
+        winOptions.addAction(
+            sequence(
+                touchable(touchEnabled),
+                alpha(alphaTo, duration)
+            )
+        )
     }
 }
