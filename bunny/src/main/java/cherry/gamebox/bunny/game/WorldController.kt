@@ -81,10 +81,10 @@ class WorldController(val game: DirectedGame) : InputAdapter() {
 
     private fun initLevel() {
         score = 0
-        scoreVisual = score.toFloat()
+        scoreVisual = 0f
         goalReached = false
         level = Level(Constants.LEVEL_01)
-        cameraHelper!!.setTarget(level.bunnyHead)
+        cameraHelper.setTarget(level.bunnyHead)
         initPhysics()
         if (helpTouchWasVisible) showHelpTouch(true)
         if (helpTiltWasVisible) showHelpTilt(true)
@@ -124,14 +124,14 @@ class WorldController(val game: DirectedGame) : InputAdapter() {
         level.update(deltaTime)
         testCollisions()
         b2world!!.step(deltaTime, 8, 3)
-        cameraHelper!!.update(deltaTime)
+        cameraHelper.update(deltaTime)
         if (!isGameOver() && isPlayerInWater()) {
             AudioManager.play(Assets.sounds.liveLost)
             lives--
             if (isGameOver()) timeLeftGameOverDelay =
                 Constants.TIME_DELAY_GAME_OVER else initLevel()
         }
-        level.mountains.updateScrollPosition(cameraHelper!!.getPosition())
+        level.mountains.updateScrollPosition(cameraHelper.getPosition())
         if (livesVisual > lives) livesVisual =
             lives.toFloat().coerceAtLeast(livesVisual - 1 * deltaTime)
         if (scoreVisual < score) scoreVisual =
@@ -146,7 +146,7 @@ class WorldController(val game: DirectedGame) : InputAdapter() {
         return lives < 0
     }
 
-    fun isPlayerInWater(): Boolean {
+    private fun isPlayerInWater(): Boolean {
         return level.bunnyHead!!.position.y < -5
     }
 
@@ -262,7 +262,7 @@ class WorldController(val game: DirectedGame) : InputAdapter() {
 
     private fun handleDebugInput(deltaTime: Float) {
         if (Gdx.app.type != ApplicationType.Desktop) return
-        if (!cameraHelper!!.hasTarget(level.bunnyHead!!)) {
+        if (!cameraHelper.hasTarget(level.bunnyHead!!)) {
             // Camera Controls (move)
             var camMoveSpeed = 5 * deltaTime
             val camMoveSpeedAccelerationFactor = 5f
@@ -271,20 +271,20 @@ class WorldController(val game: DirectedGame) : InputAdapter() {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) moveCamera(camMoveSpeed, 0f)
             if (Gdx.input.isKeyPressed(Input.Keys.UP)) moveCamera(0f, camMoveSpeed)
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) moveCamera(0f, -camMoveSpeed)
-            if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) cameraHelper!!.setPosition(0f, 0f)
+            if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) cameraHelper.setPosition(0f, 0f)
         }
 
         // Camera Controls (zoom)
         var camZoomSpeed = 1 * deltaTime
         val camZoomSpeedAccelerationFactor = 5f
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) camZoomSpeed *= camZoomSpeedAccelerationFactor
-        if (Gdx.input.isKeyPressed(Input.Keys.COMMA)) cameraHelper!!.addZoom(camZoomSpeed)
-        if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) cameraHelper!!.addZoom(-camZoomSpeed)
-        if (Gdx.input.isKeyPressed(Input.Keys.SLASH)) cameraHelper!!.setZoom(1f)
+        if (Gdx.input.isKeyPressed(Input.Keys.COMMA)) cameraHelper.addZoom(camZoomSpeed)
+        if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) cameraHelper.addZoom(-camZoomSpeed)
+        if (Gdx.input.isKeyPressed(Input.Keys.SLASH)) cameraHelper.setZoom(1f)
     }
 
     private fun handleInputGame(deltaTime: Float) {
-        if (cameraHelper!!.hasTarget(level.bunnyHead!!)) {
+        if (cameraHelper.hasTarget(level.bunnyHead!!)) {
             // Player Movement
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 level.bunnyHead!!.velocity.x = -level.bunnyHead!!.terminalVelocity.x
@@ -298,7 +298,7 @@ class WorldController(val game: DirectedGame) : InputAdapter() {
                     var amount = Gdx.input.accelerometerY / 10.0f
                     amount *= 90.0f
                     // is angle of rotation inside dead zone?
-                    if (Math.abs(amount) < Constants.ACCEL_ANGLE_DEAD_ZONE) {
+                    if (abs(amount) < Constants.ACCEL_ANGLE_DEAD_ZONE) {
                         amount = 0f
                     } else {
                         // use the defined max angle of rotation instead of
@@ -312,18 +312,20 @@ class WorldController(val game: DirectedGame) : InputAdapter() {
             }
 
             // Bunny Jump
-            if (Gdx.input.isTouched || Gdx.input.isKeyPressed(Input.Keys.SPACE)) level.bunnyHead!!.setJumping(
-                true
-            ) else level.bunnyHead!!.setJumping(false)
+            if (Gdx.input.isTouched || Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+                level.bunnyHead!!.setJumping(true)
+            } else {
+                level.bunnyHead!!.setJumping(false)
+            }
         }
     }
 
     private fun moveCamera(x: Float, y: Float) {
         var x = x
         var y = y
-        x += cameraHelper!!.getPosition().x
-        y += cameraHelper!!.getPosition().y
-        cameraHelper!!.setPosition(x, y)
+        x += cameraHelper.getPosition().x
+        y += cameraHelper.getPosition().y
+        cameraHelper.setPosition(x, y)
     }
 
     override fun keyUp(keycode: Int): Boolean {
@@ -331,11 +333,11 @@ class WorldController(val game: DirectedGame) : InputAdapter() {
         when (keycode) {
             Input.Keys.R -> {
                 restart()
-                GameLogger.debug("Game world resetted")
+                GameLogger.debug("Game world reset")
             }
             Input.Keys.ENTER -> {
-                cameraHelper!!.setTarget(if (cameraHelper!!.hasTarget()) null else level.bunnyHead)
-                GameLogger.debug("Camera follow enabled: " + cameraHelper!!.hasTarget())
+                cameraHelper.setTarget(if (cameraHelper.hasTarget()) null else level.bunnyHead)
+                GameLogger.debug("Camera follow enabled: " + cameraHelper.hasTarget())
             }
             Input.Keys.ESCAPE, Input.Keys.BACK -> {
                 backToMenu()

@@ -49,7 +49,8 @@ class GameScreen(game: DirectedGame) : AbstractGameScreen(game) {
     }
 
     override fun hide() {
-        worldRenderer!!.dispose()
+        worldController?.dispose()
+        worldRenderer?.dispose()
         Gdx.input.setCatchKey(Input.Keys.BACK, false)
     }
 
