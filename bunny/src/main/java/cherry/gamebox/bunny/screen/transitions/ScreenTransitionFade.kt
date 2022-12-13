@@ -1,10 +1,9 @@
 package cherry.gamebox.bunny.screen.transitions
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Interpolation
-import javax.microedition.khronos.opengles.GL10
+import com.badlogic.gdx.utils.ScreenUtils
 
 object ScreenTransitionFade : ScreenTransition {
 
@@ -30,8 +29,7 @@ object ScreenTransitionFade : ScreenTransition {
         val h = currScreen.height.toFloat()
         val newAlpha = Interpolation.fade.apply(alpha)
 
-        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
+        ScreenUtils.clear(0.0f, 0.0f, 0.0f, 1.0f)
         batch.begin()
         batch.setColor(1f, 1f, 1f, 1f)
         batch.draw(

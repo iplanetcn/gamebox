@@ -2,6 +2,7 @@ package cherry.gamebox.solitaire.screen
 
 import cherry.gamebox.solitaire.SolitaireGame
 import cherry.gamebox.solitaire.model.Deck
+import cherry.gamebox.solitaire.model.Stack
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -14,20 +15,13 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
  */
 class GameScreen(game: SolitaireGame) : BaseScreen(game) {
     private val deck: Deck = Deck()
+    private val stack: Stack = Stack()
 
     init {
-        var i = 0
-        deck.cards.forEach { card ->
-            // horizontal
-//            card.setPosition((card.rank.value) * CARD_WIDTH + CARD_HORIZONTAL_OFFSET * card.rank.value - CARD_WIDTH * 0.5f , SCREEN_HEIGHT -  CARD_HEIGHT)
-            // vertical
-            card.setPosition(CARD_HORIZONTAL_OFFSET + CARD_WIDTH , SCREEN_HEIGHT - CARD_HEIGHT -  CARD_HEIGHT / 3 * card.rank.value)
-            if (i == 51) {
-                card.turn()
-            }
-            stage.addActor(card.image)
-            i++
-        }
+        stack.addCards(deck.shuffle())
+        stack.position = Vector2(CARD_HORIZONTAL_OFFSET, SCREEN_HEIGHT - CARD_HEIGHT - CARD_HORIZONTAL_OFFSET)
+        stack.display(stage)
+
     }
 
     override fun draw(delta: Float) {
@@ -40,20 +34,32 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
 
     override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
         val pos = convert(x, y)
-        deck.cards.forEach { card ->
-            card.turn()
-            card.image.addAction(
-                Actions.parallel(
-                    Actions.rotateBy(360f, 0.6f),
-                    Actions.moveTo(pos.x, pos.y, 0.6f)
-                )
-            )
+        for (card in stack.cardList.reversed()) {
+            val cardBounds = card.getBounds()
+            cardBounds.setPosition(stack.position)
+            if (cardBounds.contains(pos)) {
+                if (card.isFaceUp) {
+                    card.runAction(Actions.sequence(
+                        Actions.moveBy(CARD_HORIZONTAL_OFFSET + CARD_WIDTH, 0f, 0.2f),
+                        Actions.run {
+                            if (stack.cardList.isNotEmpty()) stack.cardList.removeLast()
+                        }
+                    ))
+
+                } else {
+                    card.flip()
+                }
+                break
+            }
         }
         return false
     }
 
-    override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+    override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
+        return false
+    }
 
+    override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         return false
     }
 

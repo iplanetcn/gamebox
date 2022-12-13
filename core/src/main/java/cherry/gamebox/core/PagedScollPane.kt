@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 
 
 /**
- * PagedScollPane
+ * PagedScrollPane
  *
  * @author john
  * @since 2022-01-10

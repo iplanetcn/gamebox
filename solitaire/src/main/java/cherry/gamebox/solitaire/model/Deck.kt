@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite
  * @since 2021-12-09
  */
 class Deck {
-    val cards: MutableList<Card> = ArrayList()
+    val allCards: MutableList<Card> = ArrayList()
 
     init {
         val back = Assets.cards.backs[0]
@@ -24,12 +24,13 @@ class Deck {
                 }
 
                 val card = Card(rank, suit, front, back)
-                cards.add(card)
+                allCards.add(card)
             }
         }
     }
 
-    fun shuffle() {
-        cards.shuffle()
+    fun shuffle(): MutableList<Card> {
+        allCards.shuffle()
+        return allCards
     }
 }
