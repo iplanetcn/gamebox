@@ -34,10 +34,10 @@ appid.tzfe = prefix.concat("tzfe")
 ext.appid = appid
 
 def libgdx = [:]
-libgdx.gdxVersion = '1.11.0'
+libgdx.gdxVersion = '1.12.0'
 libgdx.roboVMVersion = '2.3.12'
 libgdx.box2DLightsVersion = '1.5'
 libgdx.ashleyVersion = '1.7.4'
 libgdx.aiVersion = '1.8.2'
-libgdx.gdxControllersVersion = '2.2.2'
+libgdx.gdxControllersVersion = '2.2.3'
 ext.libgdx=libgdx
