@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk app.compileSdk
+    compileSdk app.compile_sdk
 
     defaultConfig {
         applicationId "cherry.gamebox.googleads"
-        minSdk app.minSdk
-        targetSdk app.targetSdk
+        minSdk app.min_sdk
+        targetSdk app.target_sdk
         versionCode 1
         versionName "1.0"
 

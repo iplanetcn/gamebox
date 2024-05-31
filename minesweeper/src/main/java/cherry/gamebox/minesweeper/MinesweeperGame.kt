@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 
 /**
- * Solitaire
+ * MinesweeperGame
  *
  * @author john
  * @since 2021-12-09

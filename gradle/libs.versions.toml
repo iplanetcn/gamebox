@@ -4,7 +4,6 @@ junit = "1.1.5"
 espressoCoreVersion = "3.5.1"
 kotlin = "2.0.0"
 junit4 = "4.13.2"
-timber = "5.0.1"
 gdx = "1.12.1"
 box2DLights = "1.5"
 ashley = "1.7.4"
@@ -27,7 +26,6 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "
 junit4 = { module = "junit:junit", version.ref = "junit4" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
-timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 [bundles]
 libgdx = [
@@ -48,7 +46,4 @@ libgdx = [
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
