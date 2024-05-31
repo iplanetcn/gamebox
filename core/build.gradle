@@ -1,6 +1,6 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
+    alias libs.plugins.android.application
+    alias libs.plugins.kotlin.android
 }
 
 android {
@@ -29,17 +29,6 @@ android {
 
 dependencies {
     // kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-    api "com.badlogicgames.gdx:gdx-box2d:$libgdx.gdxVersion"
-    api "com.badlogicgames.gdx:gdx-bullet:$libgdx.gdxVersion"
-    api "com.badlogicgames.gdx:gdx-freetype:$libgdx.gdxVersion"
-    api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$libgdx.gdxControllersVersion"
-    api "com.badlogicgames.gdx-controllers:gdx-controllers-android:$libgdx.gdxControllersVersion"
-    api "com.badlogicgames.box2dlights:box2dlights:$libgdx.box2DLightsVersion"
-    api "com.badlogicgames.ashley:ashley:$libgdx.ashleyVersion"
-    api "com.badlogicgames.gdx:gdx-ai:$libgdx.aiVersion"
-    api "com.badlogicgames.gdx:gdx-backend-lwjgl:$libgdx.gdxVersion"
-    api "com.badlogicgames.gdx:gdx-backend-android:$libgdx.gdxVersion"
-    api "com.badlogicgames.gdx:gdx-tools:$libgdx.gdxVersion"
+    api libs.bundles.libgdx
+    api libs.kotlin.stdlib
 }

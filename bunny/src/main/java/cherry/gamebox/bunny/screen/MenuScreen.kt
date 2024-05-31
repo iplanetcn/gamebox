@@ -19,9 +19,30 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.Touchable
-import com.badlogic.gdx.scenes.scene2d.actions.Actions.*
-import com.badlogic.gdx.scenes.scene2d.ui.*
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.delay
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.forever
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateBy
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.rotateTo
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.run
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.touchable
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.Slider
+import com.badlogic.gdx.scenes.scene2d.ui.Stack
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.ui.Window
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.viewport.StretchViewport
@@ -243,13 +264,13 @@ class MenuScreen(game: DirectedGame) : AbstractGameScreen(game) {
         selCharSkin = SelectBox(skinLibgdx)
         if (Gdx.app.type == Application.ApplicationType.WebGL) {
             val items = com.badlogic.gdx.utils.Array<CharacterSkin>()
-            val arr = CharacterSkin.values()
+            val arr = CharacterSkin.entries.toTypedArray()
             for (i in arr.indices) {
                 items[i] = (arr[i])
             }
             selCharSkin.items = items
         } else {
-            selCharSkin.setItems(*CharacterSkin.values())
+            selCharSkin.setItems(*CharacterSkin.entries.toTypedArray())
         }
         selCharSkin.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor) {

@@ -1,0 +1,54 @@
+[versions]
+androidGradlePlugin = "8.2.2"
+junit = "1.1.5"
+espressoCoreVersion = "3.5.1"
+kotlin = "2.0.0"
+junit4 = "4.13.2"
+timber = "5.0.1"
+gdx = "1.12.1"
+box2DLights = "1.5"
+ashley = "1.7.4"
+ai = "1.8.2"
+gdxControllers = "2.2.3"
+
+[libraries]
+libgdx-box2d = { module = "com.badlogicgames.gdx:gdx-box2d", version.ref = "gdx" }
+libgdx-bullet = { module = "com.badlogicgames.gdx:gdx-bullet", version.ref = "gdx" }
+libgdx-freetype = { module = "com.badlogicgames.gdx:gdx-freetype", version.ref = "gdx" }
+libgdx-controllers-core = { module = "com.badlogicgames.gdx-controllers:gdx-controllers-core", version.ref = "gdxControllers" }
+libgdx-controllers-android = { module = "com.badlogicgames.gdx-controllers:gdx-controllers-android", version.ref = "gdxControllers" }
+libgdx-box2dlights = { module = "com.badlogicgames.box2dlights:box2dlights", version.ref = "box2DLights" }
+libgdx-ashley = { module = "com.badlogicgames.ashley:ashley", version.ref = "ashley" }
+libgdx-ai = { module = "com.badlogicgames.gdx:gdx-ai", version.ref = "ai" }
+libgdx-backend-lwjgl = { module = "com.badlogicgames.gdx:gdx-backend-lwjgl", version.ref = "gdx" }
+libgdx-backend-android = { module = "com.badlogicgames.gdx:gdx-backend-android", version.ref = "gdx" }
+libgdx-tools = { module = "com.badlogicgames.gdx:gdx-tools", version.ref = "gdx" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+junit4 = { module = "junit:junit", version.ref = "junit4" }
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+[bundles]
+libgdx = [
+    "libgdx-box2d",
+    "libgdx-bullet",
+    "libgdx-freetype",
+    "libgdx-controllers-core",
+    "libgdx-controllers-android",
+    "libgdx-box2dlights",
+    "libgdx-ashley",
+    "libgdx-ai",
+    "libgdx-backend-lwjgl",
+    "libgdx-backend-android",
+    "libgdx-tools",
+]
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
