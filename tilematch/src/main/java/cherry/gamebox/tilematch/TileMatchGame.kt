@@ -15,11 +15,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 const val SCREEN_WIDTH = 480f
 const val SCREEN_HEIGHT = 720f
 
-class TileMatchGame : Game() {
+class TileMatchGame(val aoi: AndroidInterfaces) : Game() {
     lateinit var batch: SpriteBatch
     lateinit var camera: OrthographicCamera
-    lateinit var shapeRenderer: ShapeRenderer
-    var paused: Boolean = false
+    private lateinit var shapeRenderer: ShapeRenderer
+    private var paused: Boolean = false
 
     override fun create() {
         GameLogger.log("create()")
