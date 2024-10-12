@@ -38,7 +38,7 @@ object Constant {
         const val GAME_SCORE_BG_BEST = "game_score_bg_best"
         const val GAME_SCORE_BG_NOW = "game_score_bg_now"
         const val DIALOG_BTN_OK = "dialog_btn_ok"
-        const val DIALOG_BTN_cancel = "dialog_btn_cancel"
+        const val DIALOG_BTN_CANCEL = "dialog_btn_cancel"
         const val BTN_BACK = "btn_back"
         const val BTN_AGAIN = "btn_again"
     }

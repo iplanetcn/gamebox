@@ -71,10 +71,10 @@ class DialogGroup(game: TzfeGame, message: String) : BaseGroup(game) {
          */
         val cancelBtnStyle: Button.ButtonStyle = ImageTextButtonStyle()
         cancelBtnStyle.up = TextureRegionDrawable(
-            game.atlas.findRegion(Constant.AtlasNames.DIALOG_BTN_cancel, 1)
+            game.atlas.findRegion(Constant.AtlasNames.DIALOG_BTN_CANCEL, 1)
         )
         cancelBtnStyle.down = TextureRegionDrawable(
-            game.atlas.findRegion(Constant.AtlasNames.DIALOG_BTN_cancel, 2)
+            game.atlas.findRegion(Constant.AtlasNames.DIALOG_BTN_CANCEL, 2)
         )
         cancelButton = Button(cancelBtnStyle)
         cancelButton.setPosition(10f, 10f)

@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 
 
 /**
- * TzfeGame
+ * TzfeGame(2048)
  *
  * @author john
  * @since 2022-09-21
