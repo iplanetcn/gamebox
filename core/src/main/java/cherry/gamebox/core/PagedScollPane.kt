@@ -62,10 +62,6 @@ class PagedScrollPane : ScrollPane {
         }
     }
 
-    override fun setWidget(widget: Actor?) {
-        throw UnsupportedOperationException("Use PagedScrollPane#addPage.")
-    }
-
     override fun setWidth(width: Float) {
         super.setWidth(width)
         for (cell in content.cells) {

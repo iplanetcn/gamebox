@@ -3,13 +3,13 @@ package cherry.gamebox.tilematch
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
-import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.Queue
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 
@@ -20,9 +20,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport
  * @since 2022-09-19
  */
 class GameScreen(private val game: TileMatchGame) : ScreenAdapter() {
-    private var stage: Stage = Stage(FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT))
-    private var heap: MutableList<Tile> = mutableListOf()
-    private var stack: MutableList<Tile> = mutableListOf()
+    private val stage: Stage = Stage(FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT))
+    private val heap: MutableList<Tile> = mutableListOf()
+    private val stack: MutableList<Tile> = mutableListOf()
+    private val queue: Queue<Tile> = Queue<Tile>()
     private val group = Group()
 
     init {
@@ -72,19 +73,28 @@ class GameScreen(private val game: TileMatchGame) : ScreenAdapter() {
             tile.setPosition(i * 60f, j * 60f)
             tile.addListener(object : ClickListener() {
                 override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                    val actor = event?.listenerActor
-                    actor?.addAction(
-                        Actions.sequence(
-                            Actions.parallel(
-                                Actions.rotateTo(360f, 0.5f, Interpolation.bounceOut),
-                                Actions.moveTo(group.x + stack.size * 60f, 100 - group.y, 0.5f),
-                            ),
-                            Actions.delay(0.2f),
-                            Actions.run { checkMatches() }
+                    val tile = event?.listenerActor
+                    (tile as? Tile)?.apply {
+                        if (tile.isClicked) {
+                            return
+                        }
+                        tile.isClicked = true
+                        tile.addAction(
+                            Actions.sequence(
+                                Actions.parallel(
+//                                    Actions.rotateTo(360f, 0.5f, Interpolation.bounceOut),
+                                    Actions.moveTo(group.x + (stack.size + queue.size) * 60f, 100 - group.y, 0.3f),
+                                ),
+                                Actions.delay(0.2f),
+                                Actions.run {
+                                    stack.add(queue.removeLast())
+                                    checkMatches()
+                                }
+                            )
                         )
-                    )
-                    heap.remove(actor)
-                    stack.add(actor as Tile)
+                        heap.remove(tile)
+                        queue.addFirst(tile)
+                    }
                 }
             })
             group.addActor(tile)
@@ -95,6 +105,7 @@ class GameScreen(private val game: TileMatchGame) : ScreenAdapter() {
     }
 
     fun checkMatches() {
+        rangeStack()
         if (stack.size < 3) {
             return
         }
@@ -114,11 +125,21 @@ class GameScreen(private val game: TileMatchGame) : ScreenAdapter() {
             first.addAction(Actions.removeActor())
             second.addAction(Actions.removeActor())
             third.addAction(Actions.removeActor())
+
+            rangeStack()
         }
 
         if (stack.size == 8) {
             game.aoi.toast("Game Over!")
             return
+        }
+    }
+
+    fun rangeStack() {
+        for ((index, tile) in stack.withIndex()) {
+            if (tile.x != group.x + index * 60f) {
+                tile.addAction(Actions.moveTo(group.x + index * 60f, 100 - group.y, 0.2f))
+            }
         }
     }
 }
