@@ -3,20 +3,10 @@ package cherry.gamebox.gamepad
 import cherry.gamebox.core.Assets
 import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.Game
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.StretchViewport
-
-/**
- * TileMatchGame
- *
- * @author john
- * @since 2022-09-19
- */
-val SCREEN_WIDTH = Gdx.graphics.width.toFloat()
-val SCREEN_HEIGHT = Gdx.graphics.height.toFloat()
 
 class GamepadGame : Game() {
     lateinit var batch: SpriteBatch

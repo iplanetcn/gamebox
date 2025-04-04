@@ -7,9 +7,9 @@ def version_code = (major * 100 + minor) * 100 + patch
 def version_name = "${major}.${minor}.${patch}"
 
 def app = [:]
-app.compile_sdk = 34
+app.compile_sdk = 35
 app.min_sdk = 24
-app.target_sdk = 34
+app.target_sdk = 35
 app.version_code = version_code
 app.version_name = version_name
 ext.app = app
