@@ -1,14 +1,15 @@
 [versions]
-androidGradlePlugin = "8.9.2"
+androidGradlePlugin = "8.10.0"
 junit = "1.2.1"
 espressoCoreVersion = "3.6.1"
-kotlin = "2.1.20"
+kotlin = "2.1.21"
 junit4 = "4.13.2"
 gdx = "1.13.1"
 box2DLights = "1.5"
 ashley = "1.7.4"
 ai = "1.8.2"
 gdxControllers = "2.2.3"
+annotation = "1.9.1"
 
 [libraries]
 libgdx-box2d = { module = "com.badlogicgames.gdx:gdx-box2d", version.ref = "gdx" }
@@ -26,6 +27,7 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "
 junit4 = { module = "junit:junit", version.ref = "junit4" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation-jvm", version.ref = "annotation" }
 
 [bundles]
 libgdx = [

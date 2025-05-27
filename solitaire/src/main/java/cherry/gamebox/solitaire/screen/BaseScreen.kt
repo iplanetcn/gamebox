@@ -2,6 +2,8 @@ package cherry.gamebox.solitaire.screen
 
 import cherry.gamebox.core.Assets
 import cherry.gamebox.solitaire.SolitaireGame
+import cherry.gamebox.solitaire.config.SCREEN_HEIGHT
+import cherry.gamebox.solitaire.config.SCREEN_WIDTH
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.InputMultiplexer
@@ -25,11 +27,8 @@ import kotlin.math.abs
  * @author john
  * @since 2021-11-19
  */
-const val SCREEN_WIDTH = 1080f
-const val SCREEN_HEIGHT = 1920f
-const val CARD_WIDTH = SCREEN_WIDTH / 8f
-const val CARD_HEIGHT = CARD_WIDTH * 1122f / 822f
-const val CARD_HORIZONTAL_OFFSET = SCREEN_WIDTH / 64f
+
+var notchHeight = 0f
 
 abstract class BaseScreen(val game: SolitaireGame) : InputAdapter(), Screen,
     GestureDetector.GestureListener {

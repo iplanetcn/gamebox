@@ -1,6 +1,11 @@
 package cherry.gamebox.solitaire.screen
 
 import cherry.gamebox.solitaire.SolitaireGame
+import cherry.gamebox.solitaire.config.CARD_HEIGHT
+import cherry.gamebox.solitaire.config.CARD_HORIZONTAL_OFFSET
+import cherry.gamebox.solitaire.config.CARD_WIDTH
+import cherry.gamebox.solitaire.config.SCREEN_HEIGHT
+import cherry.gamebox.solitaire.config.SCREEN_WIDTH
 import cherry.gamebox.solitaire.model.Deck
 import cherry.gamebox.solitaire.model.Stack
 import com.badlogic.gdx.math.Vector2
@@ -19,9 +24,8 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
 
     init {
         stack.addCards(deck.shuffle())
-        stack.position = Vector2(CARD_HORIZONTAL_OFFSET, SCREEN_HEIGHT - CARD_HEIGHT - CARD_HORIZONTAL_OFFSET)
+        stack.position = Vector2(SCREEN_WIDTH - CARD_WIDTH - CARD_HORIZONTAL_OFFSET, SCREEN_HEIGHT - CARD_HEIGHT - CARD_HORIZONTAL_OFFSET - notchHeight)
         stack.display(stage)
-
     }
 
     override fun draw(delta: Float) {
@@ -34,18 +38,17 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
 
     override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
         val pos = convert(x, y)
-        for (card in stack.cardList.reversed()) {
+        for (card in stack.cardList) {
             val cardBounds = card.getBounds()
             cardBounds.setPosition(stack.position)
-            if (cardBounds.contains(pos)) {
+            if (cardBounds.contains(pos) && !card.hasActions()) {
                 if (card.isFaceUp) {
-                    card.runAction(Actions.sequence(
-                        Actions.moveBy(CARD_HORIZONTAL_OFFSET + CARD_WIDTH, 0f, 0.2f),
+                    card.addAction(Actions.sequence(
+                        Actions.moveBy(-CARD_HORIZONTAL_OFFSET - CARD_WIDTH, 0f, 0.2f),
                         Actions.run {
-                            if (stack.cardList.isNotEmpty()) stack.cardList.removeLast()
+                            stack.cardList.removeLastOrNull()
                         }
                     ))
-
                 } else {
                     card.flip()
                 }

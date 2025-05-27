@@ -19,6 +19,9 @@ abstract class Pile(
     abstract fun display(stage: Stage)
 
     fun addCards(cards: MutableList<Card>) {
+        for ((index, card) in cards.withIndex()) {
+            card.zIndex = index + 100
+        }
         cardList.addAll(cards)
     }
 

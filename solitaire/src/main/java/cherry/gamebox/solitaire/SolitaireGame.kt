@@ -2,8 +2,8 @@ package cherry.gamebox.solitaire
 
 import cherry.gamebox.core.Assets
 import cherry.gamebox.solitaire.screen.GameScreen
-import cherry.gamebox.solitaire.screen.SCREEN_HEIGHT
-import cherry.gamebox.solitaire.screen.SCREEN_WIDTH
+import cherry.gamebox.solitaire.config.SCREEN_HEIGHT
+import cherry.gamebox.solitaire.config.SCREEN_WIDTH
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -20,9 +20,7 @@ class SolitaireGame : Game() {
     lateinit var stage: Stage
 
     override fun create() {
-        stage = Stage(
-            StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT)
-        )
+        stage = Stage(StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT))
 
         Assets.load()
         batch = SpriteBatch()

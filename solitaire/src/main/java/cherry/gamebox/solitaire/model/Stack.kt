@@ -13,7 +13,7 @@ class Stack : Pile() {
     override fun display(stage: Stage) {
         val group = Group()
         for (card in cardList) {
-            group.addActor(card.image)
+            group.addActor(card)
         }
 
         group.setPosition(position.x, position.y)

@@ -2,6 +2,8 @@ package cherry.gamebox.solitaire.screen
 
 import cherry.gamebox.core.Assets
 import cherry.gamebox.solitaire.SolitaireGame
+import cherry.gamebox.solitaire.config.SCREEN_HEIGHT
+import cherry.gamebox.solitaire.config.SCREEN_WIDTH
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Label
