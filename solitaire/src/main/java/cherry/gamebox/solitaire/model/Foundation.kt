@@ -6,6 +6,6 @@ package cherry.gamebox.solitaire.model
  * @author john
  * @since 2022-12-11
  */
-class Foundation {
+class Foundation: Pile() {
 
 }

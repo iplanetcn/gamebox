@@ -55,6 +55,9 @@ class Card(
     }
 
     fun getBounds(): Rectangle {
+        if (parent != null && parent is Pile) {
+            return Rectangle(x + parent.x, y + parent.y, width, height)
+        }
         return Rectangle(x, y, width, height)
     }
 

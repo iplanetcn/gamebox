@@ -1,8 +1,8 @@
 package cherry.gamebox.solitaire.model
 
-import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
-import java.util.*
+import java.util.UUID
 
 /**
  * Card
@@ -12,17 +12,14 @@ import java.util.*
  */
 abstract class Pile(
     var id: UUID = UUID.randomUUID(),
-    var position: Vector2 = Vector2.Zero,
     val cardList: MutableList<Card> = mutableListOf()
-) {
-
-    abstract fun display(stage: Stage)
-
+): Group() {
     fun addCards(cards: MutableList<Card>) {
         for ((index, card) in cards.withIndex()) {
             card.zIndex = index + 100
+            addActor(card)
+            cardList.add(card)
         }
-        cardList.addAll(cards)
     }
 
     fun addCards(vararg cards: Card) {
@@ -35,9 +32,13 @@ abstract class Pile(
 
     fun removeCards(vararg cards: Card) {
         cardList.removeAll(cards.toSet())
+        for (card in cards) {
+            removeActor(card)
+        }
     }
 
-    fun clear() {
+    override fun clear() {
+        super.clear()
         cardList.clear()
     }
 }

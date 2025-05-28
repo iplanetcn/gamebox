@@ -21,7 +21,6 @@ class SolitaireGame : Game() {
 
     override fun create() {
         stage = Stage(StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT))
-
         Assets.load()
         batch = SpriteBatch()
         setScreen(GameScreen(this))

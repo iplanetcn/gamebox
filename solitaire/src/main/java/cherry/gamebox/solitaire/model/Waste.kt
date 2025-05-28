@@ -9,8 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage
  * @since 2022-12-11
  */
 class Waste : Pile() {
-    override fun display(stage: Stage) {
 
-    }
 
 }
