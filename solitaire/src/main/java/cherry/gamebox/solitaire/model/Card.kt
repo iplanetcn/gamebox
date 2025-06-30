@@ -4,6 +4,7 @@ import cherry.gamebox.solitaire.config.CARD_HEIGHT
 import cherry.gamebox.solitaire.config.CARD_WIDTH
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Rectangle
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
@@ -55,10 +56,8 @@ class Card(
     }
 
     fun getBounds(): Rectangle {
-        if (parent != null && parent is Pile) {
-            return Rectangle(x + parent.x, y + parent.y, width, height)
-        }
-        return Rectangle(x, y, width, height)
+        val localToStageCoordinates = localToStageCoordinates(Vector2(x, y))
+        return Rectangle(localToStageCoordinates.x, localToStageCoordinates.y, width, height)
     }
 
     override fun toString() = "Card(rank=$rank, suit=$suit)"

@@ -1,14 +1,14 @@
 [versions]
-androidGradlePlugin = "8.10.0"
+androidGradlePlugin = "8.10.1"
 junit = "1.2.1"
 espressoCoreVersion = "3.6.1"
-kotlin = "2.1.21"
+kotlin = "2.2.0"
 junit4 = "4.13.2"
-gdx = "1.13.1"
+gdx = "1.13.5"
 box2DLights = "1.5"
 ashley = "1.7.4"
 ai = "1.8.2"
-gdxControllers = "2.2.3"
+gdxControllers = "2.2.4"
 annotation = "1.9.1"
 
 [libraries]

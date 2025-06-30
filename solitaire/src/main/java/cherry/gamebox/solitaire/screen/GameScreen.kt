@@ -1,5 +1,7 @@
 package cherry.gamebox.solitaire.screen
 
+import android.R.attr.x
+import android.R.attr.y
 import android.util.Log.w
 import cherry.gamebox.core.GameLogger
 import cherry.gamebox.solitaire.SolitaireGame
@@ -12,8 +14,11 @@ import cherry.gamebox.solitaire.config.SCREEN_WIDTH
 import cherry.gamebox.solitaire.model.Deck
 import cherry.gamebox.solitaire.model.Stock
 import cherry.gamebox.solitaire.model.Waste
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.math.Interpolation.ElasticIn
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -29,6 +34,7 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
     private val deck: Deck = Deck()
     private val stock: Stock = Stock()
     private val waste: Waste = Waste()
+    private var cardBounds: Rectangle? = null
 
     init {
         stock.addCards(deck.shuffle())
@@ -42,7 +48,12 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
     }
 
     override fun draw(delta: Float) {
-
+        cardBounds?.apply {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
+            shapeRenderer.color = Color.GREEN
+            shapeRenderer.rect(x, y, width, height)
+            shapeRenderer.end()
+        }
     }
 
     override fun update(delta: Float) {
@@ -53,8 +64,8 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
         val pos = convert(x, y)
         for ((index, card) in stock.cardList.reversed().withIndex()) {
             GameLogger.log("index: $index, card: $card")
-            val cardBounds = card.getBounds()
-            if (cardBounds.contains(pos) && !card.hasActions()) {
+            cardBounds = card.getBounds()
+            if (cardBounds?.contains(pos) == true && !card.hasActions()) {
                 if (card.isFaceUp) {
                     card.addAction(Actions.sequence(
                         Actions.moveTo(waste.x - stock.x, waste.y - stock.y, 0.2f)
@@ -62,7 +73,10 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
                 } else {
                     card.addAction(Actions.parallel(
                         Actions.moveTo(waste.x - stock.x, waste.y - stock.y, 0.4f),
-                        Actions.run { card.flip() }
+                        Actions.run {
+                            card.flip()
+                            card.zIndex = 200 - card.zIndex
+                        }
                     ))
 
                 }
@@ -77,6 +91,7 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
     }
 
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+        cardBounds = null
         return false
     }
 
