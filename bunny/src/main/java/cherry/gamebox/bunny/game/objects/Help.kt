@@ -36,7 +36,7 @@ class Help : AbstractGameObject() {
     override fun update(deltaTime: Float) {
         super.update(deltaTime)
         if (timeMoveLeft > 0) {
-            timeMoveLeft = Math.max(0f, timeMoveLeft - deltaTime)
+            timeMoveLeft = 0f.coerceAtLeast(timeMoveLeft - deltaTime)
             val alpha = 1 - timeMoveLeft / moveTime
             position.x = moveSrc.x + moveDst.x * moveEasing!!.apply(alpha)
             position.y = moveSrc.y + moveDst.y * moveEasing!!.apply(alpha)
@@ -55,25 +55,28 @@ class Help : AbstractGameObject() {
     }
 
     override fun render(batch: SpriteBatch) {
-        val reg: TextureRegion? = animation?.getKeyFrame(stateTime, true)
-        batch.draw(
-            reg!!.texture,
-            position.x,
-            position.y,
-            origin.x,
-            origin.y,
-            dimension.x,
-            dimension.y,
-            scale.x,
-            scale.y,
-            rotation,
-            reg.regionX,
-            reg.regionY,
-            reg.regionWidth,
-            reg.regionHeight,
-            false,
-            false
-        )
+        animation?.apply {
+            val reg: TextureRegion = this.getKeyFrame(stateTime, true)
+            batch.draw(
+                reg.texture,
+                position.x,
+                position.y,
+                origin.x,
+                origin.y,
+                dimension.x,
+                dimension.y,
+                scale.x,
+                scale.y,
+                rotation,
+                reg.regionX,
+                reg.regionY,
+                reg.regionWidth,
+                reg.regionHeight,
+                false,
+                false
+            )
+        }
+
     }
 
     fun moveBy(

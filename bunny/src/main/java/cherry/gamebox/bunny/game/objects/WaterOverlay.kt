@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 
 
-class WaterOverlay(private val length: Float) : AbstractGameObject() {
-    private var regWaterOverlay: TextureRegion? = null
+class WaterOverlay(length: Float) : AbstractGameObject() {
+    private var regWaterOverlay: TextureRegion
 
     init {
         dimension[length * 10] = 3f
@@ -15,10 +15,8 @@ class WaterOverlay(private val length: Float) : AbstractGameObject() {
     }
 
     override fun render(batch: SpriteBatch) {
-        var reg: TextureRegion? = null
-        reg = regWaterOverlay
         batch.draw(
-            reg!!.texture,
+            regWaterOverlay.texture,
             position.x + origin.x,
             position.y + origin.y,
             origin.x, origin.y,
@@ -27,10 +25,10 @@ class WaterOverlay(private val length: Float) : AbstractGameObject() {
             scale.x,
             scale.y,
             rotation,
-            reg.regionX,
-            reg.regionY,
-            reg.regionWidth,
-            reg.regionHeight,
+            regWaterOverlay.regionX,
+            regWaterOverlay.regionY,
+            regWaterOverlay.regionWidth,
+            regWaterOverlay.regionHeight,
             false,
             false
         )

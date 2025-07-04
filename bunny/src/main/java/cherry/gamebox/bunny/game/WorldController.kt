@@ -167,7 +167,7 @@ class WorldController(val game: DirectedGame) : InputAdapter() {
         }
 
         // Test collision: Bunny Head <-> Gold Coins
-        for (goldcoin in level.goldcoins) {
+        for (goldcoin in level.goldCoins) {
             if (goldcoin.collected) continue
             r2.set(
                 goldcoin.position.x,

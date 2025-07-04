@@ -4,15 +4,15 @@ import cherry.gamebox.bunny.game.Assets
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
-import com.badlogic.gdx.math.Matrix4.mul
 
+
+private const val FLOAT_CYCLE_TIME = 2.0f
+private const val FLOAT_AMPLITUDE = 0.25f
 class Rock(private var length : Int = 1): AbstractGameObject(){
 
     private var regEdge: TextureRegion
     private var regMiddle: TextureRegion
 
-    private val FLOAT_CYCLE_TIME = 2.0f
-    private val FLOAT_AMPLITUDE = 0.25f
     private var floatCycleTimeLeft = 0f
     private var floatingDownwards = false
 
@@ -78,9 +78,9 @@ class Rock(private var length : Int = 1): AbstractGameObject(){
         // Draw middle
         relX = 0f
         reg = regMiddle
-        for (i in 0 until length) {
+        repeat(length) {
             batch.draw(
-                reg!!.texture,
+                reg.texture,
                 position.x + relX,
                 position.y + relY,
                 origin.x,

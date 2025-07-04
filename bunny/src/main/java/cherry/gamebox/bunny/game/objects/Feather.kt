@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
  * @since 2022-09-21
  */
 class Feather : AbstractGameObject() {
-    private var regFeather: TextureRegion? = null
+    private var regFeather: TextureRegion
     var collected = false
 
     init {
@@ -26,9 +26,8 @@ class Feather : AbstractGameObject() {
 
     override fun render(batch: SpriteBatch) {
         if (collected) return
-        val reg: TextureRegion? = regFeather
         batch.draw(
-            reg!!.texture,
+            regFeather.texture,
             position.x,
             position.y,
             origin.x,
@@ -38,10 +37,10 @@ class Feather : AbstractGameObject() {
             scale.x,
             scale.y,
             rotation,
-            reg.regionX,
-            reg.regionY,
-            reg.regionWidth,
-            reg.regionHeight,
+            regFeather.regionX,
+            regFeather.regionY,
+            regFeather.regionWidth,
+            regFeather.regionHeight,
             false,
             false
         )

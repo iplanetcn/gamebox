@@ -14,21 +14,15 @@ import com.badlogic.gdx.utils.Array
  * @since 2021-11-19
  */
 class Level(filename: String) {
+    enum class BlockType(r: Int, g: Int, b: Int) {
+        Empty(0, 0, 0),  // black
+        Goal(255, 0, 0),  // red
+        Rock(0, 255, 0),  // green
+        PlayerSpawnPoint(255, 255, 255),  // white
+        ItemFeather(255, 0, 255),  // purple
+        ItemGoldCoin(255, 255, 0);
 
-    enum class BLOCK_TYPE(r: Int, g: Int, b: Int) {
-        EMPTY(0, 0, 0),  // black
-        GOAL(255, 0, 0),  // red
-        ROCK(0, 255, 0),  // green
-        PLAYER_SPAWN_POINT(255, 255, 255),  // white
-        ITEM_FEATHER(255, 0, 255),  // purple
-        ITEM_GOLD_COIN(255, 255, 0);
-
-        // yellow
-        val color: Int
-
-        init {
-            color = r shl 24 or (g shl 16) or (b shl 8) or 0xff
-        }
+        val color: Int = r shl 24 or (g shl 16) or (b shl 8) or 0xff
 
         fun sameColor(color: Int): Boolean {
             return this.color == color
@@ -40,7 +34,7 @@ class Level(filename: String) {
 
     // objects
     var rocks: Array<Rock>
-    var goldcoins: Array<GoldCoin>
+    var goldCoins: Array<GoldCoin>
     var feathers: Array<Feather>
     var carrots: Array<Carrot>
 
@@ -61,7 +55,7 @@ class Level(filename: String) {
 
         // objects
         rocks = Array()
-        goldcoins = Array()
+        goldCoins = Array()
         feathers = Array()
         carrots = Array()
 
@@ -82,9 +76,9 @@ class Level(filename: String) {
                 // a match
 
                 // empty space
-                if (BLOCK_TYPE.EMPTY.sameColor(currentPixel)) {
+                if (BlockType.Empty.sameColor(currentPixel)) {
                     // do nothing
-                } else if (BLOCK_TYPE.ROCK.sameColor(currentPixel)) {
+                } else if (BlockType.Rock.sameColor(currentPixel)) {
                     if (lastPixel != currentPixel) {
                         obj = Rock()
                         val heightIncreaseFactor = 0.25f
@@ -93,24 +87,24 @@ class Level(filename: String) {
                             baseHeight * obj.dimension.y * heightIncreaseFactor + offsetHeight
                         rocks.add(obj as Rock?)
                     } else {
-                        rocks!![rocks!!.size - 1].increaseLength(1)
+                        rocks[rocks.size - 1].increaseLength(1)
                     }
-                } else if (BLOCK_TYPE.PLAYER_SPAWN_POINT.sameColor(currentPixel)) {
+                } else if (BlockType.PlayerSpawnPoint.sameColor(currentPixel)) {
                     obj = BunnyHead()
                     offsetHeight = -3.0f
                     obj.position[pixelX.toFloat()] = baseHeight * obj.dimension.y + offsetHeight
                     bunnyHead = obj
-                } else if (BLOCK_TYPE.ITEM_FEATHER.sameColor(currentPixel)) {
+                } else if (BlockType.ItemFeather.sameColor(currentPixel)) {
                     obj = Feather()
                     offsetHeight = -1.5f
                     obj.position[pixelX.toFloat()] = baseHeight * obj.dimension.y + offsetHeight
                     feathers.add(obj as Feather?)
-                } else if (BLOCK_TYPE.ITEM_GOLD_COIN.sameColor(currentPixel)) {
+                } else if (BlockType.ItemGoldCoin.sameColor(currentPixel)) {
                     obj = GoldCoin()
                     offsetHeight = -1.5f
                     obj.position[pixelX.toFloat()] = baseHeight * obj.dimension.y + offsetHeight
-                    goldcoins.add(obj as GoldCoin?)
-                } else if (BLOCK_TYPE.GOAL.sameColor(currentPixel)) {
+                    goldCoins.add(obj as GoldCoin?)
+                } else if (BlockType.Goal.sameColor(currentPixel)) {
                     obj = Goal()
                     offsetHeight = -7.0f
                     obj.position[pixelX.toFloat()] = baseHeight + offsetHeight
@@ -134,22 +128,22 @@ class Level(filename: String) {
 
         // decoration
         clouds = Clouds(pixmap.width.toFloat())
-        clouds!!.position[0f] = 2f
+        clouds.position[0f] = 2f
         mountains = Mountains(pixmap.width.toFloat())
-        mountains!!.position[-1f] = -1f
+        mountains.position[-1f] = -1f
         waterOverlay = WaterOverlay(pixmap.width.toFloat())
-        waterOverlay!!.position[0f] = -3.75f
+        waterOverlay.position[0f] = -3.75f
 
         // book
         helpTilt = Help()
-        helpTilt!!.animation = Assets.book.animHelpTilt
-        helpTilt!!.position.y = 10000f
+        helpTilt.animation = Assets.book.animHelpTilt
+        helpTilt.position.y = 10000f
         helpTouch = Help()
-        helpTouch!!.animation = Assets.book.animHelpTouch
-        helpTouch!!.position.y = 10000f
+        helpTouch.animation = Assets.book.animHelpTouch
+        helpTouch.position.y = 10000f
         helpFly = Help()
-        helpFly!!.animation = Assets.book.animHelpFly
-        helpFly!!.position.y = 10000f
+        helpFly.animation = Assets.book.animHelpFly
+        helpFly.position.y = 10000f
 
         // free memory
         pixmap.dispose()
@@ -158,44 +152,44 @@ class Level(filename: String) {
 
     fun update(deltaTime: Float) {
         // Bunny Head
-        bunnyHead!!.update(deltaTime)
+        bunnyHead?.update(deltaTime)
         // Rocks
-        for (rock in rocks!!) rock.update(deltaTime)
+        for (rock in rocks) rock.update(deltaTime)
         // Gold Coins
-        for (goldCoin in goldcoins!!) goldCoin.update(deltaTime)
+        for (goldCoin in goldCoins) goldCoin.update(deltaTime)
         // Feathers
-        for (feather in feathers!!) feather.update(deltaTime)
-        for (carrot in carrots!!) carrot.update(deltaTime)
+        for (feather in feathers) feather.update(deltaTime)
+        for (carrot in carrots) carrot.update(deltaTime)
         // Clouds
-        clouds!!.update(deltaTime)
+        clouds.update(deltaTime)
         // Help
-        helpTilt!!.update(deltaTime)
-        helpTouch!!.update(deltaTime)
-        helpFly!!.update(deltaTime)
+        helpTilt.update(deltaTime)
+        helpTouch.update(deltaTime)
+        helpFly.update(deltaTime)
     }
 
-    fun render(batch: SpriteBatch?) {
+    fun render(batch: SpriteBatch) {
         // Draw Mountains
-        mountains!!.render(batch!!)
+        mountains.render(batch)
         // Draw Goal
-        goal!!.render(batch)
+        goal?.render(batch)
         // Draw Help
-        helpTilt!!.render(batch)
-        helpTouch!!.render(batch)
-        helpFly!!.render(batch)
+        helpTilt.render(batch)
+        helpTouch.render(batch)
+        helpFly.render(batch)
         // Draw Rocks
-        for (rock in rocks!!) rock.render(batch)
+        for (rock in rocks) rock.render(batch)
         // Draw Gold Coins
-        for (goldCoin in goldcoins!!) goldCoin.render(batch)
+        for (goldCoin in goldCoins) goldCoin.render(batch)
         // Draw Feathers
-        for (feather in feathers!!) feather.render(batch)
+        for (feather in feathers) feather.render(batch)
         // Draw Carrots
-        for (carrot in carrots!!) carrot.render(batch)
+        for (carrot in carrots) carrot.render(batch)
         // Draw Player Character
-        bunnyHead!!.render(batch)
+        bunnyHead?.render(batch)
         // Draw Water Overlay
-        waterOverlay!!.render(batch)
+        waterOverlay.render(batch)
         // Draw Clouds
-        clouds!!.render(batch)
+        clouds.render(batch)
     }
 }

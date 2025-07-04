@@ -18,9 +18,8 @@ class Goal : AbstractGameObject() {
     }
 
     override fun render(batch: SpriteBatch) {
-        val reg = regGoal
         batch.draw(
-            reg.texture,
+            regGoal.texture,
             position.x - origin.x,
             position.y - origin.y,
             origin.x,
@@ -30,10 +29,10 @@ class Goal : AbstractGameObject() {
             scale.x,
             scale.y,
             rotation,
-            reg.regionX,
-            reg.regionY,
-            reg.regionWidth,
-            reg.regionHeight,
+            regGoal.regionX,
+            regGoal.regionY,
+            regGoal.regionWidth,
+            regGoal.regionHeight,
             false,
             false
         )

@@ -12,14 +12,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
  * @since 2022-09-21
  */
 class GoldCoin : AbstractGameObject() {
-    private var regGoldCoin: TextureRegion? = null
+    private val regGoldCoin: TextureRegion
     var collected = false
 
     init {
-        init()
-    }
-
-    private fun init() {
         dimension[0.5f] = 0.5f
         regGoldCoin = Assets.goldCoin.goldCoin
 
@@ -30,10 +26,8 @@ class GoldCoin : AbstractGameObject() {
 
     override fun render(batch: SpriteBatch) {
         if (collected) return
-        var reg: TextureRegion? = null
-        reg = regGoldCoin
         batch.draw(
-            reg!!.texture,
+            regGoldCoin.texture,
             position.x,
             position.y,
             origin.x,
@@ -43,10 +37,10 @@ class GoldCoin : AbstractGameObject() {
             scale.x,
             scale.y,
             rotation,
-            reg.regionX,
-            reg.regionY,
-            reg.regionWidth,
-            reg.regionHeight,
+            regGoldCoin.regionX,
+            regGoldCoin.regionY,
+            regGoldCoin.regionWidth,
+            regGoldCoin.regionHeight,
             false,
             false
         )

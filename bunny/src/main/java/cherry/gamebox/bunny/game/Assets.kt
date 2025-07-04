@@ -86,14 +86,13 @@ object Assets : Disposable, AssetErrorListener {
     }
 
     class AssetBunny(atlas: TextureAtlas) {
-        val head: AtlasRegion
+        val head: AtlasRegion = atlas.findRegion("bunny_head")
 
         val animNormal: Animation<TextureRegion>
         val animCopterTransform: Animation<TextureRegion>
         val animCopterTransformBack: Animation<TextureRegion>
         val animCopterRotate: Animation<TextureRegion>
         init {
-            head = atlas.findRegion("bunny_head")
             // Animation: Bunny Normal
             var regions: Array<AtlasRegion> = atlas.findRegions("anim_bunny_normal")
             animNormal = Animation<TextureRegion>(
@@ -122,64 +121,37 @@ object Assets : Disposable, AssetErrorListener {
     }
 
     class AssetRock(atlas: TextureAtlas) {
-        val edge: AtlasRegion
-        val middle: AtlasRegion
-
-        init {
-            edge = atlas.findRegion("rock_edge")
-            middle = atlas.findRegion("rock_middle")
-        }
+        val edge: AtlasRegion = atlas.findRegion("rock_edge")
+        val middle: AtlasRegion = atlas.findRegion("rock_middle")
     }
 
     class AssetGoldCoin(atlas: TextureAtlas) {
-        val goldCoin: AtlasRegion
-
-        init {
-            goldCoin = atlas.findRegion("item_gold_coin")
-        }
+        val goldCoin: AtlasRegion = atlas.findRegion("item_gold_coin")
     }
 
     class AssetFeather(atlas: TextureAtlas) {
-        val feather: AtlasRegion
-
-        init {
-            feather = atlas.findRegion("item_feather")
-        }
+        val feather: AtlasRegion = atlas.findRegion("item_feather")
     }
 
     class AssetLevelDecoration(atlas: TextureAtlas) {
-        val cloud01: AtlasRegion
-        val cloud02: AtlasRegion
-        val cloud03: AtlasRegion
-        val mountainLeft: AtlasRegion
-        val mountainRight: AtlasRegion
-        val waterOverlay: AtlasRegion
-        val carrot: AtlasRegion
-        val goal: AtlasRegion
-
-        init {
-            cloud01 = atlas.findRegion("cloud01")
-            cloud02 = atlas.findRegion("cloud02")
-            cloud03 = atlas.findRegion("cloud03")
-            mountainLeft = atlas.findRegion("mountain_left")
-            mountainRight = atlas.findRegion("mountain_right")
-            waterOverlay = atlas.findRegion("water_overlay")
-            carrot = atlas.findRegion("carrot")
-            goal = atlas.findRegion("goal")
-        }
+        val cloud01: AtlasRegion = atlas.findRegion("cloud01")
+        val cloud02: AtlasRegion = atlas.findRegion("cloud02")
+        val cloud03: AtlasRegion = atlas.findRegion("cloud03")
+        val mountainLeft: AtlasRegion = atlas.findRegion("mountain_left")
+        val mountainRight: AtlasRegion = atlas.findRegion("mountain_right")
+        val waterOverlay: AtlasRegion = atlas.findRegion("water_overlay")
+        val carrot: AtlasRegion = atlas.findRegion("carrot")
+        val goal: AtlasRegion = atlas.findRegion("goal")
     }
 
 
     class AssetFonts {
-        val defaultSmall: BitmapFont
-        val defaultNormal: BitmapFont
-        val defaultBig: BitmapFont
+        // create three fonts using Libgdx's 15px bitmap font
+        val defaultSmall: BitmapFont = BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true)
+        val defaultNormal: BitmapFont = BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true)
+        val defaultBig: BitmapFont = BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true)
 
         init {
-            // create three fonts using Libgdx's 15px bitmap font
-            defaultSmall = BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true)
-            defaultNormal = BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true)
-            defaultBig = BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true)
             GameLogger.debug("Fonts loaded")
 
             // set font sizes
@@ -196,40 +168,27 @@ object Assets : Disposable, AssetErrorListener {
 
 
     class AssetSounds(am: AssetManager) {
-        val jump: Sound
-        val jumpWithFeather: Sound
-        val pickupCoin: Sound
-        val pickupFeather: Sound
-        val liveLost: Sound
-
-        init {
-            jump = am.get("sounds/jump.wav", Sound::class.java)
-            jumpWithFeather = am.get("sounds/jump_with_feather.wav", Sound::class.java)
-            pickupCoin = am.get("sounds/pickup_coin.wav", Sound::class.java)
-            pickupFeather = am.get("sounds/pickup_feather.wav", Sound::class.java)
-            liveLost = am.get("sounds/live_lost.wav", Sound::class.java)
-        }
+        val jump: Sound = am.get("sounds/jump.wav", Sound::class.java)
+        val jumpWithFeather: Sound = am.get("sounds/jump_with_feather.wav", Sound::class.java)
+        val pickupCoin: Sound = am.get("sounds/pickup_coin.wav", Sound::class.java)
+        val pickupFeather: Sound = am.get("sounds/pickup_feather.wav", Sound::class.java)
+        val liveLost: Sound = am.get("sounds/live_lost.wav", Sound::class.java)
     }
 
     class AssetMusic(am: AssetManager) {
-        val song01: Music
-
-        init {
-            song01 = am.get("music/keith303_-_brand_new_highscore.mp3", Music::class.java)
-        }
+        val song01: Music = am.get("music/keith303_-_brand_new_highscore.mp3", Music::class.java)
     }
 
     class AssetBook(atlas: TextureAtlas, atlasUI: TextureAtlas) {
-        var cover: AtlasRegion
-        var animHelpIdle: Animation<TextureRegion>
+        @Suppress("unused")
+        var cover: AtlasRegion = atlasUI.findRegion("book-cover")
+        // Animation: Help Idle
+        var animHelpIdle: Animation<TextureRegion> = Animation(1.0f / 1.0f, atlas.findRegions("help/normal"))
         var animHelpTilt: Animation<TextureRegion>
         var animHelpTouch: Animation<TextureRegion>
         var animHelpFly: Animation<TextureRegion>
 
         init {
-            cover = atlasUI.findRegion("book-cover")
-            // Animation: Help Idle
-            animHelpIdle = Animation(1.0f / 1.0f, atlas.findRegions("help/normal"))
 
             // Animation: Help Tilt
             var regions: Array<AtlasRegion?> = atlas.findRegions("help/anim_tilt")

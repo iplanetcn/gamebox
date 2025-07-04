@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 
 class Carrot : AbstractGameObject() {
 
-    private var regCarrot: TextureRegion? = null
+    private var regCarrot: TextureRegion
 
     init {
         dimension[0.25f] = 0.5f
@@ -21,7 +21,7 @@ class Carrot : AbstractGameObject() {
     override fun render(batch: SpriteBatch) {
         val reg = regCarrot
         batch.draw(
-            reg!!.texture,
+            reg.texture,
             position.x - origin.x,
             position.y - origin.y,
             origin.x,

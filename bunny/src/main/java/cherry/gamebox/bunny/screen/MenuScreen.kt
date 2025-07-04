@@ -442,7 +442,7 @@ class MenuScreen(game: DirectedGame) : AbstractGameScreen(game) {
     }
 
     private fun onCharSkinSelected(index: Int) {
-        val skin = CharacterSkin.values()[index]
+        val skin = CharacterSkin.entries[index]
         imgCharSkin.color = skin.color
     }
 
