@@ -1,16 +1,14 @@
 package cherry.gamebox.tetris.screens
 
-import cherry.gamebox.tetris.TetrisGame
+import cherry.gamebox.core.GameLogger
 import cherry.gamebox.tetris.Assets
+import cherry.gamebox.tetris.TetrisGame
 import cherry.gamebox.tetris.game.Config
 import cherry.gamebox.tetris.game.GameBoard
 import cherry.gamebox.tetris.game.NextBrick
-import cherry.gamebox.core.GameLogger
-import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.utils.viewport.StretchViewport
 import com.badlogic.gdx.Gdx
-
-
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.viewport.ExtendViewport
 
 
 /**
@@ -34,7 +32,7 @@ class GameScreen(game: TetrisGame) : BaseScreen(game) {
         val vw = (Config.Cols + 8f) * Assets.blockWidth
         val vh = vw * SCREEN_HEIGHT / (SCREEN_WIDTH * 1.0f)
 
-        stage = Stage(StretchViewport(vw, vh))
+        stage = Stage(ExtendViewport(vw, vh))
         gameBoard = GameBoard()
         gameBoard.setPosition(
             Assets.blockWidth * 1f, Assets.blockHeight * 3f,

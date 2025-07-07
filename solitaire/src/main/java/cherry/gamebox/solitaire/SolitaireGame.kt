@@ -1,6 +1,6 @@
 package cherry.gamebox.solitaire
 
-import cherry.gamebox.core.Assets
+import cherry.gamebox.core.CoreAssets
 import cherry.gamebox.solitaire.screen.GameScreen
 import cherry.gamebox.solitaire.config.SCREEN_HEIGHT
 import cherry.gamebox.solitaire.config.SCREEN_WIDTH
@@ -21,7 +21,7 @@ class SolitaireGame : Game() {
 
     override fun create() {
         stage = Stage(StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT))
-        Assets.load()
+        CoreAssets.load()
         batch = SpriteBatch()
         setScreen(GameScreen(this))
     }

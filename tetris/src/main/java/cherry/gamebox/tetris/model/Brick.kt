@@ -38,8 +38,8 @@ class Brick(var type: BrickType, var color: BrickColor) {
 
         private fun newBrick(): Brick {
             val brick = Brick(
-                BrickType.values().random(),
-                BrickColor.values().random()
+                BrickType.entries.toTypedArray().random(),
+                BrickColor.entries.toTypedArray().random()
             )
 
             brick.ty = -brick.vertical()

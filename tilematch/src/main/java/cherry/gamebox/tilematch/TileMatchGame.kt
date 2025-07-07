@@ -1,5 +1,6 @@
 package cherry.gamebox.tilematch
 
+import cherry.gamebox.core.CoreAssets
 import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -27,6 +28,7 @@ class TileMatchGame(val aoi: AndroidInterfaces) : Game() {
         GameLogger.setLogDebug()
         camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
         camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0f)
+        CoreAssets.load()
         Assets.load()
         batch = SpriteBatch()
         shapeRenderer = ShapeRenderer()
@@ -53,5 +55,6 @@ class TileMatchGame(val aoi: AndroidInterfaces) : Game() {
         batch.dispose()
         shapeRenderer.dispose()
         Assets.dispose()
+        CoreAssets.dispose()
     }
 }

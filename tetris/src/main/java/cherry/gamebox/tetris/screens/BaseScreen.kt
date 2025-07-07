@@ -1,8 +1,8 @@
 package cherry.gamebox.tetris.screens
 
+import cherry.gamebox.tetris.Assets
 import cherry.gamebox.tetris.Settings
 import cherry.gamebox.tetris.TetrisGame
-import cherry.gamebox.tetris.Assets
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.InputMultiplexer
@@ -37,7 +37,7 @@ abstract class BaseScreen(val game: TetrisGame) : InputAdapter(), Screen,
 
     init {
         stage.clear()
-        batcher = game.batcher
+        batcher = game.batch
         camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
         camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0f)
         setupInput()

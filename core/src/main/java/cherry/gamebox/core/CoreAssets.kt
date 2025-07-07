@@ -24,13 +24,15 @@ import com.badlogic.gdx.utils.Disposable
 // private constants
 private const val TEXTURE_ATLAS_OBJECTS = "graphics/items.atlas"
 private const val TEXTURE_ATLAS_CARDS = "cards/cards.atlas"
+private const val TEXTURE_ATLAS_UI = "graphic/ui.pack"
 
-object Assets : Disposable, AssetErrorListener {
+object CoreAssets : Disposable, AssetErrorListener {
     private val assetManager: AssetManager by lazy { AssetManager() }
 
     var backgrounds: AssetBackgrounds
     var blocks: AssetBlocks
     var cards: AssetCards
+    var ui: AssetUI
     var sounds: AssetSounds
     var musics: AssetMusics
     var fonts: AssetFonts
@@ -39,9 +41,10 @@ object Assets : Disposable, AssetErrorListener {
 
     init {
         assetManager.apply {
-            setErrorListener(this@Assets)
+            setErrorListener(this@CoreAssets)
             load(TEXTURE_ATLAS_OBJECTS, TextureAtlas::class.java)
             load(TEXTURE_ATLAS_CARDS, TextureAtlas::class.java)
+            load(TEXTURE_ATLAS_UI, TextureAtlas::class.java)
             finishLoading()
             assetNames.forEach { GameLogger.debug(it) }
             assetManager.get(TEXTURE_ATLAS_OBJECTS, TextureAtlas::class.java).let {
@@ -50,6 +53,9 @@ object Assets : Disposable, AssetErrorListener {
             }
             assetManager.get(TEXTURE_ATLAS_CARDS, TextureAtlas::class.java).let {
                 cards = AssetCards(it)
+            }
+            assetManager.get(TEXTURE_ATLAS_UI, TextureAtlas::class.java).let {
+                ui = AssetUI(it)
             }
         }
 
@@ -148,6 +154,10 @@ class AssetBlocks(atlas: TextureAtlas) {
 class AssetBackgrounds(atlas: TextureAtlas) {
     val background: TextureAtlas.AtlasRegion = atlas.findRegion("background")
     val gameBoard: TextureAtlas.AtlasRegion = atlas.findRegion("game_board")
+}
+
+class AssetUI(atlas: TextureAtlas) {
+    val btShuffle: TextureAtlas.AtlasRegion = atlas.findRegion("btshuffle")
 }
 
 class AssetMusics : Disposable {

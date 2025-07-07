@@ -1,6 +1,6 @@
 package cherry.gamebox.puzzles.screens
 
-import cherry.gamebox.core.Assets
+import cherry.gamebox.core.CoreAssets
 import cherry.gamebox.core.GameLogger
 import cherry.gamebox.puzzles.PuzzlesGame
 import cherry.gamebox.puzzles.notcross.LineSegment
@@ -46,7 +46,7 @@ class NotCrossScreen(game: PuzzlesGame) : BaseScreen(game) {
 
     override fun draw(delta: Float) {
         batcher.begin()
-        batcher.draw(Assets.backgrounds.background, 0f, 0f, SCREEN_WIDTH, SCREEN_HEIGHT)
+        batcher.draw(CoreAssets.backgrounds.background, 0f, 0f, SCREEN_WIDTH, SCREEN_HEIGHT)
         batcher.end()
 
         Gdx.gl20.glLineWidth(10f)

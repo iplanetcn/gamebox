@@ -1,6 +1,6 @@
 package cherry.gamebox.solitaire.screen
 
-import cherry.gamebox.core.Assets
+import cherry.gamebox.core.CoreAssets
 import cherry.gamebox.solitaire.SolitaireGame
 import cherry.gamebox.solitaire.config.SCREEN_HEIGHT
 import cherry.gamebox.solitaire.config.SCREEN_WIDTH
@@ -62,7 +62,7 @@ abstract class BaseScreen(val game: SolitaireGame) : InputAdapter(), Screen,
         batch.projectionMatrix = camera.combined
         // draw background
         batch.begin()
-        batch.draw(Assets.backgrounds.background, 0f, 0f, SCREEN_WIDTH, SCREEN_HEIGHT)
+        batch.draw(CoreAssets.backgrounds.background, 0f, 0f, SCREEN_WIDTH, SCREEN_HEIGHT)
         batch.end()
         // screen draw
         draw(fixedDelta)
@@ -72,7 +72,7 @@ abstract class BaseScreen(val game: SolitaireGame) : InputAdapter(), Screen,
     }
 
     open fun changeScreenWithFadeOut(newScreen: Class<*>, game: SolitaireGame) {
-        val image = Image(Assets.backgrounds.background)
+        val image = Image(CoreAssets.backgrounds.background)
         image.setSize(SCREEN_WIDTH, SCREEN_HEIGHT)
         image.color.a = 0f
         image.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run {
@@ -131,7 +131,7 @@ abstract class BaseScreen(val game: SolitaireGame) : InputAdapter(), Screen,
     override fun dispose() {
         stage.dispose()
         batch.dispose()
-        Assets.dispose()
+        CoreAssets.dispose()
     }
 
     override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {

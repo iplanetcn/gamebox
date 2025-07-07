@@ -6,7 +6,7 @@ import cherry.gamebox.tetris.screens.SCREEN_WIDTH
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.utils.viewport.StretchViewport
+import com.badlogic.gdx.utils.viewport.FitViewport
 
 /**
  * TetrisGame
@@ -15,16 +15,16 @@ import com.badlogic.gdx.utils.viewport.StretchViewport
  * @since 2021-11-17
  */
 class TetrisGame : Game() {
-    lateinit var batcher: SpriteBatch
+    lateinit var batch: SpriteBatch
     lateinit var stage: Stage
 
     override fun create() {
         stage = Stage(
-            StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT)
+            FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT)
         )
 
         Assets.load()
-        batcher = SpriteBatch()
+        batch = SpriteBatch()
         setScreen(MenuScreen(this))
     }
 

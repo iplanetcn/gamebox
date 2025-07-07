@@ -1,6 +1,6 @@
 package cherry.gamebox.puzzles.screens
 
-import cherry.gamebox.core.Assets
+import cherry.gamebox.core.CoreAssets
 import cherry.gamebox.puzzles.PuzzlesGame
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.InputEvent
@@ -18,7 +18,7 @@ class MenuScreen(game:  PuzzlesGame) : BaseScreen(game) {
     init {
         val buttonPlay = Label(
             "Play", Label.LabelStyle(
-                Assets.fonts.fontSmall, Color.ORANGE
+                CoreAssets.fonts.fontSmall, Color.ORANGE
             )
         )
 
@@ -27,7 +27,7 @@ class MenuScreen(game:  PuzzlesGame) : BaseScreen(game) {
         buttonPlay.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 changeScreenWithFadeOut(NotCrossScreen::class.java, game)
-                Assets.playSoundDrop()
+                CoreAssets.playSoundDrop()
             }
         })
 
@@ -36,7 +36,7 @@ class MenuScreen(game:  PuzzlesGame) : BaseScreen(game) {
 
     override fun draw(delta: Float) {
         batcher.begin()
-        batcher.draw(Assets.backgrounds.background, 0f, 0f, SCREEN_WIDTH, SCREEN_HEIGHT)
+        batcher.draw(CoreAssets.backgrounds.background, 0f, 0f, SCREEN_WIDTH, SCREEN_HEIGHT)
         batcher.end()
     }
 

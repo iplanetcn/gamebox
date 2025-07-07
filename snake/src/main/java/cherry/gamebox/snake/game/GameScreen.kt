@@ -1,6 +1,6 @@
 package cherry.gamebox.snake.game
 
-import cherry.gamebox.core.Assets
+import cherry.gamebox.core.CoreAssets
 import cherry.gamebox.snake.SnakeGame
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
@@ -31,8 +31,8 @@ class GameScreen(private val game: SnakeGame) : Screen {
         val spriteBatch = game.batcher
         spriteBatch.projectionMatrix = camera.combined
         spriteBatch.begin()
-        Assets.fonts.fontSmall.draw(spriteBatch, "Upper left, FPS=${Gdx.graphics.framesPerSecond}fps", 0f, camera.viewportHeight)
-        Assets.fonts.fontSmall.draw(spriteBatch, "Lower left", 0f, Assets.fonts.fontSmall.lineHeight)
+        CoreAssets.fonts.fontSmall.draw(spriteBatch, "Upper left, FPS=${Gdx.graphics.framesPerSecond}fps", 0f, camera.viewportHeight)
+        CoreAssets.fonts.fontSmall.draw(spriteBatch, "Lower left", 0f, CoreAssets.fonts.fontSmall.lineHeight)
         spriteBatch.end()
     }
 

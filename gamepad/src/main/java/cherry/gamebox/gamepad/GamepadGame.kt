@@ -1,6 +1,6 @@
 package cherry.gamebox.gamepad
 
-import cherry.gamebox.core.Assets
+import cherry.gamebox.core.CoreAssets
 import cherry.gamebox.core.GameLogger
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -23,7 +23,7 @@ class GamepadGame : Game() {
         )
         camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
         camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0f)
-        Assets.load()
+        CoreAssets.load()
         batch = SpriteBatch()
         setScreen(GameScreen(this))
         // 启动时默认激活游戏

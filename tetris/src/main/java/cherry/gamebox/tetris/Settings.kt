@@ -23,10 +23,9 @@ object Settings {
     private val pref: Preferences = Gdx.app.getPreferences(PREF_NAME)
 
     init {
-        isMusicOn = pref.getBoolean(KEY_IS_MUSIC_ON, true)
-        isSoundOn = pref.getBoolean(KEY_IS_SOUND_ON, true)
+        isMusicOn = pref.getBoolean(KEY_IS_MUSIC_ON, false)
+        isSoundOn = pref.getBoolean(KEY_IS_SOUND_ON, false)
         bestScore = pref.getLong(KEY_BEST_SCORE, 0)
-
     }
 
     fun load() {

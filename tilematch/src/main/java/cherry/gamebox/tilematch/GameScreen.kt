@@ -1,5 +1,6 @@
 package cherry.gamebox.tilematch
 
+import cherry.gamebox.core.CoreAssets
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
@@ -7,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Queue
@@ -21,6 +23,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
  */
 class GameScreen(private val game: TileMatchGame) : ScreenAdapter() {
     private val stage: Stage = Stage(FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT))
+
     private val heap: MutableList<Tile> = mutableListOf()
     private val stack: MutableList<Tile> = mutableListOf()
     private val queue: Queue<Tile> = Queue<Tile>()
@@ -30,6 +33,21 @@ class GameScreen(private val game: TileMatchGame) : ScreenAdapter() {
         Gdx.input.inputProcessor = stage
         spawnActor()
         stage.addActor(group)
+
+        stage.addActor(Image(CoreAssets.ui.btShuffle).apply {
+            addListener {
+                restart()
+                true
+            }
+        })
+    }
+
+    fun restart() {
+        heap.clear()
+        stack.clear()
+        queue.clear()
+        group.clearChildren()
+        spawnActor()
     }
 
     override fun render(delta: Float) {
@@ -83,7 +101,7 @@ class GameScreen(private val game: TileMatchGame) : ScreenAdapter() {
                             Actions.sequence(
                                 Actions.parallel(
 //                                    Actions.rotateTo(360f, 0.5f, Interpolation.bounceOut),
-                                    Actions.moveTo(group.x + (stack.size + queue.size) * 60f, 100 - group.y, 0.3f),
+                                    Actions.moveTo(group.x + (stack.size + queue.size) * 60f, 100 - group.y, 1f),
                                 ),
                                 Actions.delay(0.2f),
                                 Actions.run {

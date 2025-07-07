@@ -1,6 +1,6 @@
 package cherry.gamebox.puzzles.screens
 
-import cherry.gamebox.core.Assets
+import cherry.gamebox.core.CoreAssets
 import cherry.gamebox.puzzles.PuzzlesGame
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputAdapter
@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import kotlin.math.abs
-import kotlin.math.log
 
 /**
  * BaseScreen
@@ -66,7 +65,7 @@ abstract class BaseScreen(game: PuzzlesGame) : InputAdapter(), Screen,
     }
 
     open fun changeScreenWithFadeOut(newScreen: Class<*>, game: PuzzlesGame) {
-        val image = Image(Assets.backgrounds.background)
+        val image = Image(CoreAssets.backgrounds.background)
         image.setSize(SCREEN_WIDTH, SCREEN_HEIGHT)
         image.color.a = 0f
         image.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run {
