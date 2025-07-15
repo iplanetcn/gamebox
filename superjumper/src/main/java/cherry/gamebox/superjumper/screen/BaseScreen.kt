@@ -1,9 +1,9 @@
 package cherry.gamebox.superjumper.screen
 
 import cherry.gamebox.core.CoreAssets
-import cherry.gamebox.superjumper.config.SCREEN_HEIGHT
-import cherry.gamebox.superjumper.config.SCREEN_WIDTH
 import cherry.gamebox.superjumper.SuperJumperGame
+import cherry.gamebox.superjumper.config.VIEWPORT_HEIGHT
+import cherry.gamebox.superjumper.config.VIEWPORT_WIDTH
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.InputMultiplexer
@@ -41,8 +41,8 @@ abstract class BaseScreen(val game: SuperJumperGame) : InputAdapter(), Screen,
 
     init {
         stage.clear()
-        camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
-        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0f)
+        camera = OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
+        camera.position.set(VIEWPORT_WIDTH / 2f, VIEWPORT_HEIGHT / 2f, 0f)
         shapeRenderer = ShapeRenderer()
         setupInput()
     }
@@ -63,7 +63,7 @@ abstract class BaseScreen(val game: SuperJumperGame) : InputAdapter(), Screen,
         batch.projectionMatrix = camera.combined
         // draw background
         batch.begin()
-        batch.draw(CoreAssets.backgrounds.background, 0f, 0f, SCREEN_WIDTH, SCREEN_HEIGHT)
+        batch.draw(CoreAssets.backgrounds.background, 0f, 0f, VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
         batch.end()
         // screen draw
         draw(fixedDelta)
@@ -74,7 +74,7 @@ abstract class BaseScreen(val game: SuperJumperGame) : InputAdapter(), Screen,
 
     open fun changeScreenWithFadeOut(newScreen: Class<*>, game: SuperJumperGame) {
         val image = Image(CoreAssets.backgrounds.background)
-        image.setSize(SCREEN_WIDTH, SCREEN_HEIGHT)
+        image.setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
         image.color.a = 0f
         image.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run {
             game.screen = when (newScreen) {

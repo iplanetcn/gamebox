@@ -6,6 +6,7 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import cherry.gamebox.core.GameLogger
+import cherry.gamebox.superjumper.screen.notchHeight
 import com.badlogic.gdx.backends.android.AndroidApplication
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 
@@ -23,7 +24,7 @@ class GameLauncher : AndroidApplication() {
         initialize(SuperJumperGame(), config)
         GameLogger.setLogDebug()
         if (SDK_INT > Build.VERSION_CODES.Q) {
-//            notchHeight = getNotchHeight()?.toFloat() ?: 0f
+            notchHeight = getNotchHeight()?.toFloat() ?: 0f
         }
     }
 

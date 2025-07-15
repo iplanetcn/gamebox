@@ -1,8 +1,8 @@
 package cherry.gamebox.superjumper
 
 import cherry.gamebox.core.CoreAssets
-import cherry.gamebox.superjumper.config.SCREEN_HEIGHT
-import cherry.gamebox.superjumper.config.SCREEN_WIDTH
+import cherry.gamebox.superjumper.config.VIEWPORT_HEIGHT
+import cherry.gamebox.superjumper.config.VIEWPORT_WIDTH
 import cherry.gamebox.superjumper.screen.AssetsScreen
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -20,7 +20,7 @@ class SuperJumperGame : Game() {
     lateinit var stage: Stage
 
     override fun create() {
-        stage = Stage(StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT))
+        stage = Stage(StretchViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT))
         CoreAssets.load()
         Assets.load()
         batch = SpriteBatch()
