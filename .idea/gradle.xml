@@ -21,12 +21,12 @@
             <option value="$PROJECT_DIR$/puzzles" />
             <option value="$PROJECT_DIR$/snake" />
             <option value="$PROJECT_DIR$/solitaire" />
+            <option value="$PROJECT_DIR$/superjumper" />
             <option value="$PROJECT_DIR$/tetris" />
             <option value="$PROJECT_DIR$/tilematch" />
             <option value="$PROJECT_DIR$/tzfe" />
           </set>
         </option>
-        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

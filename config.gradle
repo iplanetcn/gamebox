@@ -31,4 +31,5 @@ appid.tilematch = prefix.concat("tilematch")
 appid.googleads = prefix.concat("googleads")
 appid.gamepad = prefix.concat("gamepad")
 appid.tzfe = prefix.concat("tzfe")
+appid.superjumper = prefix.concat("superjumper")
 ext.appid = appid
