@@ -34,15 +34,13 @@ var notchHeight = 0f
 
 abstract class BaseScreen(val game: SuperJumperGame) : InputAdapter(), Screen,
     GestureDetector.GestureListener {
-    var camera: OrthographicCamera
+    var camera: OrthographicCamera = game.camera
     var batch: SpriteBatch = game.batch
     var stage: Stage = game.stage
     var shapeRenderer: ShapeRenderer
 
     init {
         stage.clear()
-        camera = OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
-        camera.position.set(VIEWPORT_WIDTH / 2f, VIEWPORT_HEIGHT / 2f, 0f)
         shapeRenderer = ShapeRenderer()
         setupInput()
     }

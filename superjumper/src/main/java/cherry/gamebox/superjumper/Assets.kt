@@ -12,21 +12,24 @@ object Assets : Disposable{
     lateinit var sounds: Sounds
     lateinit var musics: Musics
     lateinit var sprites: Sprites
+    lateinit var joystick: Joystick
 
     fun load() {
         sounds = Sounds()
         musics = Musics()
         sprites = Sprites()
+        joystick = Joystick()
     }
 
     override fun dispose() {
         sounds.dispose()
         musics.dispose()
         sprites.dispose()
+        joystick.dispose()
     }
 
 
-    class Sounds : Disposable {
+    class Sounds {
         val coinSound: Sound = Gdx.audio.newSound(Gdx.files.internal("sounds/coin.wav"))
         val explosionSound: Sound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.wav"))
         val hurtSound: Sound = Gdx.audio.newSound(Gdx.files.internal("sounds/hurt.wav"))
@@ -34,20 +37,21 @@ object Assets : Disposable{
         val powerUpSound: Sound = Gdx.audio.newSound(Gdx.files.internal("sounds/power_up.wav"))
         val tapSound: Sound = Gdx.audio.newSound(Gdx.files.internal("sounds/tap.wav"))
 
-        override fun dispose() {
+        fun dispose() {
             coinSound.dispose()
             explosionSound.dispose()
             hurtSound.dispose()
             jumpSound.dispose()
             powerUpSound.dispose()
             tapSound.dispose()
+            joystick.dispose()
         }
     }
 
-    class Musics : Disposable {
+    class Musics {
         val themeMusic: Music = Gdx.audio.newMusic(Gdx.files.internal("music/time_for_adventure.mp3"))
 
-        override fun dispose() {
+        fun dispose() {
             themeMusic.dispose()
         }
     }
@@ -66,7 +70,7 @@ object Assets : Disposable{
         musics.themeMusic.stop()
     }
 
-    class Sprites : Disposable {
+    class Sprites {
 
 //        coin.png
 //        fruit.png
@@ -100,10 +104,24 @@ object Assets : Disposable{
             }
         }
 
-        override fun dispose() {
+        fun dispose() {
             coinTexture.dispose()
             fruitTexture.dispose()
         }
+    }
 
+    class Joystick {
+        val backgroundTexture: Texture
+        val knobTexture: Texture
+
+        init {
+            backgroundTexture = Texture(Gdx.files.internal("textures/joystick_background.png"))
+            knobTexture = Texture(Gdx.files.internal("textures/joystick_knob.png"))
+        }
+
+        fun dispose() {
+            backgroundTexture.dispose()
+            knobTexture.dispose()
+        }
     }
 }
