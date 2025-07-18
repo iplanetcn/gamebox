@@ -25,6 +25,7 @@ android {
     }
 }
 
+
 dependencies {
     // default
     api project(path: ':core')

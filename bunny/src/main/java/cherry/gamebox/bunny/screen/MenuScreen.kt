@@ -84,7 +84,7 @@ class MenuScreen(game: DirectedGame) : AbstractGameScreen(game) {
     private lateinit var chkShowFpsCounter: CheckBox
 
     // debug
-    private val debugEnabled = false
+    private val debugEnabled = true
     private var debugRebuildStage = 0f
 
 

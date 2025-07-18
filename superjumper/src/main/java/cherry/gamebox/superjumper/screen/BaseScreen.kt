@@ -34,10 +34,9 @@ var notchHeight = 0f
 
 abstract class BaseScreen(val game: SuperJumperGame) : InputAdapter(), Screen,
     GestureDetector.GestureListener {
-    var camera: OrthographicCamera = game.camera
     var batch: SpriteBatch = game.batch
-    var stage: Stage = game.stage
     var shapeRenderer: ShapeRenderer
+    var stage: Stage = Stage()
 
     init {
         stage.clear()
@@ -57,8 +56,6 @@ abstract class BaseScreen(val game: SuperJumperGame) : InputAdapter(), Screen,
         if (delta > .1f) fixedDelta = .1f
         update(fixedDelta)
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT)
-        camera.update()
-        batch.projectionMatrix = camera.combined
         // draw background
         batch.begin()
         batch.draw(CoreAssets.backgrounds.background, 0f, 0f, VIEWPORT_WIDTH, VIEWPORT_HEIGHT)

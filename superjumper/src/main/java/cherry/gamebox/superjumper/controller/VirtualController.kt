@@ -34,7 +34,7 @@ class VirtualController(
         joystickBackground = Assets.joystick.backgroundTexture
         joystickKnob = Assets.joystick.knobTexture
         // 虚拟控制器位置
-        position = Vector2(100f, 100f)
+        position = Vector2(200f, 200f)
         knobPosition = Vector2(position)
     }
 

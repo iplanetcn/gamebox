@@ -5,7 +5,6 @@ espressoCoreVersion = "3.6.1"
 kotlin = "2.2.0"
 junit4 = "4.13.2"
 gdx = "1.13.5"
-box2d = "3.1.1-0"
 box2DLights = "1.5"
 ashley = "1.7.4"
 ai = "1.8.2"
@@ -13,7 +12,7 @@ gdxControllers = "2.2.4"
 annotation = "1.9.1"
 
 [libraries]
-libgdx-box2d = { module = "com.badlogicgames.gdx:gdx-box2d", version.ref = "box2d" }
+libgdx-box2d = { module = "com.badlogicgames.gdx:gdx-box2d", version.ref = "gdx" }
 libgdx-bullet = { module = "com.badlogicgames.gdx:gdx-bullet", version.ref = "gdx" }
 libgdx-freetype = { module = "com.badlogicgames.gdx:gdx-freetype", version.ref = "gdx" }
 libgdx-controllers-core = { module = "com.badlogicgames.gdx-controllers:gdx-controllers-core", version.ref = "gdxControllers" }

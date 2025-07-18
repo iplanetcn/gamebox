@@ -1,11 +1,11 @@
 package cherry.gamebox.superjumper
 
+import android.util.Log.i
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.utils.Disposable
 
 object Assets : Disposable{
@@ -80,11 +80,18 @@ object Assets : Disposable{
 //        slime_purple.png
 //        world_tileset.png
 
-        val coinTexture: Texture
+        private val coinTexture: Texture
+        private val fruitTexture: Texture
+        private val knightTexture: Texture
+
         val coinList: MutableList<Sprite> = ArrayList()
-        val fruitTexture: Texture
         val fruitList: MutableList<Sprite> = ArrayList()
-        val knight: MutableList<Sprite> = ArrayList()
+        val knightIdleList: MutableList<Sprite> = ArrayList()
+        val knightRunList: MutableList<Sprite> = ArrayList()
+        val knightRollList: MutableList<Sprite> = ArrayList()
+        val knightHitList: MutableList<Sprite> = ArrayList()
+        val knightDeathList: MutableList<Sprite> = ArrayList()
+
         val platforms: MutableList<Sprite> = ArrayList()
         val slimeGreen: MutableList<Sprite> = ArrayList()
         val slimePurple: MutableList<Sprite> = ArrayList()
@@ -101,6 +108,27 @@ object Assets : Disposable{
                 for ( j in 0 until 64 step 16) {
                     fruitList.add(Sprite(fruitTexture, i, j, 16, 16))
                 }
+            }
+            knightTexture = Texture(Gdx.files.internal("sprites/knight.png"))
+            for (i in  0 until 32 * 4 step 32) {
+                knightIdleList.add(Sprite(knightTexture, i, 0, 32,32))
+            }
+            for (i in  0 until 32 * 8 step 32) {
+                for (j in 32 * 2 until 64 + 32 * 2 step 32) {
+                    knightRunList.add(Sprite(knightTexture, i, j, 32, 32))
+                }
+            }
+
+            for (i in  0 until 32 * 4 step 32) {
+                knightRollList.add(Sprite(knightTexture, i, 32 * 5, 32, 32))
+            }
+
+            for (i in  0 until 32 * 8 step 32) {
+                knightHitList.add(Sprite(knightTexture, i, 32 * 6, 32, 32))
+            }
+
+            for (i in  0 until 32 * 8 step 32) {
+                knightDeathList.add(Sprite(knightTexture, i, 32 * 7, 32, 32))
             }
         }
 
