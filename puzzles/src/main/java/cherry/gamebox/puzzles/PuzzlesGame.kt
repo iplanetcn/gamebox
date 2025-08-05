@@ -2,6 +2,7 @@ package cherry.gamebox.puzzles
 
 import cherry.gamebox.core.CoreAssets
 import cherry.gamebox.core.GameLogger
+import cherry.gamebox.puzzles.screens.MenuScreen
 import cherry.gamebox.puzzles.screens.NotCrossScreen
 import cherry.gamebox.puzzles.screens.SCREEN_HEIGHT
 import cherry.gamebox.puzzles.screens.SCREEN_WIDTH
@@ -31,7 +32,7 @@ class PuzzlesGame : Game() {
         GameLogger.setLogDebug()
         batcher = SpriteBatch()
         shapeRenderer = ShapeRenderer()
-//        setScreen(MenuScreen(this))
-        setScreen(NotCrossScreen(this))
+        setScreen(MenuScreen(this))
+//        setScreen(NotCrossScreen(this))
     }
 }
