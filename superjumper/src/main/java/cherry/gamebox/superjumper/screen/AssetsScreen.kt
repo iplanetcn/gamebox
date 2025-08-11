@@ -4,16 +4,15 @@ import cherry.gamebox.superjumper.Assets
 import cherry.gamebox.superjumper.SuperJumperGame
 import cherry.gamebox.superjumper.actors.CoinAnimationActor
 import cherry.gamebox.superjumper.actors.PlayerAnimationActor
+import cherry.gamebox.superjumper.config.SCREEN_HEIGHT
+import cherry.gamebox.superjumper.config.SCREEN_WIDTH
 import cherry.gamebox.superjumper.config.VIEWPORT_HEIGHT
 import cherry.gamebox.superjumper.config.VIEWPORT_WIDTH
 import cherry.gamebox.superjumper.controller.TouchController
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL30
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.scenes.scene2d.ui.Touchpad
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.badlogic.gdx.utils.viewport.Viewport
@@ -34,7 +33,7 @@ class AssetsScreen(game: SuperJumperGame): BaseScreen(game) {
         gameStage = Stage(gameViewport, batch)
 
         // 2. HUD 视图（屏幕像素尺寸）
-        hudViewport = ScreenViewport()
+        hudViewport = FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT)
         hudStage = Stage(hudViewport, batch)
 
         // 3. 添加 HUD Actor（不会缩放）
@@ -55,9 +54,6 @@ class AssetsScreen(game: SuperJumperGame): BaseScreen(game) {
         val fruit = Image(Assets.sprites.fruitList.first())
         fruit.setPosition(150f, 100f)
         gameStage.addActor(fruit)
-
-
-
     }
 
     override fun render(delta: Float) {

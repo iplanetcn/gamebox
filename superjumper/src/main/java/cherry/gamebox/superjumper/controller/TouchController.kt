@@ -18,7 +18,7 @@ class TouchController(hudStage: Stage) {
         val background = TextureRegionDrawable(Assets.joystick.backgroundTexture)
         val knob = TextureRegionDrawable(Assets.joystick.knobTexture)
         leftPad = Touchpad(50f, Touchpad.TouchpadStyle(background, knob))
-        leftPad.setPosition(200f,200f)
+        leftPad.setPosition(50f,0f)
         hudStage.addActor(leftPad)
 
         val hitTexture = TextureRegionDrawable(Assets.joystick.knobTexture)

@@ -1,7 +1,6 @@
 package cherry.gamebox.superjumper.actors
 
 
-import android.hardware.input.InputManager
 import cherry.gamebox.superjumper.Assets
 import cherry.gamebox.superjumper.controller.TouchController
 import cherry.gamebox.superjumper.extension.compareTo

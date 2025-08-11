@@ -6,10 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 
-
-
-
-
 class Mountains(private var length: Float) : AbstractGameObject() {
     private val regMountainLeft: TextureRegion
     private val regMountainRight: TextureRegion
