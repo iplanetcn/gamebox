@@ -1,4 +1,4 @@
-package cherry.gamebox.solitaire.model
+package cherry.gamebox.solitaire.components
 
 /**
  * Foundation

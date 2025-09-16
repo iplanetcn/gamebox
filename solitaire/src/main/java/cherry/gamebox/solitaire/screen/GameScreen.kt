@@ -1,10 +1,8 @@
 package cherry.gamebox.solitaire.screen
 
-import android.R.attr.x
-import android.R.attr.y
-import android.util.Log.w
 import cherry.gamebox.core.GameLogger
 import cherry.gamebox.solitaire.SolitaireGame
+import cherry.gamebox.solitaire.components.CardView
 import cherry.gamebox.solitaire.config.CARD_HEIGHT
 import cherry.gamebox.solitaire.config.CARD_HORIZONTAL_OFFSET
 import cherry.gamebox.solitaire.config.CARD_VERTICAL_OFFSET
@@ -12,17 +10,14 @@ import cherry.gamebox.solitaire.config.CARD_WIDTH
 import cherry.gamebox.solitaire.config.SCREEN_HEIGHT
 import cherry.gamebox.solitaire.config.SCREEN_WIDTH
 import cherry.gamebox.solitaire.model.Deck
-import cherry.gamebox.solitaire.model.Stock
-import cherry.gamebox.solitaire.model.Waste
+import cherry.gamebox.solitaire.components.Stock
+import cherry.gamebox.solitaire.components.Waste
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import com.badlogic.gdx.math.Interpolation
-import com.badlogic.gdx.math.Interpolation.ElasticIn
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.utils.Logger
 
 /**
  * GameScreen
@@ -37,7 +32,7 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
     private var cardBounds: Rectangle? = null
 
     init {
-        stock.addCards(deck.shuffle())
+        stock.addCards(deck.shuffle().map { card -> CardView(card) }.toCollection(mutableListOf()))
         val pos = Vector2(SCREEN_WIDTH - (CARD_WIDTH + CARD_HORIZONTAL_OFFSET), SCREEN_HEIGHT - CARD_HEIGHT - CARD_VERTICAL_OFFSET - notchHeight)
         stock.setPosition(pos.x, pos.y)
         stage.addActor(stock)
@@ -62,20 +57,20 @@ class GameScreen(game: SolitaireGame) : BaseScreen(game) {
 
     override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
         val pos = convert(x, y)
-        for ((index, card) in stock.cardList.reversed().withIndex()) {
-            GameLogger.log("index: $index, card: $card")
-            cardBounds = card.getBounds()
-            if (cardBounds?.contains(pos) == true && !card.hasActions()) {
-                if (card.isFaceUp) {
-                    card.addAction(Actions.sequence(
+        for ((index, cardView) in stock.cardList.reversed().withIndex()) {
+            GameLogger.log("index: $index, card: $cardView")
+            cardBounds = cardView.getBounds()
+            if (cardBounds?.contains(pos) == true && !cardView.hasActions()) {
+                if (cardView.card.isFaceUp) {
+                    cardView.addAction(Actions.sequence(
                         Actions.moveTo(waste.x - stock.x, waste.y - stock.y, 0.2f)
                     ))
                 } else {
-                    card.addAction(Actions.parallel(
+                    cardView.addAction(Actions.parallel(
                         Actions.moveTo(waste.x - stock.x, waste.y - stock.y, 0.4f),
                         Actions.run {
-                            card.flip()
-                            card.zIndex = 200 - card.zIndex
+                            cardView.flip()
+                            cardView.zIndex = 200 - cardView.zIndex
                         }
                     ))
 

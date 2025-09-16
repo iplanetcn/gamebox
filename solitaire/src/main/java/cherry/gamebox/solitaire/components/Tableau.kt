@@ -1,6 +1,4 @@
-package cherry.gamebox.solitaire.model
-
-import com.badlogic.gdx.scenes.scene2d.Stage
+package cherry.gamebox.solitaire.components
 
 /**
  * Tableau
