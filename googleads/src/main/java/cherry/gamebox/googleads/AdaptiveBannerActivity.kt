@@ -97,7 +97,7 @@ class AdaptiveBannerActivity : AppCompatActivity() {
     }
 
     companion object {
-        internal val BACKFILL_AD_UNIT_ID = "/30497360/adaptive_banner_test_iu/backfill"
+        internal const val BACKFILL_AD_UNIT_ID = "/30497360/adaptive_banner_test_iu/backfill"
         fun start(context: Context) {
             val starter = Intent(context, AdaptiveBannerActivity::class.java)
             context.startActivity(starter)

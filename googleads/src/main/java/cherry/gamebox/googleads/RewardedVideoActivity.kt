@@ -102,7 +102,7 @@ class RewardedVideoActivity : AppCompatActivity() {
 
     private fun addCoins(coins: Int) {
         mCoinCount += coins
-        binding.coinCountText.text = "Coins: $mCoinCount"
+        binding.coinCountText.text = getString(R.string.coins, mCoinCount)
     }
 
     private fun startGame() {

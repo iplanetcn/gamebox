@@ -19,9 +19,8 @@ class FruitGame : Game() {
         setScreen(MainMenuScreen(this))
     }
 
-    @Suppress("RedundantOverride")
     override fun render() {
-        super.render() // important!
+        super.render()
     }
 
     override fun dispose() {

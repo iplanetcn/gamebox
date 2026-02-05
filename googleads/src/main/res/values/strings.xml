@@ -7,4 +7,5 @@
     <string name="retry_button_text">Retry</string>
     <string name="watch_video_button_text">Watch Video for 10 additional coins</string>
     <string name="default_coin_text">Coins: 0</string>
+    <string name="coins">Coins: %1$d</string>
 </resources>

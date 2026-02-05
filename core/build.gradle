@@ -1,6 +1,5 @@
 plugins {
     alias libs.plugins.android.library
-    alias libs.plugins.kotlin.android
 }
 
 android {
@@ -8,7 +7,6 @@ android {
 
     defaultConfig {
         minSdk app.min_sdk
-        targetSdk app.target_sdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -25,6 +23,12 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     namespace appid.core
+    lint {
+        targetSdk 35
+    }
+    testOptions {
+        targetSdk { 35 }
+    }
 }
 
 dependencies {
