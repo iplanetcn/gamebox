@@ -47,8 +47,8 @@ class GameScreen(private val game: GamepadGame) : ScreenAdapter() {
         game.camera.update()
 
         // move block sprite with touchpad
-        block.x = block.x + touchpad.knobPercentX * blockSpeed
-        block.y = block.y + touchpad.knobPercentY * blockSpeed
+        block.x += touchpad.knobPercentX * blockSpeed
+        block.y += touchpad.knobPercentY * blockSpeed
         if (block.x > SCREEN_WIDTH) {
             block.x = 0f
         }

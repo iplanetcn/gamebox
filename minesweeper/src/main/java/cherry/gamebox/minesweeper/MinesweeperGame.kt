@@ -18,13 +18,8 @@ import com.badlogic.gdx.utils.viewport.Viewport
  */
 class MinesweeperGame : Game() {
     val batch: SpriteBatch by lazy { SpriteBatch() }
-    val stage: Stage by lazy { Stage() }
-    val renderer: ShapeRenderer by lazy { ShapeRenderer() }
-    val camera: OrthographicCamera by lazy { OrthographicCamera() }
-    val viewport: Viewport by lazy { FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera) }
 
     override fun create() {
-        camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT)
         screen = MenuScreen(this)
     }
 
@@ -35,8 +30,6 @@ class MinesweeperGame : Game() {
 
     override fun dispose() {
         super.dispose()
-        stage.dispose()
         batch.dispose()
-        renderer.dispose()
     }
 }
