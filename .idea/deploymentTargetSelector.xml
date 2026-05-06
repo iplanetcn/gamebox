@@ -13,6 +13,7 @@
       </SelectionState>
       <SelectionState runConfigName="minesweeper">
         <option name="selectionMode" value="DROPDOWN" />
+        <DialogSelection />
       </SelectionState>
       <SelectionState runConfigName="link">
         <option name="selectionMode" value="DROPDOWN" />
@@ -22,12 +23,14 @@
       </SelectionState>
       <SelectionState runConfigName="gobang">
         <option name="selectionMode" value="DROPDOWN" />
+        <DialogSelection />
       </SelectionState>
       <SelectionState runConfigName="tetris">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="solitaire">
         <option name="selectionMode" value="DROPDOWN" />
+        <DialogSelection />
       </SelectionState>
       <SelectionState runConfigName="snake">
         <option name="selectionMode" value="DROPDOWN" />

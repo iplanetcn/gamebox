@@ -20,8 +20,4 @@ enum class Suit(val description: String) {
     }
 
     override fun toString() = "Suit(description=$description)"
-
-    companion object {
-        var all = arrayOf(SPADES, HEARTS, CLUBS, DIAMONDS)
-    }
 }

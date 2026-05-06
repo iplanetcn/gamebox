@@ -15,8 +15,8 @@ class Deck {
 
     fun reset() {
         allCards.clear()
-        for (suit in Suit.all) {
-            for (rank in Rank.all) {
+        for (suit in Suit.entries) {
+            for (rank in Rank.entries) {
                 val card = Card(rank, suit, false)
                 allCards.add(card)
             }

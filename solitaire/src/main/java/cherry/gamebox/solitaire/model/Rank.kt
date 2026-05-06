@@ -22,23 +22,4 @@ enum class Rank(val value: Int, val description: String) {
     KING(13, "K");
 
     override fun toString() = "Rank(value=$value, description=$description)"
-
-    companion object {
-        var all = arrayOf(
-            ACE,
-            TWO,
-            THREE,
-            FOUR,
-            FIVE,
-            SIX,
-            SEVEN,
-            EIGHT,
-            NINE,
-            TEN,
-            JACK,
-            QUEEN,
-            KING
-        )
-    }
-
 }
