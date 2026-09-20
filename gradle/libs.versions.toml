@@ -1,11 +1,11 @@
 [versions]
-androidGradlePlugin = "9.2.1"
+agp = "9.4.1"
 junit = "1.3.0"
 espressoCoreVersion = "3.7.0"
-kotlin = "2.3.20"
+kotlin = "2.4.20"
 junit4 = "4.13.2"
-gdx = "1.14.0"
-box2D = "v3.1.1-0"
+gdx = "1.14.2"
+box2D = "3.1.1-0"
 box2DLights = "1.5"
 ashley = "1.7.4"
 ai = "1.8.2"
@@ -47,5 +47,6 @@ libgdx = [
 
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
-android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
